@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>TT25257 Proyecto Final</title>
+  </head>
+  <body>
+    <h1>API REST - Gonzalo Gonzalez</h1>
+
+    <!-- Sección Users -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection('users')">
+            <h2>Endpoints Users <span class="section-indicator">▶</span></h2>
+        </div>
+        <div id="users" class="endpoints hidden">
+            <!-- GET /api/users -->
+            <div class="endpoint">
+                <div class="endpoint-summary" onclick="toggleEndpoint('user-get-all')">
+                    <span class="method get">GET</span>
+                    <span class="path">/api/users</span>
+                    <span class="toggle-indicator">▶</span>
+                </div>
+                <div id="user-get-all" class="endpoint-details hidden">
+                    <div class="description">
+                        Obtiene la lista de todos los usuarios.
+                    </div>
+                    <h4>Respuesta exitosa (200 OK)</h4>
+                    <pre class="example">
+[
+    {
+        "id": 1,
+        "name": "Gonzalo",
+        "email": "gonzalo@example.com",
+        "age": 30
+    }
+]
+                    </pre>
+                    <h4>Errores comunes</h4>
+                    <ul>
+                        <li>
+                            <code>500 Internal Server Error</code>: Problema en el servidor.
+                        </li>
+                    </ul>
+            </div>
+        </div>
+        <!-- GET /api/users/:id -->
+        <div class="endpoint">
+          <div class="endpoint-summary" onclick="toggleEndpoint('user-get-id')">
+            <span class="method get">GET</span>
+            <span class="path">/api/users/:id</span>
+            <span class="toggle-indicator">▶</span>
+          </div>
+          <div id="user-get-id" class="endpoint-details hidden">
+            <div class="description">Obtiene un usuario por su ID.</div>
+            <h4>Parámetros</h4>
+            <ul>
+              <li><code>id</code> (path): ID del usuario (número entero).</li>
+            </ul>
+            <h4>Respuesta exitosa (200 OK)</h4>
+            <pre class="example">
+{
+    "id": 1,
+    "name": "Gonzalo",
+    "email": "gonzalo@example.com",
+    "age": 30
+}
+            </pre>
+            <h4>Errores comunes</h4>
+            <ul>
+              <li><code>404 Not Found</code>: Usuario no encontrado.</li>
+              <li><code>400 Bad Request</code>: ID inválido.</li>
+            </ul>
+          </div>
+        </div>
+        <!-- POST /api/users -->
+        <div class="endpoint">
+          <div class="endpoint-summary" onclick="toggleEndpoint('user-create')">
+            <span class="method post">POST</span>
+            <span class="path">/api/users</span>
+            <span class="toggle-indicator">▶</span>
+          </div>
+          <div id="user-create" class="endpoint-details hidden">
+            <div class="description">Crea un nuevo usuario.</div>
+            <h4>Body (JSON)</h4>
+            <pre class="example">
+{
+    "name": "Nuevo Usuario",
+    "email": "nuevo@example.com",
+    "age": 25
+}
+            </pre>
+            <h4>Respuesta exitosa (201 Created)</h4>
+            <pre class="example">
+{
+    "id": 2,
+    "name": "Nuevo Usuario",
+    "email": "nuevo@example.com",
+    "age": 25
+}
+            </pre>
+            <h4>Errores comunes</h4>
+            <ul>
+              <li>
+                <code>400 Bad Request</code>: Datos faltantes o inválidos.
+              </li>
+              <li><code>409 Conflict</code>: Email ya registrado.</li>
+            </ul>
+          </div>
+        </div>
+        <!-- PUT /api/users/:id -->
+        <div class="endpoint">
+          <div class="endpoint-summary" onclick="toggleEndpoint('user-update')">
+            <span class="method put">PUT</span>
+            <span class="path">/api/users/:id</span>
+            <span class="toggle-indicator">▶</span>
+          </div>
+          <div id="user-update" class="endpoint-details hidden">
+            <div class="description">Actualiza un usuario existente.</div>
+            <h4>Parámetros</h4>
+            <ul>
+              <li><code>id</code> (path): ID del usuario a actualizar.</li>
+            </ul>
+            <h4>Body (JSON)</h4>
+            <pre class="example">
+{
+    "name": "Gonzalo Actualizado",
+    "email": "gonzalo.upd@example.com",
+    "age": 31
+}
+            </pre>
+            <h4>Respuesta exitosa (200 OK)</h4>
+            <pre class="example">
+{
+    "id": 1,
+    "name": "Gonzalo Actualizado",
+    "email": "gonzalo.upd@example.com",
+    "age": 31
+}
+            </pre>
+            <h4>Errores comunes</h4>
+            <ul>
+              <li><code>400 Bad Request</code>: Datos inválidos.</li>
+              <li><code>404 Not Found</code>: Usuario no encontrado.</li>
+            </ul>
+          </div>
+        </div>
+        <!-- DELETE /api/users/:id -->
+        <div class="endpoint">
+          <div class="endpoint-summary" onclick="toggleEndpoint('user-delete')">
+            <span class="method delete">DELETE</span>
+            <span class="path">/api/users/:id</span>
+            <span class="toggle-indicator">▶</span>
+          </div>
+          <div id="user-delete" class="endpoint-details hidden">
+            <div class="description">Elimina un usuario por su ID.</div>
+            <h4>Parámetros</h4>
+            <ul>
+              <li><code>id</code> (path): ID del usuario a eliminar.</li>
+            </ul>
+            <h4>Respuesta exitosa (204 No Content)</h4>
+            <p>El cuerpo de la respuesta está vacío.</p>
+            <h4>Errores comunes</h4>
+            <ul>
+              <li><code>404 Not Found</code>: Usuario no encontrado.</li>
+              <li><code>400 Bad Request</code>: ID inválido.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección Products -->
+    <div class="section">
+      <div class="section-header" onclick="toggleSection('products')">
+        <h2>Endpoints Products <span class="section-indicator">▶</span></h2>
+      </div>
+      <div id="products" class="endpoints hidden">
+        <!-- GET /api/products -->
+        <div class="endpoint">
+          <div class="endpoint-summary" onclick="toggleEndpoint('product-get-all')">
+            <span class="method get">GET</span>
+            <span class="path">/api/products</span>
+            <span class="toggle-indicator">▶</span>
+          </div>
+          <div id="product-get-all" class="endpoint-details hidden">
+            <div class="description">
+              Obtiene la lista de todos los productos.
+            </div>
+            <h4>Respuesta exitosa (200 OK)</h4>
+            <pre class="example">
+[
+    {
+        "id": 1,
+        "name": "Laptop",
+        "price": 1200,
+        "stock": 10
+    }
+]
+            </pre>
+          </div>
+        </div>
+        <!-- GET /api/products/:id -->
+        <div class="endpoint">
+          <div class="endpoint-summary" onclick="toggleEndpoint('product-get-id')">
+            <span class="method get">GET</span>
+            <span class="path">/api/products/:id</span>
+            <span class="toggle-indicator">▶</span>
+          </div>
+          <div id="product-get-id" class="endpoint-details hidden">
+            <div class="description">Obtiene un producto por su ID.</div>
+            <h4>Parámetros</h4>
+            <ul>
+              <li><code>id</code> (path): ID del producto.</li>
+            </ul>
+            <h4>Respuesta exitosa (200 OK)</h4>
+            <pre class="example">
+{
+    "id": 1,
+    "name": "Laptop",
+    "price": 1200,
+    "stock": 10
+}
+            </pre>
+            <h4>Errores comunes</h4>
+            <ul>
+              <li><code>404 Not Found</code>: Producto no encontrado.</li>
+            </ul>
+          </div>
+        </div>
+        <!-- POST /api/products -->
+        <div class="endpoint">
+          <div
+            class="endpoint-summary"
+            onclick="toggleEndpoint('product-create')"
+          >
+            <span class="method post">POST</span>
+            <span class="path">/api/products</span>
+            <span class="toggle-indicator">▶</span>
+          </div>
+          <div id="product-create" class="endpoint-details hidden">
+            <div class="description">Crea un nuevo producto.</div>
+            <h4>Body (JSON)</h4>
+            <pre class="example">
+{
+    "name": "Mouse Inalámbrico",
+    "price": 25,
+    "stock": 50
+}
+            </pre>
+            <h4>Respuesta exitosa (201 Created)</h4>
+            <pre class="example">
+{
+    "id": 2,
+    "name": "Mouse Inalámbrico",
+    "price": 25,
+    "stock": 50
+}
+            </pre>
+            <h4>Errores comunes</h4>
+            <ul>
+              <li>
+                <code>400 Bad Request</code>: Datos faltantes o inválidos.
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- PUT /api/products/:id -->
+        <div class="endpoint">
+          <div
+            class="endpoint-summary"
+            onclick="toggleEndpoint('product-update')"
+          >
+            <span class="method put">PUT</span>
+            <span class="path">/api/products/:id</span>
+            <span class="toggle-indicator">▶</span>
+          </div>
+          <div id="product-update" class="endpoint-details hidden">
+            <div class="description">Actualiza un producto existente.</div>
+            <h4>Parámetros</h4>
+            <ul>
+              <li><code>id</code> (path): ID del producto a actualizar.</li>
+            </ul>
+            <h4>Body (JSON)</h4>
+            <pre class="example">
+{
+    "name": "Mouse Inalámbrico Pro",
+    "price": 35,
+    "stock": 40
+}
+            </pre>
+            <h4>Respuesta exitosa (200 OK)</h4>
+            <pre class="example">
+{
+    "id": 2,
+    "name": "Mouse Inalámbrico Pro",
+    "price": 35,
+    "stock": 40
+}
+            </pre>
+          </div>
+        </div>
+        <!-- DELETE /api/products/:id -->
+        <div class="endpoint">
+          <div
+            class="endpoint-summary"
+            onclick="toggleEndpoint('product-delete')"
+          >
+            <span class="method delete">DELETE</span>
+            <span class="path">/api/products/:id</span>
+            <span class="toggle-indicator">▶</span>
+          </div>
+          <div id="product-delete" class="endpoint-details hidden">
+            <div class="description">Elimina un producto por su ID.</div>
+            <h4>Parámetros</h4>
+            <ul>
+              <li><code>id</code> (path): ID del producto a eliminar.</li>
+            </ul>
+            <h4>Respuesta exitosa (204 No Content)</h4>
+            <p>El cuerpo de la respuesta está vacío.</p>
+            <h4>Errores comunes</h4>
+            <ul>
+              <li><code>404 Not Found</code>: Producto no encontrado.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/script.js"></script>
+  </body>
+</html>
