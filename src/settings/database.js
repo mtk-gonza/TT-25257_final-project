@@ -6,6 +6,9 @@ Se convirtó el archivo de configuracion json de firebase a un string con el sig
 [Convert]::ToBase64String([IO.File]::ReadAllBytes("src\settings\firebase-adminsdk.json"))
 para luego parsearlo y guardarlo en la variable serviceAccount
 */
+if (!FIREBASE_BASE64) {
+    throw new Error('Falta la variable de entorno FIREBASE_BASE64');
+}
 const serviceAccount = JSON.parse(
     Buffer.from(FIREBASE_BASE64, 'base64').toString('utf-8')
 );
