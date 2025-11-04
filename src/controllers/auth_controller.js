@@ -1,5 +1,5 @@
-import * as userService from '../services/user_service.js';
-import * as authService from '../services/auth_service.js';
+import * as userService from './../services/user_service.js';
+import * as authService from './../services/auth_service.js';
 
 export const login = async (req, res) => {
     try {
@@ -7,7 +7,7 @@ export const login = async (req, res) => {
         if (!username || !password) {
             return res.status(400).json({ error: 'Se requieren usuario y contraseña' });
         }
-        const user = await userService.readUserByUsername(username);
+        const user = await userService.getUserByUsername(username);
         if (!user) {
             return res.status(401).json({ error: 'Usuario o contraseña incorrectos' });
         }
@@ -24,16 +24,16 @@ export const login = async (req, res) => {
 }
 
 export const register = async (req, res) => {
-    const { name, lastname, username, password } = req.body;
+    const { name, last_name, username, password } = req.body;
     try {
-        if (!name || !lastname || !username || !password) {
+        if (!name || !last_name || !username || !password) {
             return res.status(400).json({ error: 'Faltan datos requeridos' });
         }
-        const existingUser = await userService.readUserByUsername(username);
+        const existingUser = await userService.getUserByUsername(username);
         if (existingUser) {
             return res.status(409).json({ error: 'El nombre de usuario ya está en uso' });
         }
-        const user = { name, lastname, username, password };
+        const user = { name, last_name, username, password };
         const newUser = await userService.createUser(user);
         return res.status(201).json(newUser);
     } catch (err) {

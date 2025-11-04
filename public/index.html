@@ -1,332 +1,846 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/styles.css" />
-    <title>TT25257 Proyecto Final</title>
-  </head>
-  <body>
-    <h1>API REST - Gonzalo Gonzalez</h1>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="css/styles.css" />
+        <title>TT25257 Proyecto Final</title>
+    </head>
+    <body>
+        <h1>API REST - Gonzalo Gonzalez</h1>
 
-    <!-- Sección Users -->
-    <div class="section">
-        <div class="section-header" onclick="toggleSection('users')">
-            <h2>Endpoints Users <span class="section-indicator">▶</span></h2>
-        </div>
-        <div id="users" class="endpoints hidden">
-            <!-- GET /api/users -->
+    <!------------ Sección Users ------------>
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('users')">
+                <h2>Endpoints Users <span class="section-indicator">▶</span></h2>
+            </div>
+            <div id="users" class="endpoints hidden">
+                <!-- GET /api/users -->
+                <div class="endpoint">
+                    <div class="endpoint-summary" onclick="toggleEndpoint('user-get-all')">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/users</span>
+                        <span class="toggle-indicator">▶</span>
+                    </div>
+                    <div id="user-get-all" class="endpoint-details hidden">
+                        <div class="description">
+                            Obtiene la lista de todos los usuarios.
+                        </div>
+                        <h4>Respuesta exitosa (200 OK)</h4>
+                        <pre class="example">
+
+    [
+        {
+            "id": 1,
+            "name": "Gonzalo",
+            "last_name:" "Gonzalez"
+            "username": "gonzalo@example.com"
+        }
+    ]
+                        </pre>
+                        <h4>Errores comunes</h4>
+                        <ul>
+                            <li>
+                                <code>500 Internal Server Error</code>: Problema en el servidor.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            <!-- GET /api/users/:id -->
             <div class="endpoint">
-                <div class="endpoint-summary" onclick="toggleEndpoint('user-get-all')">
+                <div class="endpoint-summary" onclick="toggleEndpoint('user-get-id')">
                     <span class="method get">GET</span>
-                    <span class="path">/api/users</span>
+                    <span class="path">/api/users/:id</span>
                     <span class="toggle-indicator">▶</span>
                 </div>
-                <div id="user-get-all" class="endpoint-details hidden">
+                <div id="user-get-id" class="endpoint-details hidden">
                     <div class="description">
-                        Obtiene la lista de todos los usuarios.
+                        Obtiene un usuario por su ID.
                     </div>
+                    <h4>Parámetros</h4>
+                    <ul>
+                        <li><code>id</code> (path): ID del usuario.</li>
+                    </ul>
                     <h4>Respuesta exitosa (200 OK)</h4>
                     <pre class="example">
-[
     {
         "id": 1,
         "name": "Gonzalo",
-        "email": "gonzalo@example.com",
-        "age": 30
+        "last_name:" "Gonzalez"
+        "username": "gonzalo@example.com"
     }
-]
+                    </pre>
+                    <h4>Errores comunes</h4>
+                    <ul>
+                        <li><code>404 Not Found</code>: Usuario no encontrado.</li>
+                        <li><code>400 Bad Request</code>: ID inválido.</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- POST /api/users -->
+            <div class="endpoint">
+                <div class="endpoint-summary" onclick="toggleEndpoint('user-create')">
+                    <span class="method post">POST</span>
+                    <span class="path">/api/users</span>
+                    <span class="toggle-indicator">▶</span>
+                </div>
+                <div id="user-create" class="endpoint-details hidden">
+                    <div class="description">
+                        Crea un nuevo usuario.
+                    </div>
+                    <h4>Body (JSON)</h4>
+                    <pre class="example">
+    {
+        "name": "Nuevo",
+        "last_name": "Usuario",
+        "username": "nuevo.usuario@example.com",
+        "password": "secretPassword"
+    }
+                    </pre>
+                    <h4>Respuesta exitosa (201 Created)</h4>
+                    <pre class="example">
+    {
+        "id": 2,
+        "name": "Nuevo",
+        "last_name": "Usuario",
+        "username": "nuevo.usuario@example.com"
+    }
                     </pre>
                     <h4>Errores comunes</h4>
                     <ul>
                         <li>
-                            <code>500 Internal Server Error</code>: Problema en el servidor.
+                            <code>400 Bad Request</code>: Datos faltantes o inválidos.
+                        </li>
+                        <li>
+                            <code>409 Conflict</code>: Email ya registrado.
                         </li>
                     </ul>
+                </div>
             </div>
-        </div>
-        <!-- GET /api/users/:id -->
-        <div class="endpoint">
-          <div class="endpoint-summary" onclick="toggleEndpoint('user-get-id')">
-            <span class="method get">GET</span>
-            <span class="path">/api/users/:id</span>
-            <span class="toggle-indicator">▶</span>
-          </div>
-          <div id="user-get-id" class="endpoint-details hidden">
-            <div class="description">Obtiene un usuario por su ID.</div>
-            <h4>Parámetros</h4>
-            <ul>
-              <li><code>id</code> (path): ID del usuario (número entero).</li>
-            </ul>
-            <h4>Respuesta exitosa (200 OK)</h4>
-            <pre class="example">
-{
-    "id": 1,
-    "name": "Gonzalo",
-    "email": "gonzalo@example.com",
-    "age": 30
-}
-            </pre>
-            <h4>Errores comunes</h4>
-            <ul>
-              <li><code>404 Not Found</code>: Usuario no encontrado.</li>
-              <li><code>400 Bad Request</code>: ID inválido.</li>
-            </ul>
-          </div>
-        </div>
-        <!-- POST /api/users -->
-        <div class="endpoint">
-          <div class="endpoint-summary" onclick="toggleEndpoint('user-create')">
-            <span class="method post">POST</span>
-            <span class="path">/api/users</span>
-            <span class="toggle-indicator">▶</span>
-          </div>
-          <div id="user-create" class="endpoint-details hidden">
-            <div class="description">Crea un nuevo usuario.</div>
-            <h4>Body (JSON)</h4>
-            <pre class="example">
-{
-    "name": "Nuevo Usuario",
-    "email": "nuevo@example.com",
-    "age": 25
-}
-            </pre>
-            <h4>Respuesta exitosa (201 Created)</h4>
-            <pre class="example">
-{
-    "id": 2,
-    "name": "Nuevo Usuario",
-    "email": "nuevo@example.com",
-    "age": 25
-}
-            </pre>
-            <h4>Errores comunes</h4>
-            <ul>
-              <li>
-                <code>400 Bad Request</code>: Datos faltantes o inválidos.
-              </li>
-              <li><code>409 Conflict</code>: Email ya registrado.</li>
-            </ul>
-          </div>
-        </div>
-        <!-- PUT /api/users/:id -->
-        <div class="endpoint">
-          <div class="endpoint-summary" onclick="toggleEndpoint('user-update')">
-            <span class="method put">PUT</span>
-            <span class="path">/api/users/:id</span>
-            <span class="toggle-indicator">▶</span>
-          </div>
-          <div id="user-update" class="endpoint-details hidden">
-            <div class="description">Actualiza un usuario existente.</div>
-            <h4>Parámetros</h4>
-            <ul>
-              <li><code>id</code> (path): ID del usuario a actualizar.</li>
-            </ul>
-            <h4>Body (JSON)</h4>
-            <pre class="example">
-{
-    "name": "Gonzalo Actualizado",
-    "email": "gonzalo.upd@example.com",
-    "age": 31
-}
-            </pre>
-            <h4>Respuesta exitosa (200 OK)</h4>
-            <pre class="example">
-{
-    "id": 1,
-    "name": "Gonzalo Actualizado",
-    "email": "gonzalo.upd@example.com",
-    "age": 31
-}
-            </pre>
-            <h4>Errores comunes</h4>
-            <ul>
-              <li><code>400 Bad Request</code>: Datos inválidos.</li>
-              <li><code>404 Not Found</code>: Usuario no encontrado.</li>
-            </ul>
-          </div>
-        </div>
-        <!-- DELETE /api/users/:id -->
-        <div class="endpoint">
-          <div class="endpoint-summary" onclick="toggleEndpoint('user-delete')">
-            <span class="method delete">DELETE</span>
-            <span class="path">/api/users/:id</span>
-            <span class="toggle-indicator">▶</span>
-          </div>
-          <div id="user-delete" class="endpoint-details hidden">
-            <div class="description">Elimina un usuario por su ID.</div>
-            <h4>Parámetros</h4>
-            <ul>
-              <li><code>id</code> (path): ID del usuario a eliminar.</li>
-            </ul>
-            <h4>Respuesta exitosa (204 No Content)</h4>
-            <p>El cuerpo de la respuesta está vacío.</p>
-            <h4>Errores comunes</h4>
-            <ul>
-              <li><code>404 Not Found</code>: Usuario no encontrado.</li>
-              <li><code>400 Bad Request</code>: ID inválido.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sección Products -->
-    <div class="section">
-      <div class="section-header" onclick="toggleSection('products')">
-        <h2>Endpoints Products <span class="section-indicator">▶</span></h2>
-      </div>
-      <div id="products" class="endpoints hidden">
-        <!-- GET /api/products -->
-        <div class="endpoint">
-          <div class="endpoint-summary" onclick="toggleEndpoint('product-get-all')">
-            <span class="method get">GET</span>
-            <span class="path">/api/products</span>
-            <span class="toggle-indicator">▶</span>
-          </div>
-          <div id="product-get-all" class="endpoint-details hidden">
-            <div class="description">
-              Obtiene la lista de todos los productos.
-            </div>
-            <h4>Respuesta exitosa (200 OK)</h4>
-            <pre class="example">
-[
+            <!-- PUT /api/users/:id -->
+            <div class="endpoint">
+                    <div class="endpoint-summary" onclick="toggleEndpoint('user-update')">
+                        <span class="method put">PUT</span>
+                        <span class="path">/api/users/:id</span>
+                        <span class="toggle-indicator">▶</span>
+                    </div>
+                <div id="user-update" class="endpoint-details hidden">
+                    <div class="description">
+                        Actualiza un usuario existente.
+                    </div>
+                    <h4>Parámetros</h4>
+                    <ul>
+                        <li><code>id</code> (path): ID del usuario a actualizar.</li>
+                    </ul>
+                    <h4>Body (JSON)</h4>
+                    <pre class="example">
+    {
+        "name": "Gonzalo",
+        "last_name": "Actualizado",
+        "username": "gonzalo.actualizado@example.com",
+        "password": "secretPasswordUpd"
+    }
+                    </pre>
+                    <h4>Respuesta exitosa (200 OK)</h4>
+                    <pre class="example">
     {
         "id": 1,
-        "name": "Laptop",
-        "price": 1200,
-        "stock": 10
+        "name": "Gonzalo",
+        "last_name": "Actualizado",
+        "username": "gonzalo.actualizado@example.com"
     }
-]
-            </pre>
-          </div>
+                    </pre>
+                    <h4>Errores comunes</h4>
+                    <ul>
+                        <li><code>400 Bad Request</code>: Datos inválidos.</li>
+                        <li><code>404 Not Found</code>: Usuario no encontrado.</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- DELETE /api/users/:id -->
+            <div class="endpoint">
+                <div class="endpoint-summary" onclick="toggleEndpoint('user-delete')">
+                    <span class="method delete">DELETE</span>
+                    <span class="path">/api/users/:id</span>
+                    <span class="toggle-indicator">▶</span>
+                </div>
+                <div id="user-delete" class="endpoint-details hidden">
+                    <div class="description">
+                        Elimina un usuario por su ID.
+                    </div>
+                    <h4>Parámetros</h4>
+                    <ul>
+                        <li><code>id</code> (path): ID del usuario a eliminar.</li>
+                    </ul>
+                    <h4>Respuesta exitosa</h4>
+                    <pre class="example">
+    {
+        "message": "Usuario eliminado correctamente",
+    }
+                    </pre>
+                    <h4>Errores comunes</h4>
+                    <ul>
+                        <li><code>404 Not Found</code>: Usuario no encontrado.</li>
+                        <li><code>400 Bad Request</code>: ID inválido.</li>
+                    </ul>
+                </div>
+            </div>
+            </div>
         </div>
-        <!-- GET /api/products/:id -->
-        <div class="endpoint">
-          <div class="endpoint-summary" onclick="toggleEndpoint('product-get-id')">
-            <span class="method get">GET</span>
-            <span class="path">/api/products/:id</span>
-            <span class="toggle-indicator">▶</span>
-          </div>
-          <div id="product-get-id" class="endpoint-details hidden">
-            <div class="description">Obtiene un producto por su ID.</div>
-            <h4>Parámetros</h4>
-            <ul>
-              <li><code>id</code> (path): ID del producto.</li>
-            </ul>
-            <h4>Respuesta exitosa (200 OK)</h4>
-            <pre class="example">
-{
-    "id": 1,
-    "name": "Laptop",
-    "price": 1200,
-    "stock": 10
-}
-            </pre>
-            <h4>Errores comunes</h4>
-            <ul>
-              <li><code>404 Not Found</code>: Producto no encontrado.</li>
-            </ul>
-          </div>
+
+    <!------------ Sección Categories ------------>
+        <div class="section">
+        <div class="section-header" onclick="toggleSection('categories')">
+            <h2>Endpoints Categories <span class="section-indicator">▶</span></h2>
         </div>
-        <!-- POST /api/products -->
-        <div class="endpoint">
-          <div
-            class="endpoint-summary"
-            onclick="toggleEndpoint('product-create')"
-          >
-            <span class="method post">POST</span>
-            <span class="path">/api/products</span>
-            <span class="toggle-indicator">▶</span>
-          </div>
-          <div id="product-create" class="endpoint-details hidden">
-            <div class="description">Crea un nuevo producto.</div>
-            <h4>Body (JSON)</h4>
-            <pre class="example">
-{
-    "name": "Mouse Inalámbrico",
-    "price": 25,
-    "stock": 50
-}
-            </pre>
-            <h4>Respuesta exitosa (201 Created)</h4>
-            <pre class="example">
-{
-    "id": 2,
-    "name": "Mouse Inalámbrico",
-    "price": 25,
-    "stock": 50
-}
-            </pre>
-            <h4>Errores comunes</h4>
-            <ul>
-              <li>
-                <code>400 Bad Request</code>: Datos faltantes o inválidos.
-              </li>
-            </ul>
-          </div>
+        <div id="categories" class="endpoints hidden">
+            <!-- GET /api/categories -->
+            <div class="endpoint">
+            <div
+                class="endpoint-summary"
+                onclick="toggleEndpoint('category-get-all')"
+            >
+                <span class="method get">GET</span>
+                <span class="path">/api/categories</span>
+                <span class="toggle-indicator">▶</span>
+            </div>
+            <div id="category-get-all" class="endpoint-details hidden">
+                <div class="description">
+                Obtiene la lista de todos las categorias.
+                </div>
+                <h4>Respuesta exitosa (200 OK)</h4>
+                <pre class="example">
+    [
+        {
+            "id": "BD6Yzz92Foc0lEbWph0g",
+            "name": "t-shirts",
+            "description": "Anime t-shirts, series, movies and more",
+            "created_at": "2025-11-03T13:40:12.758Z",
+            "updated_at": "2025-11-03T13:40:12.758Z"
+        },
+        {
+            "id": "YZW5gX8DG3aHbSvP4wC7",
+            "name": "funkos",
+            "description": "Funko Pop collectible figures",
+            "created_at": "2025-11-03T13:39:45.918Z",
+            "updated_at": "2025-11-03T13:39:45.918Z"
+        },
+        {
+            "id": "tu9iK09IOb62TRL5LywZ",
+            "name": "keychains",
+            "description": "Collectible",
+            "created_at": "2025-11-03T13:40:39.610Z",
+            "updated_at": "2025-11-03T13:40:39.610Z"
+        }
+    ]
+                        </pre
+                >
+                <h4>Errores comunes</h4>
+                <ul>
+                <li>
+                    <code>500 Internal Server Error</code>: Problema en el servidor.
+                </li>
+                </ul>
+            </div>
+            </div>
+            <!-- GET /api/categories/:id -->
+            <div class="endpoint">
+            <div
+                class="endpoint-summary"
+                onclick="toggleEndpoint('category-get-id')"
+            >
+                <span class="method get">GET</span>
+                <span class="path">/api/users/:id</span>
+                <span class="toggle-indicator">▶</span>
+            </div>
+            <div id="category-get-id" class="endpoint-details hidden">
+                <div class="description">Obtiene una categoria por su ID.</div>
+                <h4>Parámetros</h4>
+                <ul>
+                <li><code>id</code> (path): ID de la Categoria.</li>
+                </ul>
+                <h4>Respuesta exitosa (200 OK)</h4>
+                <pre class="example">
+    {
+        "id": "BD6Yzz92Foc0lEbWph0g",
+        "name": "t-shirts",
+        "description": "Anime t-shirts, series, movies and more",
+        "created_at": "2025-11-03T13:40:12.758Z",
+        "updated_at": "2025-11-03T13:40:12.758Z"
+    }
+                </pre>
+                <h4>Errores comunes</h4>
+                <ul>
+                <li><code>404 Not Found</code>: Usuario no encontrado.</li>
+                <li><code>400 Bad Request</code>: ID inválido.</li>
+                </ul>
+            </div>
+            </div>
+            <!-- POST /api/categories -->
+            <div class="endpoint">
+            <div
+                class="endpoint-summary"
+                onclick="toggleEndpoint('category-create')"
+            >
+                <span class="method post">POST</span>
+                <span class="path">/api/categories</span>
+                <span class="toggle-indicator">▶</span>
+            </div>
+            <div id="category-create" class="endpoint-details hidden">
+                <div class="description">Crea un nueva categoria.</div>
+                <h4>Body (JSON)</h4>
+                <pre class="example">
+    {
+        "name": "t-shirts",
+        "description": "Anime t-shirts, series, movies and more"
+    }
+                </pre>
+                <h4>Respuesta exitosa (201 Created)</h4>
+                <pre class="example">
+    {
+        "id": "BD6Yzz92Foc0lEbWph0g",
+        "name": "t-shirts",
+        "description": "Anime t-shirts, series, movies and more",
+        "created_at": "2025-11-03T13:40:12.758Z",
+        "updated_at": "2025-11-03T13:40:12.758Z"
+    }
+                </pre>
+                <h4>Errores comunes</h4>
+                <ul>
+                <li>
+                    <code>400 Bad Request</code>: Datos faltantes o inválidos.
+                </li>
+                <li><code>409 Conflict</code>: Email ya registrado.</li>
+                </ul>
+            </div>
+            </div>
+            <!-- PUT /api/categories/:id -->
+            <div class="endpoint">
+            <div
+                class="endpoint-summary"
+                onclick="toggleEndpoint('category-update')"
+            >
+                <span class="method put">PUT</span>
+                <span class="path">/api/categories/:id</span>
+                <span class="toggle-indicator">▶</span>
+            </div>
+            <div id="category-update" class="endpoint-details hidden">
+                <div class="description">Actualiza una categoria existente.</div>
+                <h4>Parámetros</h4>
+                <ul>
+                <li><code>id</code> (path): ID de la categoria a actualizar.</li>
+                </ul>
+                <h4>Body (JSON)</h4>
+                <pre class="example">
+    {
+        "name": "t-shirts",
+        "description": "Anime t-shirts, series, movies and more"
+    }
+                </pre>
+                <h4>Respuesta exitosa (200 OK)</h4>
+                <pre class="example">
+    {
+        "id": "BD6Yzz92Foc0lEbWph0g",
+        "name": "t-shirts",
+        "description": "Anime t-shirts, series, movies and more",
+        "created_at": "2025-11-03T13:40:12.758Z",
+        "updated_at": "2025-11-03T13:40:12.758Z"
+    }
+                </pre>
+                <h4>Errores comunes</h4>
+                <ul>
+                <li><code>400 Bad Request</code>: Datos inválidos.</li>
+                <li><code>404 Not Found</code>: Categoria no encontrado.</li>
+                </ul>
+            </div>
+            </div>
+            <!-- DELETE /api/categories/:id -->
+            <div class="endpoint">
+            <div
+                class="endpoint-summary"
+                onclick="toggleEndpoint('category-delete')"
+            >
+                <span class="method delete">DELETE</span>
+                <span class="path">/api/users/:id</span>
+                <span class="toggle-indicator">▶</span>
+            </div>
+            <div id="category-delete" class="endpoint-details hidden">
+                <div class="description">Elimina una categoria por su ID.</div>
+                <h4>Parámetros</h4>
+                <ul>
+                <li><code>id</code> (path): ID de la categoria a eliminar.</li>
+                </ul>
+                <h4>Respuesta exitosa</h4>
+                <pre class="example">
+    {
+        "message": "Categoria eliminada correctamente",
+    }
+                </pre>
+                <h4>Errores comunes</h4>
+                <ul>
+                <li><code>404 Not Found</code>: Categoria no encontrada.</li>
+                <li><code>400 Bad Request</code>: ID inválido.</li>
+                </ul>
+            </div>
+            </div>
         </div>
-        <!-- PUT /api/products/:id -->
-        <div class="endpoint">
-          <div
-            class="endpoint-summary"
-            onclick="toggleEndpoint('product-update')"
-          >
-            <span class="method put">PUT</span>
-            <span class="path">/api/products/:id</span>
-            <span class="toggle-indicator">▶</span>
-          </div>
-          <div id="product-update" class="endpoint-details hidden">
-            <div class="description">Actualiza un producto existente.</div>
-            <h4>Parámetros</h4>
-            <ul>
-              <li><code>id</code> (path): ID del producto a actualizar.</li>
-            </ul>
-            <h4>Body (JSON)</h4>
-            <pre class="example">
-{
-    "name": "Mouse Inalámbrico Pro",
-    "price": 35,
-    "stock": 40
-}
-            </pre>
-            <h4>Respuesta exitosa (200 OK)</h4>
-            <pre class="example">
-{
-    "id": 2,
-    "name": "Mouse Inalámbrico Pro",
-    "price": 35,
-    "stock": 40
-}
-            </pre>
-          </div>
         </div>
-        <!-- DELETE /api/products/:id -->
-        <div class="endpoint">
-          <div
-            class="endpoint-summary"
-            onclick="toggleEndpoint('product-delete')"
-          >
-            <span class="method delete">DELETE</span>
-            <span class="path">/api/products/:id</span>
-            <span class="toggle-indicator">▶</span>
-          </div>
-          <div id="product-delete" class="endpoint-details hidden">
-            <div class="description">Elimina un producto por su ID.</div>
-            <h4>Parámetros</h4>
-            <ul>
-              <li><code>id</code> (path): ID del producto a eliminar.</li>
-            </ul>
-            <h4>Respuesta exitosa (204 No Content)</h4>
-            <p>El cuerpo de la respuesta está vacío.</p>
-            <h4>Errores comunes</h4>
-            <ul>
-              <li><code>404 Not Found</code>: Producto no encontrado.</li>
-            </ul>
-          </div>
+
+    <!------------ Sección Licences ------------>
+        <div class="section">
+        <div class="section-header" onclick="toggleSection('licences')">
+            <h2>Endpoints Categories <span class="section-indicator">▶</span></h2>
         </div>
-      </div>
-    </div>
-    <script src="js/script.js"></script>
-  </body>
+        <div id="licences" class="endpoints hidden">
+            <!-- GET /api/licences -->
+            <div class="endpoint">
+            <div
+                class="endpoint-summary"
+                onclick="toggleEndpoint('licence-get-all')"
+            >
+                <span class="method get">GET</span>
+                <span class="path">/api/licences</span>
+                <span class="toggle-indicator">▶</span>
+            </div>
+            <div id="licence-get-all" class="endpoint-details hidden">
+                <div class="description">
+                Obtiene la lista de todos las licencias.
+                </div>
+                <h4>Respuesta exitosa (200 OK)</h4>
+                <pre class="example">
+    [
+        {
+            "id": "90ycBhV5Cbj845RWSbY2",
+            "name": "Star Wars",
+            "description": "Disfruta de una saga que sigue agregando personajes a su colección.",
+            "images": [
+                "images/star-wars/licence/star-wars_logo.webp"
+            ],
+            "created_at": "2025-11-03T13:38:20.801Z",
+            "updated_at": "2025-11-03T13:38:20.802Z"
+        },
+        {
+            "id": "Ngcx0K8TfJd95DGg1TnI",
+            "name": "Naruto",
+            "description": "Disfruta de la historia de un ninja adolescente",
+            "images": [
+                "images/Naruto/licence/naruto_logo.webp"
+            ],
+            "created_at": "2025-11-03T13:48:58.111Z",
+            "updated_at": "2025-11-03T13:48:58.112Z"
+        },
+        {
+            "id": "ZLWTflTDL2SGAuTzkQBE",
+            "name": "Pokemon",
+            "description": "Atrapa todos los que puedas y disfruta de una colección llena de amigos.",
+            "images": [
+                "images/pokemon/licence/pokemon_logo.webp"
+            ],
+            "created_at": "2025-11-03T13:47:35.409Z",
+            "updated_at": "2025-11-03T13:47:35.409Z"
+        },
+        {
+            "id": "zelcAyysA7XqVJR1RAb1",
+            "name": "Harry Potter",
+            "description": "Revive los recuerdos de una saga llena de magia y encanto.",
+            "images": [
+                "images/harry-potter/licence/harry-potter_logo.webp"
+            ],
+            "created_at": "2025-11-03T13:48:14.363Z",
+            "updated_at": "2025-11-03T13:48:14.363Z"
+        }
+    ]
+                        </pre
+                >
+                <h4>Errores comunes</h4>
+                <ul>
+                <li>
+                    <code>500 Internal Server Error</code>: Problema en el servidor.
+                </li>
+                </ul>
+            </div>
+            </div>
+            <!-- GET /api/licences/:id -->
+            <div class="endpoint">
+            <div class="endpoint-summary" onclick="toggleEndpoint('licence-get-id')"
+            >
+                <span class="method get">GET</span>
+                <span class="path">/api/users/:id</span>
+                <span class="toggle-indicator">▶</span>
+            </div>
+            <div id="category-get-id" class="endpoint-details hidden">
+                <div class="description">Obtiene una categoria por su ID.</div>
+                <h4>Parámetros</h4>
+                <ul>
+                <li><code>id</code> (path): ID de la Categoria.</li>
+                </ul>
+                <h4>Respuesta exitosa (200 OK)</h4>
+                <pre class="example">
+    {
+        "id": "BD6Yzz92Foc0lEbWph0g",
+        "name": "t-shirts",
+        "description": "Anime t-shirts, series, movies and more",
+        "created_at": "2025-11-03T13:40:12.758Z",
+        "updated_at": "2025-11-03T13:40:12.758Z"
+    }
+                </pre>
+                <h4>Errores comunes</h4>
+                <ul>
+                <li><code>404 Not Found</code>: Usuario no encontrado.</li>
+                <li><code>400 Bad Request</code>: ID inválido.</li>
+                </ul>
+            </div>
+            </div>
+            <!-- POST /api/categories -->
+            <div class="endpoint">
+            <div
+                class="endpoint-summary"
+                onclick="toggleEndpoint('category-create')"
+            >
+                <span class="method post">POST</span>
+                <span class="path">/api/categories</span>
+                <span class="toggle-indicator">▶</span>
+            </div>
+            <div id="category-create" class="endpoint-details hidden">
+                <div class="description">Crea un nueva categoria.</div>
+                <h4>Body (JSON)</h4>
+                <pre class="example">
+    {
+        "name": "t-shirts",
+        "description": "Anime t-shirts, series, movies and more"
+    }
+                </pre>
+                <h4>Respuesta exitosa (201 Created)</h4>
+                <pre class="example">
+    {
+        "id": "BD6Yzz92Foc0lEbWph0g",
+        "name": "t-shirts",
+        "description": "Anime t-shirts, series, movies and more",
+        "created_at": "2025-11-03T13:40:12.758Z",
+        "updated_at": "2025-11-03T13:40:12.758Z"
+    }
+                </pre>
+                <h4>Errores comunes</h4>
+                <ul>
+                <li>
+                    <code>400 Bad Request</code>: Datos faltantes o inválidos.
+                </li>
+                <li><code>409 Conflict</code>: Email ya registrado.</li>
+                </ul>
+            </div>
+            </div>
+            <!-- PUT /api/categories/:id -->
+            <div class="endpoint">
+            <div
+                class="endpoint-summary"
+                onclick="toggleEndpoint('category-update')"
+            >
+                <span class="method put">PUT</span>
+                <span class="path">/api/categories/:id</span>
+                <span class="toggle-indicator">▶</span>
+            </div>
+            <div id="category-update" class="endpoint-details hidden">
+                <div class="description">Actualiza una categoria existente.</div>
+                <h4>Parámetros</h4>
+                <ul>
+                <li><code>id</code> (path): ID de la categoria a actualizar.</li>
+                </ul>
+                <h4>Body (JSON)</h4>
+                <pre class="example">
+    {
+        "name": "t-shirts",
+        "description": "Anime t-shirts, series, movies and more"
+    }
+                </pre>
+                <h4>Respuesta exitosa (200 OK)</h4>
+                <pre class="example">
+    {
+        "id": "BD6Yzz92Foc0lEbWph0g",
+        "name": "t-shirts",
+        "description": "Anime t-shirts, series, movies and more",
+        "created_at": "2025-11-03T13:40:12.758Z",
+        "updated_at": "2025-11-03T13:40:12.758Z"
+    }
+                </pre>
+                <h4>Errores comunes</h4>
+                <ul>
+                <li><code>400 Bad Request</code>: Datos inválidos.</li>
+                <li><code>404 Not Found</code>: Categoria no encontrado.</li>
+                </ul>
+            </div>
+            </div>
+            <!-- DELETE /api/categories/:id -->
+            <div class="endpoint">
+            <div
+                class="endpoint-summary"
+                onclick="toggleEndpoint('category-delete')"
+            >
+                <span class="method delete">DELETE</span>
+                <span class="path">/api/users/:id</span>
+                <span class="toggle-indicator">▶</span>
+            </div>
+            <div id="category-delete" class="endpoint-details hidden">
+                <div class="description">Elimina una categoria por su ID.</div>
+                <h4>Parámetros</h4>
+                <ul>
+                <li><code>id</code> (path): ID de la categoria a eliminar.</li>
+                </ul>
+                <h4>Respuesta exitosa</h4>
+                <pre class="example">
+    {
+        "message": "Categoria eliminada correctamente",
+    }
+                </pre>
+                <h4>Errores comunes</h4>
+                <ul>
+                <li><code>404 Not Found</code>: Categoria no encontrada.</li>
+                <li><code>400 Bad Request</code>: ID inválido.</li>
+                </ul>
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <!------------ Sección Products ------------>
+        <div class="section">
+        <div class="section-header" onclick="toggleSection('products')">
+            <h2>Endpoints Products <span class="section-indicator">▶</span></h2>
+        </div>
+        <div id="products" class="endpoints hidden">
+            <!-- GET /api/products -->
+            <div class="endpoint">
+            <div
+                class="endpoint-summary"
+                onclick="toggleEndpoint('product-get-all')"
+            >
+                <span class="method get">GET</span>
+                <span class="path">/api/products</span>
+                <span class="toggle-indicator">▶</span>
+            </div>
+            <div id="product-get-all" class="endpoint-details hidden">
+                <div class="description">
+                Obtiene la lista de todos los productos.
+                </div>
+                <h4>Respuesta exitosa (200 OK)</h4>
+                <pre class="example">
+    [
+        {
+            "id": "b5T5smhBubEtBnBy2Oi5",
+            "name": "Baby Yoda Blueball",
+            "description": "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.",
+            "price": 1799.99,
+            "stock": 8,
+            "discount": 5,
+            "sku": "STW001001",
+            "dues": 3,
+            "special": false,
+                "images": [
+                "images/star-wars/funkos/baby-yoda-blueball_front.webp",
+                "images/star-wars/funkos/baby-yoda-blueball_back.webp"
+            ],
+            "licence_id": "90ycBhV5Cbj845RWSbY2",
+            "category_id": "YZW5gX8DG3aHbSvP4wC7",
+            "created_at": "2025-11-03T13:52:00.770Z",
+            "updated_at": "2025-11-03T13:52:00.770Z"
+        }
+    ]
+                </pre>
+            </div>
+            </div>
+            <!-- GET /api/products/:id -->
+            <div class="endpoint">
+            <div
+                class="endpoint-summary"
+                onclick="toggleEndpoint('product-get-id')"
+            >
+                <span class="method get">GET</span>
+                <span class="path">/api/products/:id</span>
+                <span class="toggle-indicator">▶</span>
+            </div>
+            <div id="product-get-id" class="endpoint-details hidden">
+                <div class="description">Obtiene un producto por su ID.</div>
+                <h4>Parámetros</h4>
+                <ul>
+                <li><code>id</code> (path): ID del producto.</li>
+                </ul>
+                <h4>Respuesta exitosa (200 OK)</h4>
+                <pre class="example">
+    {
+        "id": "b5T5smhBubEtBnBy2Oi5",
+        "name": "Baby Yoda Blueball",
+        "description": "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.",
+        "price": 1799.99,
+        "stock": 8,
+        "discount": 5,
+        "sku": "STW001001",
+        "dues": 3,
+        "special": false,
+        "images": [
+            "images/star-wars/funkos/baby-yoda-blueball_front.webp",
+            "images/star-wars/funkos/baby-yoda-blueball_back.webp"
+        ],
+        "licence_id": "90ycBhV5Cbj845RWSbY2",
+        "category_id": "YZW5gX8DG3aHbSvP4wC7",
+        "created_at": "2025-11-03T13:52:00.770Z",
+        "updated_at": "2025-11-03T13:52:00.770Z"
+    }
+                </pre>
+                <h4>Errores comunes</h4>
+                <ul>
+                <li><code>404 Not Found</code>: Producto no encontrado.</li>
+                </ul>
+            </div>
+            </div>
+            <!-- POST /api/products -->
+            <div class="endpoint">
+            <div
+                class="endpoint-summary"
+                onclick="toggleEndpoint('product-create')"
+            >
+                <span class="method post">POST</span>
+                <span class="path">/api/products</span>
+                <span class="toggle-indicator">▶</span>
+            </div>
+            <div id="product-create" class="endpoint-details hidden">
+                <div class="description">Crea un nuevo producto.</div>
+                <h4>Body (JSON)</h4>
+                <pre class="example">
+    {
+        "name": "Baby Yoda Blueball",
+        "description": "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.",
+        "price": 1799.99,
+        "stock": 8,
+        "discount": 5,
+        "sku": "STW001001",
+        "dues": 3,
+        "special": false,
+        "images": [
+            "images/star-wars/funkos/baby-yoda-blueball_front.webp",
+            "images/star-wars/funkos/baby-yoda-blueball_back.webp"
+        ],
+        "licence_id": "90ycBhV5Cbj845RWSbY2",
+        "category_id": "YZW5gX8DG3aHbSvP4wC7"
+    }
+                </pre>
+                <h4>Respuesta exitosa (201 Created)</h4>
+                <pre class="example">
+    {
+        "id": "b5T5smhBubEtBnBy2Oi5",
+        "name": "Baby Yoda Blueball",
+        "description": "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.",
+        "price": 1799.99,
+        "stock": 8,
+        "discount": 5,
+        "sku": "STW001001",
+        "dues": 3,
+        "special": false,
+        "images": [
+            "images/star-wars/funkos/baby-yoda-blueball_front.webp",
+            "images/star-wars/funkos/baby-yoda-blueball_back.webp"
+        ],
+        "licence_id": "90ycBhV5Cbj845RWSbY2",
+        "category_id": "YZW5gX8DG3aHbSvP4wC7",
+        "created_at": "2025-11-03T13:52:00.770Z",
+        "updated_at": "2025-11-03T13:52:00.770Z"
+    }
+                </pre>
+                <h4>Errores comunes</h4>
+                <ul>
+                <li>
+                    <code>400 Bad Request</code>: Datos faltantes o inválidos.
+                </li>
+                </ul>
+            </div>
+            </div>
+            <!-- PUT /api/products/:id -->
+            <div class="endpoint">
+            <div
+                class="endpoint-summary"
+                onclick="toggleEndpoint('product-update')"
+            >
+                <span class="method put">PUT</span>
+                <span class="path">/api/products/:id</span>
+                <span class="toggle-indicator">▶</span>
+            </div>
+            <div id="product-update" class="endpoint-details hidden">
+                <div class="description">Actualiza un producto existente.</div>
+                <h4>Parámetros</h4>
+                <ul>
+                <li><code>id</code> (path): ID del producto a actualizar.</li>
+                </ul>
+                <h4>Body (JSON)</h4>
+                <pre class="example">
+    {
+        "name": "Baby Yoda Blueball",
+        "description": "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.",
+        "price": 1799.99,
+        "stock": 8,
+        "discount": 5,
+        "sku": "STW001001",
+        "dues": 3,
+        "special": false,
+        "images": [
+            "images/star-wars/funkos/baby-yoda-blueball_front.webp",
+            "images/star-wars/funkos/baby-yoda-blueball_back.webp"
+        ],
+        "licence_id": "90ycBhV5Cbj845RWSbY2",
+        "category_id": "YZW5gX8DG3aHbSvP4wC7"
+    }
+                </pre>
+                <h4>Respuesta exitosa (200 OK)</h4>
+                <pre class="example">
+    {
+        "id": "b5T5smhBubEtBnBy2Oi5",
+        "name": "Baby Yoda Blueball",
+        "description": "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.",
+        "price": 1799.99,
+        "stock": 8,
+        "discount": 5,
+        "sku": "STW001001",
+        "dues": 3,
+        "special": false,
+        "images": [
+            "images/star-wars/funkos/baby-yoda-blueball_front.webp",
+            "images/star-wars/funkos/baby-yoda-blueball_back.webp"
+        ],
+        "licence_id": "90ycBhV5Cbj845RWSbY2",
+        "category_id": "YZW5gX8DG3aHbSvP4wC7",
+        "created_at": "2025-11-03T13:52:00.770Z",
+        "updated_at": "2025-11-03T13:52:00.770Z"
+    }
+                </pre>
+            </div>
+            </div>
+            <!-- DELETE /api/products/:id -->
+            <div class="endpoint">
+            <div
+                class="endpoint-summary"
+                onclick="toggleEndpoint('product-delete')"
+            >
+                <span class="method delete">DELETE</span>
+                <span class="path">/api/products/:id</span>
+                <span class="toggle-indicator">▶</span>
+            </div>
+            <div id="product-delete" class="endpoint-details hidden">
+                <div class="description">Elimina un producto por su ID.</div>
+                <h4>Parámetros</h4>
+                <ul>
+                <li><code>id</code> (path): ID del producto a eliminar.</li>
+                </ul>
+                <h4>Respuesta exitosa</h4>
+                <pre class="example">
+    {
+        "message": "Usuario eliminado correctamente",
+    }
+                </pre>
+                <h4>Errores comunes</h4>
+                <ul>
+                <li><code>404 Not Found</code>: Producto no encontrado.</li>
+                </ul>
+            </div>
+            </div>
+        </div>
+        </div>
+        <script src="js/script.js"></script>
+    </body>
 </html>

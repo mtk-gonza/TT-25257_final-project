@@ -1,65 +1,80 @@
-import { fileURLToPath } from 'url';
-import path from 'path';
-import fs from 'fs';
+import { db } from './../settings/database.js';
+import { convertTimestamps } from './../utils/convertTime.js';
 import * as authService from './auth_service.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const filePath = path.join(__dirname, '..', 'data', 'users.json');
-
-if (!fs.existsSync(filePath)) {
-    fs.writeFileSync(filePath, '[]', 'utf-8');
-}
-
-const writeUsers = (users) => {
-    fs.writeFileSync(filePath, JSON.stringify(users, null, 2), 'utf-8');
+export const getAllUsers = async () => {
+    const snapshot = await db.collection('users').get();
+    const users = [];
+    snapshot.forEach(doc => {
+        const data = doc.data();
+        const cleanData = convertTimestamps(data);
+        users.push({ id: doc.id, ...cleanData });
+    });
+    return users;
 };
 
-export const createUser = (data) => {
-    const users = readUsers();
-    const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
-    const userCrypto = authService.encrypterPassword(data);
-    const newUser = { id: newId, ...userCrypto };
-    users.push(newUser);
-    writeUsers(users);
-    return newUser;
+export const createUser = async (userData) => {
+    const { name, last_name, username, password } = userData;
+    if (!name || !last_name || !username || !password) {
+        throw new Error('Los campos son obligatorios');
+    }
+    const user = {
+        name,
+        last_name,
+        username,
+        password,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+    };
+    const userCrypto = authService.encrypterPassword(user);
+    const docRef = await db.collection('users').add(userCrypto);
+    return { id: docRef.id, ...userCrypto };
 };
 
-export const readUsers = () => {
-    const data = fs.readFileSync(filePath, 'utf-8');
-    const users = JSON.parse(data);
-    return users
+export const getUserById = async (id) => {
+    const doc = await db.collection('users').doc(id).get();
+    if (!doc.exists) return null;
+    const data = doc.data();
+    const cleanData = convertTimestamps(data);
+    return { id: doc.id, ...cleanData };
 };
 
-export const readUserById = (id) => {
-    const users = readUsers();
-    const user = users.find(u => u.id === Number(id));
-    return user
+export const getUserByUsername = async (username) => {
+    if (!username || typeof username !== 'string') {
+        throw new Error('Username inválido');
+    }
+    const snapshot = await db
+        .collection('users')
+        .where('username', '==', username.trim())
+        .limit(1)
+        .get();
+    if (snapshot.empty) {
+        return null;
+    }
+    const doc = snapshot.docs[0];
+    const data = doc.data();
+    const cleanData = convertTimestamps(data);
+    return { id: doc.id, ...cleanData };
 };
 
-export const readUserByUsername = (username) => {
-    const users = readUsers();
-    const user = users.find(u => u.username === username);
-    return user
+export const updateUserById = async (id, updateData) => {
+    const userRef = db.collection('users').doc(id);
+    const doc = await userRef.get();
+    if (!doc.exists) {
+        throw new Error('Usuario no encontrado');
+    }
+    updateData.updated_at = new Date().toISOString();
+    await userRef.update(updateData);
+    const updatedDoc = await userRef.get();
+    return { id: updatedDoc.id, ...updatedDoc.data() };
 };
 
-export const updateUser = (id, updateData) => {
-    const users = readUsers();
-    const index = users.findIndex(u => u.id === Number(id));
-    if (index === -1) return null;
-    const userCrypto = authService.encrypterPassword(updateData);
-    users[index] = { ...users[index], ...userCrypto };
-    writeUsers(users);
-    return users[index];
-};
-
-export const deleteUser = (id) => {
-    const users = readUsers();
-    const initialLength = users.length;
-    const filtered = users.filter(u => u.id !== Number(id));
-    if (filtered.length === initialLength) return false;
-
-    writeUsers(filtered);
-    return true;
+export const deleteUserById = async (id) => {
+    const userRef = db.collection('users').doc(id);
+    const doc = await userRef.get();
+    if (!doc.exists) {
+        throw new Error('Usuario no encontrado');
+    }
+    await userRef.delete();
+    return { message: 'Usuario eliminado correctamente' };
 };

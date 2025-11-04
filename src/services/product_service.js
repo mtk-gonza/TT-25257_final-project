@@ -1,59 +1,64 @@
-import { fileURLToPath } from 'url';
-import path from 'path';
-import fs from 'fs';
+import { db } from './../settings/database.js';
+import { convertTimestamps } from './../utils/convertTime.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const filePath = path.join(__dirname, '..', 'data', 'products.json');
-
-if (!fs.existsSync(filePath)) {
-    fs.writeFileSync(filePath, '[]', 'utf-8');
-}
-
-
-const writeProducts = (products) => {
-    fs.writeFileSync(filePath, JSON.stringify(products, null, 2), 'utf-8');
+export const getAllProducts = async () => {
+    const snapshot = await db.collection('products').get();
+    const products = [];
+    snapshot.forEach(doc => {
+        const data = doc.data();
+        const cleanData = convertTimestamps(data);
+        products.push({ id: doc.id, ...cleanData });
+    });
+    return products;
 };
 
-export const createProduct = (data) => {
-    const products = readProducts();
-    const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
-    const thumbnail = `https://example.com/${data.name}.jpg`
-    const newProduct = { id: newId, ...data, thumbnail: thumbnail};
-    products.push(newProduct);
-    writeProducts(products);
-    return newProduct;
+export const createProduct = async (productData) => {
+    const { name, description, price, stock, discount, sku, dues, special, images, licence_id, category_id } = productData;
+    const newProduct = {
+        name,
+        description,
+        price,
+        stock,
+        discount,
+        sku,
+        dues,
+        special,
+        images,
+        licence_id,
+        category_id,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+    };
+    const docRef = await db.collection('products').add(newProduct);
+    return { id: docRef.id, ...newProduct };
 };
 
-export const readProducts = () => {
-    const data = fs.readFileSync(filePath, 'utf-8');
-    const products = JSON.parse(data);
-    return products
+export const getProductById = async (id) => {
+    const doc = await db.collection('products').doc(id).get();
+    if (!doc.exists) return null;
+    const data = doc.data();
+    const cleanData = convertTimestamps(data);
+    return { id: doc.id, ...cleanData };
 };
 
-export const readProductById = (id) => {
-    const products = readProducts();
-    const product = products.find(p => p.id === Number(id));
-    return product
+export const updateProductById = async (id, updateData) => {
+    const userRef = db.collection('products').doc(id);
+    const doc = await userRef.get();
+    if (!doc.exists) {
+        throw new Error('Producto no encontrado');
+    }
+    updateData.updated_at = new Date().toISOString();
+    await userRef.update(updateData);
+    const updatedDoc = await userRef.get();
+    return { id: updatedDoc.id, ...updatedDoc.data() };
 };
 
-export const updateProduct = (id, updateData) => {
-    const products = readProducts();
-    const index = products.findIndex(p => p.id === Number(id));
-    if (index === -1) return null;
-    const thumbnail = `https://example.com/${updateData.name}.jpg`
-    products[index] = { ...products[index], name: updateData.name, price: Number(updateData.price), thumbnail };
-    writeProducts(products);
-    return products[index];
-};
-
-export const deleteProduct = (id) => {
-    const products = readProducts();
-    const initialLength = products.length;
-    const filtered = products.filter(p => p.id !== Number(id));
-    if (filtered.length === initialLength) return false;
-
-    writeProducts(filtered);
-    return true;
+export const deleteProductById = async (id) => {
+    const productRef = db.collection('products').doc(id);
+    const doc = await productRef.get();
+    if (!doc.exists) {
+        throw new Error('Producto no encontrado');
+    }
+    await productRef.delete()
+    return { message: 'Producto eliminado correctamente' };
 };
