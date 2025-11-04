@@ -1,5 +1,14 @@
 import admin from 'firebase-admin';
-import serviceAccount from './firebase-adminsdk.json' assert { type: 'json' };
+import { FIREBASE_BASE64 } from './config.js';
+
+/* 
+Se convirtó el archivo de configuracion json de firebase a un string con el siguiente comando:
+[Convert]::ToBase64String([IO.File]::ReadAllBytes("src\settings\firebase-adminsdk.json"))
+para luego parsearlo y guardarlo en la variable serviceAccount
+*/
+const serviceAccount = JSON.parse(
+    Buffer.from(FIREBASE_BASE64, 'base64').toString('utf-8')
+);
 
 if (admin.apps.length === 0) {
     admin.initializeApp({
