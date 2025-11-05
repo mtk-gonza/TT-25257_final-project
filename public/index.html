@@ -387,7 +387,7 @@
     <!------------ Sección Licences ------------>
         <div class="section">
             <div class="section-header" onclick="toggleSection('licences')">
-                <h2>Endpoints Categories <span class="section-indicator">▶</span></h2>
+                <h2>Endpoints Licencias <span class="section-indicator">▶</span></h2>
             </div>
             <div id="licences" class="endpoints hidden">
                 <!-- GET /api/licences -->
@@ -458,33 +458,36 @@
                 <div class="endpoint">
                     <div class="endpoint-summary" onclick="toggleEndpoint('licence-get-id')">
                         <span class="method get">GET</span>
-                        <span class="path">/api/users/:id</span>
+                        <span class="path">/api/licences/:id</span>
                         <span class="toggle-indicator">▶</span>
                     </div>
-                    <div id="category-get-id" class="endpoint-details hidden">
+                    <div id="licence-get-id" class="endpoint-details hidden">
                         <div class="description">
-                            Obtiene una categoria por su ID.
+                            Obtiene una licencia por su ID.
                         </div>
                         <h4>Parámetros</h4>
                         <ul>
                             <li>
-                                <code>id</code> (path): ID de la Categoria.
+                                <code>id</code> (path): ID de la Licencia.
                             </li>
                         </ul>
                         <h4>Respuesta exitosa (200 OK)</h4>
                         <pre class="example">
     {
-        "id": "BD6Yzz92Foc0lEbWph0g",
-        "name": "t-shirts",
-        "description": "Anime t-shirts, series, movies and more",
-        "created_at": "2025-11-03T13:40:12.758Z",
-        "updated_at": "2025-11-03T13:40:12.758Z"
+        "id": "ZLWTflTDL2SGAuTzkQBE",
+        "name": "Pokemon",
+        "description": "Atrapa todos los que puedas y disfruta de una colección llena de amigos.",
+        "images": [
+            "images/pokemon/licence/pokemon_logo.webp"
+        ],
+        "created_at": "2025-11-03T13:47:35.409Z",
+        "updated_at": "2025-11-03T13:47:35.409Z"
     }
                         </pre>
                         <h4>Errores comunes</h4>
                         <ul>
                             <li>
-                                <code>404 Not Found</code>: Usuario no encontrado.
+                                <code>400 Bad Request</code>: Datos faltantes o inválidos.
                             </li>
                             <li>
                                 <code>400 Bad Request</code>: ID inválido.
@@ -492,30 +495,35 @@
                         </ul>
                     </div>
                 </div>
-                <!-- POST /api/categories -->
+                <!-- POST /api/licences -->
                 <div class="endpoint">
-                    <div class="endpoint-summary" onclick="toggleEndpoint('category-create')">
+                    <div class="endpoint-summary" onclick="toggleEndpoint('licence-create')">
                         <span class="method post">POST</span>
-                        <span class="path">/api/categories</span>
+                        <span class="path">/api/licences</span>
                         <span class="toggle-indicator">▶</span>
                     </div>
-                    <div id="category-create" class="endpoint-details hidden">
+                    <div id="licence-create" class="endpoint-details hidden">
                         <div class="description">
-                            Crea un nueva categoria.
+                            Crea un nueva licencia.
                         </div>
                         <h4>Body (JSON)</h4>
                         <pre class="example">
     {
-        "name": "t-shirts",
-        "description": "Anime t-shirts, series, movies and more"
+        "name": "Star Wars"",
+        "description": "Disfruta de una saga que sigue agregando personajes a su colección.",
+        "images": [
+            "images/star-wars/licence/star-wars_logo.webp"
+        ]
     }
                         </pre>
                         <h4>Respuesta exitosa (201 Created)</h4>
                         <pre class="example">
     {
-        "id": "BD6Yzz92Foc0lEbWph0g",
-        "name": "t-shirts",
-        "description": "Anime t-shirts, series, movies and more",
+        "name": "Star Wars"",
+        "description": "Disfruta de una saga que sigue agregando personajes a su colección.",
+        "images": [
+            "images/star-wars/licence/star-wars_logo.webp"
+        ],
         "created_at": "2025-11-03T13:40:12.758Z",
         "updated_at": "2025-11-03T13:40:12.758Z"
     }
@@ -531,36 +539,41 @@
                         </ul>
                     </div>
                 </div>
-                <!-- PUT /api/categories/:id -->
+                <!-- PUT /api/licences/:id -->
                 <div class="endpoint">
-                    <div class="endpoint-summary" onclick="toggleEndpoint('category-update')">
+                    <div class="endpoint-summary" onclick="toggleEndpoint('licence-update')">
                         <span class="method put">PUT</span>
-                        <span class="path">/api/categories/:id</span>
+                        <span class="path">/api/licences/:id</span>
                         <span class="toggle-indicator">▶</span>
                     </div>
-                    <div id="category-update" class="endpoint-details hidden">
+                    <div id="licence-update" class="endpoint-details hidden">
                         <div class="description">
-                            Actualiza una categoria existente.
+                            Actualiza una licencia existente.
                         </div>
                         <h4>Parámetros</h4>
                         <ul>
                             <li>
-                                <code>id</code> (path): ID de la categoria a actualizar.
+                                <code>id</code> (path): ID de la licencia a actualizar.
                             </li>
                         </ul>
                         <h4>Body (JSON)</h4>
                         <pre class="example">
     {
-        "name": "t-shirts",
-        "description": "Anime t-shirts, series, movies and more"
+        "name": "Star Wars"",
+        "description": "Disfruta de una saga que sigue agregando personajes a su colección.",
+        "images": [
+            "images/star-wars/licence/star-wars_logo.webp"
+        ]
     }
                         </pre>
                         <h4>Respuesta exitosa (200 OK)</h4>
                         <pre class="example">
     {
-        "id": "BD6Yzz92Foc0lEbWph0g",
-        "name": "t-shirts",
-        "description": "Anime t-shirts, series, movies and more",
+        "name": "Star Wars"",
+        "description": "Disfruta de una saga que sigue agregando personajes a su colección.",
+        "images": [
+            "images/star-wars/licence/star-wars_logo.webp"
+        ],
         "created_at": "2025-11-03T13:40:12.758Z",
         "updated_at": "2025-11-03T13:40:12.758Z"
     }
@@ -571,36 +584,36 @@
                                 <code>400 Bad Request</code>: Datos inválidos.
                             </li>
                             <li>
-                                <code>404 Not Found</code>: Categoria no encontrado.
+                                <code>404 Not Found</code>: Licencia no encontrada.
                             </li>
                         </ul>
                     </div>
                 </div>
-                <!-- DELETE /api/categories/:id -->
+                <!-- DELETE /api/licences/:id -->
                 <div class="endpoint">
-                    <div class="endpoint-summary" onclick="toggleEndpoint('category-delete')">
+                    <div class="endpoint-summary" onclick="toggleEndpoint('licence-delete')">
                         <span class="method delete">DELETE</span>
                         <span class="path">/api/categories/:id</span>
                         <span class="toggle-indicator">▶</span>
                     </div>
-                    <div id="category-delete" class="endpoint-details hidden">
-                        <div class="description">Elimina una categoria por su ID.</div>
+                    <div id="licence-delete" class="endpoint-details hidden">
+                        <div class="description">Elimina una licencia por su ID.</div>
                         <h4>Parámetros</h4>
                         <ul>
                             <li>
-                                <code>id</code> (path): ID de la categoria a eliminar.
+                                <code>id</code> (path): ID de la licencia a eliminar.
                             </li>
                         </ul>
                         <h4>Respuesta exitosa</h4>
                         <pre class="example">
     {
-        "message": "Categoria eliminada correctamente",
+        "message": "Licencia eliminada correctamente",
     }
                         </pre>
                         <h4>Errores comunes</h4>
                         <ul>
                             <li>
-                                <code>404 Not Found</code>: Categoria no encontrada.
+                                <code>404 Not Found</code>: Licencia no encontrada.
                             </li>
                             <li>
                                 <code>400 Bad Request</code>: ID inválido.
@@ -652,6 +665,54 @@
         }
     ]
                         </pre>
+                    </div>
+                </div>
+                <!-- GET /api/products/search -->
+                <div class="endpoint">
+                    <div class="endpoint-summary" onclick="toggleEndpoint('product-get-search')">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/products/search?</span>
+                        <span class="toggle-indicator">▶</span>
+                    </div>
+                    <div id="product-get-search" class="endpoint-details hidden">
+                        <div class="description">
+                            Obtiene un producto por parámetros de consulta.
+                        </div>
+                        <h4>Parámetros: id, name, sku, special, price, stock, dues, discount</h4>
+                        <h5>Ejemplo: /api/products/search?name=Baby%20Yoda%20Blueball</h5>
+                        <ul>
+                            <li>
+                                <code>name</code> = Baby%20Yoda%20Blueball
+                            </li>
+                        </ul>
+                        <h4>Respuesta exitosa (200 OK)</h4>
+                        <pre class="example">
+    {
+        "id": "b5T5smhBubEtBnBy2Oi5",
+        "name": "Baby Yoda Blueball",
+        "description": "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.",
+        "price": 1799.99,
+        "stock": 8,
+        "discount": 5,
+        "sku": "STW001001",
+        "dues": 3,
+        "special": false,
+        "images": [
+            "images/star-wars/funkos/baby-yoda-blueball_front.webp",
+            "images/star-wars/funkos/baby-yoda-blueball_back.webp"
+        ],
+        "licence_id": "90ycBhV5Cbj845RWSbY2",
+        "category_id": "YZW5gX8DG3aHbSvP4wC7",
+        "created_at": "2025-11-03T13:52:00.770Z",
+        "updated_at": "2025-11-03T13:52:00.770Z"
+    }
+                        </pre>
+                        <h4>Errores comunes</h4>
+                        <ul>
+                            <li>
+                                <code>404 Not Found</code>: Producto no encontrado.
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <!-- GET /api/products/:id -->
