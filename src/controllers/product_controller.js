@@ -38,6 +38,36 @@ export const getProductById = async (req, res) => {
     }
 };
 
+export const searchProducts = async (req, res) => {
+    try {
+        const { id, name, price, stock, sku, category_id, licence_id, discount, dues, special } = req.query;
+        if (!id && !name && !price && !stock && !sku && !category_id && !licence_id && !discount && !dues && !special) {
+            return res.status(400).json({
+                error: 'Debe enviar al menos un parámetro de búsqueda'
+            });
+        }
+        const filters = {};
+        if (id) filters.id = id;
+        if (name) filters.name = name;
+        if (price) filters.price = Number(price);
+        if (stock) filters.stock = Number(stock);
+        if (sku) filters.sku = sku;
+        if (category_id) filters.category_id = category_id;
+        if (licence_id) filters.licence_id = licence_id;
+        if (discount) filters.discount = Number(discount);
+        if (dues) filters.dues = Number(dues);
+        //if (special) filters.special = special;
+        const products = await productService.getProductsByFilters(filters);
+        if (products.length === 0) {
+            return res.status(404).json({ error: 'No se encontraron productos' });
+        }
+        res.json(products);
+    } catch (error) {
+        console.error('Error en searchProducts:', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
+};
+
 export const updateProductById = async (req, res) => {
     try {
         const { product_id } = req.params;

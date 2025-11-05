@@ -41,6 +41,52 @@ export const getProductById = async (id) => {
     return { id: doc.id, ...cleanData };
 };
 
+export const getProductsByFilters = async (filters) => {
+    let query = db.collection('products');
+    if (filters.id) {
+        const doc = await db.collection('products').doc(filters.id).get();
+        if (doc.exists) {
+            return [{ id: doc.id, ...doc.data() }];
+        }
+        return [];
+    }
+    if (filters.name !== undefined) {
+        query = query.where('name', '==', filters.name);
+    }
+    if (filters.price !== undefined) {
+        query = query.where('price', '==', filters.price);
+    }
+    if (filters.stock !== undefined) {
+        query = query.where('stock', '==', filters.stock);
+    }
+    if (filters.sku !== undefined) {
+        query = query.where('sku', '==', filters.sku);
+    }
+    if (filters.category_id !== undefined) {
+        query = query.where('category_id', '==', filters.category_id);
+    }
+    if (filters.licence_id !== undefined) {
+        query = query.where('licence_id', '==', filters.licence_id);
+    }
+    if (filters.discount !== undefined) {
+        query = query.where('discount', '==', filters.discount);
+    }
+    if (filters.dues !== undefined) {
+        query = query.where('dues', '==', filters.dues);
+    }
+    if (filters.special !== undefined) {
+        query = query.where('special', '==', filters.special);
+    }
+
+    const snapshot = await query.get();
+    const products = [];
+    snapshot.forEach(doc => {
+        products.push({ id: doc.id, ...doc.data() });
+    });
+
+    return products;
+};
+
 export const updateProductById = async (id, updateData) => {
     const userRef = db.collection('products').doc(id);
     const doc = await userRef.get();
