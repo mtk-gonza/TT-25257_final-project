@@ -33,6 +33,18 @@ export const getLicenceById = async (id) => {
     return { id: doc.id, ...cleanData };
 };
 
+export const getLicenceByIdSimple = async (id) => {
+    const doc = await db.collection('licences').doc(id).get();
+    if (!doc.exists) return null;
+    const data = doc.data();
+    return { 
+        id: doc.id,
+        name: data.name,
+        description: data.description,
+        images: data.images
+    };
+};
+
 export const updateLicenceById = async (id, updateData) => {
     const licenceRef = db.collection('licences').doc(id);
     const doc = await licenceRef.get();

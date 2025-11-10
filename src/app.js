@@ -1,17 +1,20 @@
 import express from 'express';
 import cors from 'cors';
+import { PORT } from './settings/config.js';
 
+export const app = express();
+//Settings
+app.set('port', PORT);
+//Routers
 import { authRouter } from './routes/auth_router.js';
 import { userRouter } from './routes/user_router.js';
 import { licenceRouter } from './routes/licence_router.js';
 import { categoryRouter } from './routes/category_router.js';
 import { productRouter } from './routes/product_router.js';
-
 //Routers para endpoints de datos locales
 import { userLocalRouter } from './routes/user_local_router.js';
 import { productLocalRouter } from './routes/product_local_router.js';  
 
-export const app = express();
 app.use(cors());
 /*
 // Configuración avanzada: Permitir dominios específicos 

@@ -1,6 +1,14 @@
-import { HOST, PORT } from './src/settings/config.js'
+import { HOST } from './src/settings/config.js'
 import { app } from './src/app.js';
 
-app.listen(PORT, () => {
-    console.log(`🚀 Servidor corriendo en http://${HOST}:${PORT}`);
-});
+const main = () => {
+    try {
+        app.listen(app.get('port'), () => {
+            console.log(`🚀 Servidor corriendo en http://${HOST}:${app.get('port')}`);
+        });        
+    } catch (error) {
+        console.log(`Error en ejecutar el servidor: ${error}`)
+    }
+};
+
+main();

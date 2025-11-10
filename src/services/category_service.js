@@ -35,6 +35,17 @@ export const getCategoryById = async (id) => {
     return { id: doc.id, ...cleanData };
 };
 
+export const getCategoryByIdSimple = async (id) => {
+    const doc = await db.collection('categories').doc(id).get();
+    if (!doc.exists) return null;
+    const data = doc.data();    
+    return { 
+        id: doc.id,
+        name: data.name,
+        description: data.description
+    };
+};
+
 export const updateCategoryById = async (id, updateData) => {
     const categoryRef = db.collection('categories').doc(id);
     const doc = await categoryRef.get();

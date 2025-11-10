@@ -1,14 +1,26 @@
 import { db } from './../settings/database.js';
 import { convertTimestamps } from './../utils/convertTime.js';
+import { getLicenceByIdSimple } from './licence_service.js';
+import { getCategoryByIdSimple } from './category_service.js';
 
 export const getAllProducts = async () => {
     const snapshot = await db.collection('products').get();
-    const products = [];
-    snapshot.forEach(doc => {
+    const productPromises = snapshot.docs.map(async (doc) => {
         const data = doc.data();
         const cleanData = convertTimestamps(data);
-        products.push({ id: doc.id, ...cleanData });
+        const [licence, category] = await Promise.all([
+            getLicenceByIdSimple(cleanData.licence_id),
+            getCategoryByIdSimple(cleanData.category_id)
+        ]);
+        const { licence_id, category_id, ...productWithoutIds } = cleanData;
+        return {
+            id: doc.id,
+            ...productWithoutIds,
+            licence,
+            category
+        };
     });
+    const products = await Promise.all(productPromises);
     return products;
 };
 
@@ -38,7 +50,17 @@ export const getProductById = async (id) => {
     if (!doc.exists) return null;
     const data = doc.data();
     const cleanData = convertTimestamps(data);
-    return { id: doc.id, ...cleanData };
+    const [licence, category] = await Promise.all([
+        getLicenceByIdSimple(cleanData.licence_id),
+        getCategoryByIdSimple(cleanData.category_id)
+    ]);
+    const { licence_id, category_id, ...productWithoutIds } = cleanData;
+    return { 
+        id: doc.id, 
+        ...productWithoutIds,
+        licence,
+        category 
+    };
 };
 
 export const getProductsByFilters = async (filters) => {
@@ -79,11 +101,22 @@ export const getProductsByFilters = async (filters) => {
     }
 
     const snapshot = await query.get();
-    const products = [];
-    snapshot.forEach(doc => {
-        products.push({ id: doc.id, ...doc.data() });
+    const productPromises = snapshot.docs.map(async (doc) => {
+        const data = doc.data();
+        const cleanData = convertTimestamps(data);
+        const [licence, category] = await Promise.all([
+            getLicenceByIdSimple(cleanData.licence_id),
+            getCategoryByIdSimple(cleanData.category_id)
+        ]);
+        const { licence_id, category_id, ...productWithoutIds } = cleanData;
+        return {
+            id: doc.id,
+            ...productWithoutIds,
+            licence,
+            category
+        };
     });
-
+    const products = await Promise.all(productPromises);
     return products;
 };
 
