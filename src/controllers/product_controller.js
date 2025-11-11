@@ -3,14 +3,70 @@ import * as productService from './../services/product_service.js';
 export const createProduct = async (req, res) => {
     try {
         const productData = req.body;
-        if (!productData.name || !productData.description) {
-            return res.status(400).json({ error: 'Faltan campos' });
+        const allowedFields = [
+            'name',
+            'description',
+            'price',
+            'stock',
+            'discount',
+            'sku',
+            'dues',
+            'special',
+            'images',
+            'licence_id',
+            'category_id'
+        ];
+        const filteredData = {};
+        for (const key of allowedFields) {
+            if (key in productData) {
+                filteredData[key] = productData[key];
+            }
         }
-        const newProduct = await productService.createProduct(productData);
+        const requiredFields = ['name', 'description', 'price', 'stock', 'sku', 'licence_id', 'category_id'];
+        const missingFields = requiredFields.filter(field => !(field in filteredData));
+        if (missingFields.length > 0) {
+            return res.status(400).json({
+                error: `Faltan campos obligatorios: ${missingFields.join(', ')}`
+            });
+        }
+        if (typeof filteredData.name !== 'string' || filteredData.name.trim().length < 2) {
+            return res.status(400).json({ error: 'El campo "name" debe ser una cadena de al menos 2 caracteres' });
+        }
+        if (typeof filteredData.description !== 'string' || filteredData.description.trim().length < 10) {
+            return res.status(400).json({ error: 'El campo "description" debe ser una cadena de al menos 10 caracteres' });
+        }
+        if (typeof filteredData.price !== 'number' || filteredData.price <= 0) {
+            return res.status(400).json({ error: 'El campo "price" debe ser un número mayor que 0' });
+        }
+        if (!Number.isInteger(filteredData.stock) || filteredData.stock < 0) {
+            return res.status(400).json({ error: 'El campo "stock" debe ser un entero no negativo' });
+        }
+        if (typeof filteredData.sku !== 'string' || filteredData.sku.trim().length < 3) {
+            return res.status(400).json({ error: 'El campo "sku" debe ser una cadena de al menos 3 caracteres' });
+        }
+        if (filteredData.images && !Array.isArray(filteredData.images)) {
+            return res.status(400).json({ error: 'El campo "images" debe ser un array de URLs' });
+        }
+        if (typeof filteredData.special !== 'boolean' && filteredData.special !== undefined) {
+            return res.status(400).json({ error: 'El campo "special" debe ser booleano' });
+        }
+        if (filteredData.discount !== undefined && (typeof filteredData.discount !== 'number' || filteredData.discount < 0 || filteredData.discount > 100)) {
+            return res.status(400).json({ error: 'El campo "discount" debe ser un número entre 0 y 100' });
+        }
+        if (filteredData.dues !== undefined && (!Number.isInteger(filteredData.dues) || filteredData.dues <= 0)) {
+            return res.status(400).json({ error: 'El campo "dues" debe ser un entero positivo' });
+        } 
+
+        const newProduct = await productService.createProduct(filteredData);
         res.status(201).json(newProduct);
-    } catch (error) {
-        console.error('Error en createProduct del controller:', error);
-        res.status(500).json({ error: 'No se pudo crear el producto' });
+    } catch (err) {
+        console.error('Error en createProduct del controller:', err.message);
+        if (err.message === 'El SKU ya existe') {
+            return res.status(409).json({ error: 'El SKU ya está en uso' });
+        }
+        if (err.message.includes('Faltan campos') || err.message.includes('debe ser')) {
+            return res.status(400).json({ error: err.message });
+        }
     }
 };
 
@@ -73,9 +129,47 @@ export const updateProductById = async (req, res) => {
         const { product_id } = req.params;
         const updateData = req.body;
 
-        const updatedProduct = await productService.updateProductById(product_id, updateData);
+        const allowedFields = [
+            'name',
+            'description',
+            'price',
+            'stock',
+            'discount',
+            'sku',
+            'dues',
+            'special',
+            'images',
+            'licence_id',
+            'category_id'
+        ];
+
+        const filteredData = {};
+        for (const key of allowedFields) {
+            if (key in updateData) {
+                filteredData[key] = updateData[key];
+            }
+        }
+
+        if (Object.keys(filteredData).length === 0) {
+            return res.status(400).json({
+                error: 'Debe proporcionar al menos un campo válido para actualizar'
+            });
+        }
+
+        if ('price' in filteredData && (typeof filteredData.price !== 'number' || filteredData.price < 0)) {
+            return res.status(400).json({ error: 'El campo "price" debe ser un número positivo' });
+        }
+        if ('stock' in filteredData && (!Number.isInteger(filteredData.stock) || filteredData.stock < 0)) {
+            return res.status(400).json({ error: 'El campo "stock" debe ser un entero no negativo' });
+        }
+        if ('images' in filteredData && !Array.isArray(filteredData.images)) {
+            return res.status(400).json({ error: 'El campo "images" debe ser un array' });
+        }
+
+        const updatedProduct = await productService.updateProductById(product_id, filteredData);
         res.status(200).json(updatedProduct);
     } catch (error) {
+        console.error('Error en updateProductById del controller:', error);
         if (error.message === 'Producto no encontrado') {
             return res.status(404).json({ error: error.message });
         }
@@ -93,10 +187,10 @@ export const deleteProductById = async (req, res) => {
         await productService.deleteProductById(product_id);
         res.status(200).json({ message: 'Producto eliminado correctamente' });
     } catch (error) {
+        console.error('Error en deleteProduct del controller:', error);
         if (error.message === 'Producto no encontrado') {
             return res.status(404).json({ error: error.message });
-        }
-        console.error('Error en deleteProduct del controller:', error);
+        }        
         res.status(500).json({ error: 'No se pudo eliminar el Producto' });
     }
 };

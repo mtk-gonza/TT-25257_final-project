@@ -26,6 +26,10 @@ export const getAllProducts = async () => {
 
 export const createProduct = async (productData) => {
     const { name, description, price, stock, discount, sku, dues, special, images, licence_id, category_id } = productData;
+    const existing = await db.collection('products').where('sku', '==', sku).get();
+    if (!existing.empty) {
+        throw new Error('El SKU ya existe');
+    }
     const newProduct = {
         name,
         description,
@@ -121,14 +125,14 @@ export const getProductsByFilters = async (filters) => {
 };
 
 export const updateProductById = async (id, updateData) => {
-    const userRef = db.collection('products').doc(id);
-    const doc = await userRef.get();
+    const productRef = db.collection('products').doc(id);
+    const doc = await productRef.get();
     if (!doc.exists) {
         throw new Error('Producto no encontrado');
     }
     updateData.updated_at = new Date().toISOString();
-    await userRef.update(updateData);
-    const updatedDoc = await userRef.get();
+    await productRef.update(updateData);
+    const updatedDoc = await productRef.get();
     return { id: updatedDoc.id, ...updatedDoc.data() };
 };
 
