@@ -88,11 +88,17 @@ button:hover {
     border-radius: 10px;
 }
 
-#lista-items {
+#lista-products, 
+#lista-categories, 
+#lista-licences, 
+#lista-users {
     list-style: none;
 }
 
-#lista-items li {
+#lista-products li, 
+#lista-categories li, 
+#lista-licences li,
+#lista-users li {
     background: white;
     padding: 15px;
     margin-bottom: 10px;

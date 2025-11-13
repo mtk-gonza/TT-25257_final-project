@@ -3,40 +3,26 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="css/index-styles.css" />
+        <link rel="stylesheet" href="css/index-style.css" />
         <title>TT25257 Proyecto Final</title>
     </head>
     <body>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <div class="container">
-            <h1>🍕 Mi Lista de Items</h1>
-            <p class="subtitle">Taller CORS - Conectando Frontend y Backend</p>
-            
-            <div id="status" class="status hidden"></div>
-            
-            <div class="form-section">
-                <h2>➕ Agregar Nuevo Item</h2>
-                <form id="form-crear">
-                    <input 
-                        type="text" 
-                        id="input-nombre" 
-                        placeholder="Nombre del item" 
-                        required
-                    />
-                    <input 
-                        type="text" 
-                        id="input-categoria" 
-                        placeholder="Categoría (opcional)"
-                    />
-                    <button type="submit">Agregar</button>
-                </form>
-            </div>
-            
+            <h1>Raiz</h1>
+            <p class="subtitle">Conectando Frontend y Backend</p>
             <div class="lista-section">
-                <h2>📋 Items Disponibles</h2>
-                <ul id="lista-items">
-                    <li style="justify-content: center; color: #999;">
-                        Cargando datos...
+                <ul>
+                    <li>
+                        <a href="http://localhost:3000/login">login</a>
+                    </li>
+                    <li>
+                        <a href="http://localhost:3000/home">home</a>
+                    </li>
+                    <li>
+                        <a href="http://localhost:3000/docs">docs</a>
+                    </li>
+                    <li>
+                        <a href="http://localhost:3000/about">about</a>
                     </li>
                 </ul>
             </div>

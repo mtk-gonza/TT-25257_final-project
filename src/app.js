@@ -35,15 +35,22 @@ const corsOptions = {
 }; 
 app.use(cors(corsOptions)); 
 */
-app.get('/docs', (req, res) => {
-  res.sendFile(path.join(projectRoot, 'public', 'pages', 'docs.html'));
-});
-app.get('/about', (req, res) => {
-  res.sendFile(path.join(projectRoot, 'public', 'pages', 'about.html'));
-});
+
+// Rutas específicas para páginas HTML
 app.use(express.static(path.join(projectRoot, 'public')));
+app.get('/:name', (req, res) => {
+    const { name } = req.params;
+    const allowedPages = ['home', 'docs', 'about', 'login', 'register']; 
+
+    if (!allowedPages.includes(name)) {
+        return res.status(404).send('Página no encontrada');
+    }
+
+    res.sendFile(path.join(projectRoot, 'public', 'pages', `${name}.html`));
+});
+
 app.use(express.json());
-app.use('/api', authRouter);
+app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
 app.use('/api/licences', licenceRouter);
 app.use('/api/categories', categoryRouter);
