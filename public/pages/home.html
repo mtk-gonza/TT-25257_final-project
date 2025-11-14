@@ -3,52 +3,69 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="../css/home-style.css" />
+        <link rel= "stylesheet" type= "text/css" href= "../css/normalize.css" />
         <title>TT25257 Proyecto Final</title>
     </head>
     <body>
         <div class="container">
-            <h1>Mi Lista de Items</h1>
-            <p class="subtitle">Conectando Frontend y Backend</p>
-            
-            <div id="status" class="status hidden"></div>
-            
-            <div class="lista-section">
-                <h2>📋 Productos Disponibles</h2>
-                <ul id="lista-products">
-                    <li style="justify-content: center; color: #999;">
-                        Cargando datos...
-                    </li>
-                </ul>
+            <h2>Mi Lista de Items</h2>
+            <p class="subtitle">Conectando Frontend y Backend</p>     
+            <div class="section-box">
+                <div class="top-section-box">
+                    <h3>📋 Productos Disponibles</h2>
+                    <button class="btn-outline btn-outline-success">➕Agregar</button>
+                </div>
+                <div class="botton-section-box">
+                    <ul id="lista-products">
+                        <li class="item-list">
+                            Cargando datos...
+                        </li>
+                    </ul>
+                </div>
+            </div>      
+            <div class="section-box">
+                <div class="top-section-box">
+                    <h3>📋 Categorias Disponibles</h2>
+                    <button class="btn-outline btn-outline-success">➕Agregar</button>
+                </div>
+                <div class="botton-section-box">
+                    <ul id="lista-categories">
+                        <li style="justify-content: center; color: #999;">
+                            Cargando datos...
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="lista-section">
-                <h2>📋 Categorias Disponibles</h2>
-                <ul id="lista-categories">
-                    <li style="justify-content: center; color: #999;">
-                        Cargando datos...
-                    </li>
-                </ul>
+            <div class="section-box">
+                <div class="top-section-box">
+                    <h3>📋 Licencias Disponibles</h2>
+                    <button class="btn-outline btn-outline-success">➕Agregar</button>
+                </div>
+                <div class="botton-section-box">
+                    <ul id="lista-licences">
+                        <li style="justify-content: center; color: #999;">
+                            Cargando datos...
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="lista-section">
-                <h2>📋 Licencias Disponibles</h2>
-                <ul id="lista-licences">
-                    <li style="justify-content: center; color: #999;">
-                        Cargando datos...
-                    </li>
-                </ul>
+            <div class="user-box">
+                <div class="top-section-box">
+                    <h3>📋 Usuarios Disponibles</h2>
+                    <button class="btn-outline btn-outline-success">➕Agregar</button>
+                </div>
+                <div class="botton-section-box">
+                    <ul id="lista-users">
+                        <li style="justify-content: center; color: #999;">
+                            Cargando datos...
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="lista-section">
-                <h2>📋 Usuarios Disponibles</h2>
-                <ul id="lista-users">
-                    <li style="justify-content: center; color: #999;">
-                        Cargando datos...
-                    </li>
-                </ul>
-            </div>
-            <div class="back">
-                <a href="http://localhost:3000">Back</a>
+            <div class="back-box">
+                <a class="link-box" href="http://localhost:3000">Back</a>
             </div>
         </div>        
-        <script src="../js/home-script.js"></script>
+        <script src="../js/home.js"></script>
     </body>
 </html>

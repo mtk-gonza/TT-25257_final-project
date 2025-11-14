@@ -49,17 +49,18 @@ const getProducts = async () => {
 
         // Mostrar items
         if (data.length === 0) {
-            lista_products.innerHTML = '<li style="justify-content: center; color: #999;">No hay items todavía</li>';
+            lista_products.innerHTML = '<li class="item-list">No hay items todavía</li>';
         } else {
             data.forEach(item => {
                 const li = document.createElement('li');
+                li.className = 'item-list'
                 li.innerHTML = `
                             <div class="item-info">
-                                <div class="item-nombre">${item.name}</div>
-                                <div class="item-categoria">📁 ${item.category.name}</div>
+                                <div class="item-name">${item.name}</div>
+                                <div class="item-category">📁 ${item.category.name}</div>
                             </div>
-                            <button onclick="test(${item})">👁 Ver</button>
-                            <button class="btn-eliminar" onclick="eliminarItem(${item.id})">
+                            <button class="btn-outline btn-outline-primary" onclick="test(${item})">👁 Ver</button>
+                            <button class="btn-outline btn-outline-danger" onclick="eliminarItem(${item.id})">
                                 🗑️ Eliminar
                             </button>
                         `;
@@ -69,7 +70,7 @@ const getProducts = async () => {
 
     } catch (error) {
         console.error('❌ Error:', error);
-        lista_products.innerHTML = '<li style="justify-content: center; color: #c00;">❌ Error al cargar items. Revisa la consola.</li>';
+        lista_products.innerHTML = '<li class="item-list" style="color: #c00;">❌ Error al cargar items. Revisa la consola.</li>';
         mostrarStatus('Error de CORS o conexión. Revisa la consola.', 'error');
     }    
 }
@@ -91,16 +92,17 @@ const getCategories = async () => {
 
         // Mostrar items
         if (data.length === 0) {
-            lista_categories.innerHTML = '<li style="justify-content: center; color: #999;">No hay items todavía</li>';
+            lista_categories.innerHTML = '<li class="item-list">No hay items todavía</li>';
         } else {
             data.forEach(item => {
                 const li = document.createElement('li');
+                li.className = 'item-list'
                 li.innerHTML = `
                             <div class="item-info">
-                                <div class="item-nombre">${item.name}</div>
+                                <div class="item-name">${item.name}</div>
                             </div>
-                            <button onclick="test(${item})">👁 Ver</button>
-                            <button class="btn-eliminar" onclick="eliminarItem(${item.id})">
+                            <button class="btn-outline btn-outline-primary" onclick="test(${item})">👁 Ver</button>
+                            <button class="btn-outline btn-outline-danger" onclick="eliminarItem(${item.id})">
                                 🗑️ Eliminar
                             </button>
                         `;
@@ -110,7 +112,7 @@ const getCategories = async () => {
 
     } catch (error) {
         console.error('❌ Error:', error);
-        lista_categories.innerHTML = '<li style="justify-content: center; color: #c00;">❌ Error al cargar items. Revisa la consola.</li>';
+        lista_categories.innerHTML = '<li class="item-list" style="color: #c00;">❌ Error al cargar items. Revisa la consola.</li>';
         mostrarStatus('Error de CORS o conexión. Revisa la consola.', 'error');
     }    
 }
@@ -132,16 +134,17 @@ const getLicences = async () => {
 
         // Mostrar items
         if (data.length === 0) {
-            lista_licences.innerHTML = '<li style="justify-content: center; color: #999;">No hay items todavía</li>';
+            lista_licences.innerHTML = '<li class="item-list">No hay items todavía</li>';
         } else {
             data.forEach(item => {
                 const li = document.createElement('li');
+                li.className = 'item-list'
                 li.innerHTML = `
                             <div class="item-info">
-                                <div class="item-nombre">${item.name}</div>
+                                <div class="item-name">${item.name}</div>
                             </div>
-                            <button onclick="test(${item})">👁 Ver</button>
-                            <button class="btn-eliminar" onclick="eliminarItem(${item.id})">
+                            <button class="btn-outline btn-outline-primary" onclick="test(${item})">👁 Ver</button>
+                            <button class="btn-outline btn-outline-danger" onclick="eliminarItem(${item.id})">
                                 🗑️ Eliminar
                             </button>
                         `;
@@ -151,7 +154,7 @@ const getLicences = async () => {
 
     } catch (error) {
         console.error('❌ Error:', error);
-        lista_licences.innerHTML = '<li style="justify-content: center; color: #c00;">❌ Error al cargar items. Revisa la consola.</li>';
+        lista_licences.innerHTML = '<li class="item-list" style="color: #c00;">❌ Error al cargar items. Revisa la consola.</li>';
         mostrarStatus('Error de CORS o conexión. Revisa la consola.', 'error');
     }    
 }
@@ -173,16 +176,17 @@ const getUsers = async () => {
 
         // Mostrar items
         if (data.length === 0) {
-            lista_users.innerHTML = '<li style="justify-content: center; color: #999;">No hay items todavía</li>';
+            lista_users.innerHTML = '<li style="class="item-list">No hay items todavía</li>';
         } else {
             data.forEach(item => {
                 const li = document.createElement('li');
+                li.className = 'item-list'
                 li.innerHTML = `
                             <div class="item-info">
-                                <div class="item-nombre">${item.name}</div>
+                                <div class="item-name">${item.name}</div>
                             </div>
-                            <button onclick="test(${item})">👁 Ver</button>
-                            <button class="btn-eliminar" onclick="eliminarItem(${item.id})">
+                            <button class="btn-outline btn-outline-primary" onclick="test(${item})">👁 Ver</button>
+                            <button class="btn-outline btn-outline-danger" onclick="eliminarItem(${item.id})">
                                 🗑️ Eliminar
                             </button>
                         `;
@@ -192,7 +196,7 @@ const getUsers = async () => {
 
     } catch (error) {
         console.error('❌ Error:', error);
-        lista_users.innerHTML = '<li style="justify-content: center; color: #c00;">❌ Error al cargar items. Revisa la consola.</li>';
+        lista_users.innerHTML = '<li class="item-list" style="color: #c00;">❌ Error al cargar items. Revisa la consola.</li>';
         mostrarStatus('Error de CORS o conexión. Revisa la consola.', 'error');
     }    
 }

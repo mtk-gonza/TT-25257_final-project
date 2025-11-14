@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel= "stylesheet" type= "text/css" href= "../css/register-style.css">
+    <link rel= "stylesheet" type= "text/css" href= "../css/normalize.css" />
     <title>Register</title>
 </head>
 <body>
-    <div class="register-box">
+    <div class="box">
         <h2>Register</h2>
         <form>
             <div class="user-box">
@@ -27,18 +27,18 @@
                 <input type="password" id="password" required>
                 <label>Password</label>
             </div>
-            <div class="buttom-form">
-                <button id="submit" href="#">Register</button>
-                <div id="login">
+            <div class="button-form">
+                <div id="submit" class="btn-outline btn-outline-primary">Register</div>
+                <div id="login" class="button-form-box">
                     Go to 
-                    <a href="http://localhost:3000/login">Login</a>
+                    <a class="link-box" href="http://localhost:3000/login">Login</a>
                 </div>
             </div>
-            <div class="back">
-                <a href="http://localhost:3000">Back</a>
+            <div class="back-box">
+                <a class="link-box" href="http://localhost:3000">Back</a>
             </div>
         </form>
     </div>
-    <script src="../js/register-script.js"></script>
+    <script src="../js/register.js"></script>
 </body>
 </html>
