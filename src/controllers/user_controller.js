@@ -53,10 +53,9 @@ export const getUserById = async (req, res) => {
 
 export const updateUserById = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { user_id } = req.params;
         const updateData = req.body;
-
-        const updatedUser = await userService.updateUserById(id, updateData);
+        const updatedUser = await userService.updateUserById(user_id, updateData);
         res.status(200).json(updatedUser);
     } catch (error) {
         if (error.message === 'Usuario no encontrado') {
@@ -72,8 +71,8 @@ export const updateUserById = async (req, res) => {
 
 export const deleteUserById = async (req, res) => {
     try {
-        const { id } = req.params;
-        await userService.deleteUserById(id);
+        const { user_id } = req.params;
+        await userService.deleteUserById(user_id);
         res.status(200).json({ message: 'Usuario eliminado correctamente' });
     } catch (error) {
         if (error.message === 'Usuario no encontrado') {

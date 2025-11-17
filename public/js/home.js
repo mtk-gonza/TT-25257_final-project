@@ -59,7 +59,7 @@ const getProducts = async () => {
                                 <div class="item-name">${item.name}</div>
                                 <div class="item-category">📁 ${item.category.name}</div>
                             </div>
-                            <button class="btn-outline btn-outline-primary" onclick="test(${item})">👁 Ver</button>
+                            <a class="btn-outline btn-outline-primary" href="http://localhost:3000/product_form/${item.id}">👁 Ver</a>
                             <button class="btn-outline btn-outline-danger" onclick="eliminarItem(${item.id})">
                                 🗑️ Eliminar
                             </button>
@@ -101,7 +101,7 @@ const getCategories = async () => {
                             <div class="item-info">
                                 <div class="item-name">${item.name}</div>
                             </div>
-                            <button class="btn-outline btn-outline-primary" onclick="test(${item})">👁 Ver</button>
+                            <a class="btn-outline btn-outline-primary" href="http://localhost:3000/category_form/${item.id}">👁 Ver</a>
                             <button class="btn-outline btn-outline-danger" onclick="eliminarItem(${item.id})">
                                 🗑️ Eliminar
                             </button>
@@ -143,7 +143,7 @@ const getLicences = async () => {
                             <div class="item-info">
                                 <div class="item-name">${item.name}</div>
                             </div>
-                            <button class="btn-outline btn-outline-primary" onclick="test(${item})">👁 Ver</button>
+                            <a class="btn-outline btn-outline-primary" href="http://localhost:3000/licence_form/${item.id}">👁 Ver</a>
                             <button class="btn-outline btn-outline-danger" onclick="eliminarItem(${item.id})">
                                 🗑️ Eliminar
                             </button>
@@ -185,7 +185,7 @@ const getUsers = async () => {
                             <div class="item-info">
                                 <div class="item-name">${item.name}</div>
                             </div>
-                            <button class="btn-outline btn-outline-primary" onclick="test(${item})">👁 Ver</button>
+                            <a class="btn-outline btn-outline-primary" href="http://localhost:3000/user_form/${item.id}">👁 Ver</a>
                             <button class="btn-outline btn-outline-danger" onclick="eliminarItem(${item.id})">
                                 🗑️ Eliminar
                             </button>

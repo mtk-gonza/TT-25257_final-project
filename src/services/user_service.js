@@ -8,7 +8,8 @@ export const getAllUsers = async () => {
     snapshot.forEach(doc => {
         const data = doc.data();
         const cleanData = convertTimestamps(data);
-        users.push({ id: doc.id, ...cleanData });
+        const { password, salt, ...safeUser } = cleanData;
+        users.push({ id: doc.id, ...safeUser });
     });
     return users;
 };
@@ -36,7 +37,8 @@ export const getUserById = async (id) => {
     if (!doc.exists) return null;
     const data = doc.data();
     const cleanData = convertTimestamps(data);
-    return { id: doc.id, ...cleanData };
+    const { password, salt, ...safeUser } = cleanData;
+    return { id: doc.id, ...safeUser };
 };
 
 export const getUserByUsername = async (username) => {
@@ -54,7 +56,8 @@ export const getUserByUsername = async (username) => {
     const doc = snapshot.docs[0];
     const data = doc.data();
     const cleanData = convertTimestamps(data);
-    return { id: doc.id, ...cleanData };
+    const { password, salt, ...safeUser } = cleanData;
+    return { id: doc.id, ...safeUser };
 };
 
 export const updateUserById = async (id, updateData) => {
@@ -64,9 +67,12 @@ export const updateUserById = async (id, updateData) => {
         throw new Error('Usuario no encontrado');
     }
     updateData.updated_at = new Date().toISOString();
-    await userRef.update(updateData);
+    const userCrypto = authService.encrypterPassword(updateData);
+    await userRef.update(userCrypto);
     const updatedDoc = await userRef.get();
-    return { id: updatedDoc.id, ...updatedDoc.data() };
+    const cleanData = convertTimestamps(updatedDoc.data());
+    const { password, salt, ...safeUser } = cleanData;
+    return { id: updatedDoc.id, ...safeUser };
 };
 
 export const deleteUserById = async (id) => {

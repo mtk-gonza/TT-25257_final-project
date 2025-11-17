@@ -5,32 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel= "stylesheet" type= "text/css" href= "../css/normalize.css" />
-    <title>Login</title>
+    <title>User Form</title>
 </head>
 <body>
     <div class="box">
-        <h2>Login</h2>
-        <form>
+        <h2 id="form_title">Add User</h2>
+        <form id="user_form">
+            <div class="input-box">
+                <input type="text" id="name" required>
+                <label>Name</label>
+            </div>
+            <div class="input-box">
+                <input type="text" id="last_name" required>
+                <label>Last Name</label>
+            </div>
             <div class="input-box">
                 <input type="text" id="username" required>
                 <label>Username</label>
             </div>
             <div class="input-box">
                 <input type="password" id="password" required>
-                <label>Password</label>
+                <label id="label_pwd">Password</label>
             </div>
             <div class="button-form">
-                <div id="submit" class="btn-outline btn-outline-primary" href="#">Submit</div>
-                <div id="register" class="button-form-box">
-                    Don't have an account ?
-                    <a class="link-box" href="http://localhost:3000/register">Register</a>
-                </div>
+                <button type="submit" class="btn-outline btn-outline-primary">Submit</button>
+                <a id="cancel" class="btn-outline btn-outline-danger" href="http://localhost:3000/home">Cancel</a>
             </div>
             <div class="back-box">
                 <a class="link-box" href="http://localhost:3000">Back</a>
             </div>
         </form>
     </div>
-    <script src="../js/login.js"></script>
+    <script src="../js/user_form.js"></script>
 </body>
 </html>

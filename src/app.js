@@ -1,17 +1,13 @@
 import express from 'express';
 import cors from 'cors';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import { PORT } from './settings/config.js';
 
 export const app = express();
 
 //Settings
 app.set('port', PORT);
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const projectRoot = path.join(__dirname, '..');
 //Routers
+import { publicRouter } from './routes/public_router.js';
 import { authRouter } from './routes/auth_router.js';
 import { userRouter } from './routes/user_router.js';
 import { licenceRouter } from './routes/licence_router.js';
@@ -36,19 +32,7 @@ const corsOptions = {
 app.use(cors(corsOptions)); 
 */
 
-// Rutas específicas para páginas HTML
-app.use(express.static(path.join(projectRoot, 'public')));
-app.get('/:name', (req, res) => {
-    const { name } = req.params;
-    const allowedPages = ['home', 'docs', 'about', 'login', 'register']; 
-
-    if (!allowedPages.includes(name)) {
-        return res.status(404).send('Página no encontrada');
-    }
-
-    res.sendFile(path.join(projectRoot, 'public', 'pages', `${name}.html`));
-});
-
+app.use(publicRouter);
 app.use(express.json());
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
