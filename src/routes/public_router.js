@@ -56,7 +56,7 @@ publicRouter.get('/user_form/:id', (req, res) => {
 
 publicRouter.get('/:name', (req, res) => {
     const { name } = req.params;
-    const allowedPages = ['home', 'docs', 'about', 'login', 'register']; 
+    const allowedPages = ['dashboard', 'docs', 'about', 'login', 'register']; 
 
     if (!allowedPages.includes(name)) {
         return res.status(404).send('Página no encontrada');
