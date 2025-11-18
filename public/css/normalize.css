@@ -8,7 +8,10 @@
 }
 body {
     background: #131315;
-    font-family: var(--font-style);    
+    font-family: var(--font-style);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;    
 }
 
 .box {
@@ -23,13 +26,18 @@ body {
     border-radius: 10px;
 }
 
-.container {
-    max-width: 800px;
+.big-box {
+    max-width: 750px;
+    width: 750px;
     margin: 0 auto;
     background: #242026;
     border-radius: 10px;
     padding: 40px;
     box-shadow: 0 15px 25px rgba((143), 124, 236, 0.7);
+}
+
+.container {
+    max-width: 800px;
 }
 
 h2 {
@@ -53,7 +61,7 @@ h3 {
     font-weight: bold;
 }
 
-.box .input-box input {
+.input-box input {
     position: relative;
     width: 100%;
     padding: 10px 0;
@@ -66,7 +74,7 @@ h3 {
     background: transparent;
 }
 
-.box .input-box label {
+.input-box label {
     position: relative;
     left: 0;
     top: -60px;
@@ -77,14 +85,14 @@ h3 {
     transition: .5s;
 }
 
-.box .input-box input:focus~label, .box .input-box input:valid~label{
+.input-box input:focus~label, .input-box input:valid~label{
     top: -85px;
     left: 0;
     color: #8F7CEC;
     font-size: 12px;
 }
 
-.box .input-box select {
+.input-box select {
     position: relative;
     width: 100%;
     padding: 10px 0;
@@ -101,14 +109,14 @@ h3 {
     cursor: pointer;
 }
 
-.box .checkbox {
+.checkbox {
     display: flex;
     color: #8F7CEC;
     font-size: 12px;
     margin-bottom: 60px;
 }
 
-.box .textarea-box {
+.textarea-box {
     display: flex;
     flex-direction: column;
     color: #8F7CEC;
@@ -117,16 +125,16 @@ h3 {
     margin-bottom: 60px;
 }
 
-.box .input-box select:focus + label,
-.box .input-box select:not([value=""]) + label,
-.box .input-box select:not(:placeholder-shown) + label {
+.input-box select:focus + label,
+.input-box select:not([value=""]) + label,
+.input-box select:not(:placeholder-shown) + label {
   top: -85px;
   left: 0;
   color: #8F7CEC;
   font-size: 12px;
 }
 
-.box .input-box select {
+.input-box select {
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right 0.5rem center;

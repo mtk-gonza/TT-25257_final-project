@@ -8,64 +8,66 @@
     </head>
     <body>
         <div class="container">
-            <h2>Mi Lista de Items</h2>
-            <p class="subtitle">Conectando Frontend y Backend</p>     
-            <div class="section-box">
-                <div class="top-section-box">
-                    <h3>📋 Productos Disponibles</h2>
-                    <a class="btn-outline btn-outline-success" href="http://localhost:3000/product_form">➕Agregar</a>
+            <div class="big-box">
+                <h2>Mi Lista de Items</h2>
+                <p class="subtitle">Conectando Frontend y Backend</p>     
+                <div class="section-box">
+                    <div class="top-section-box">
+                        <h3>📋 Productos Disponibles</h2>
+                        <a class="btn-outline btn-outline-success" href="http://localhost:3000/product_form">➕Agregar</a>
+                    </div>
+                    <div class="botton-section-box">
+                        <ul id="lista-products">
+                            <li class="item-list">
+                                Cargando datos...
+                            </li>
+                        </ul>
+                    </div>
+                </div>      
+                <div class="section-box">
+                    <div class="top-section-box">
+                        <h3>📋 Categorias Disponibles</h2>
+                        <a class="btn-outline btn-outline-success" href="http://localhost:3000/category_form">➕Agregar</a>
+                    </div>
+                    <div class="botton-section-box">
+                        <ul id="lista-categories">
+                            <li style="justify-content: center; color: #999;">
+                                Cargando datos...
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="botton-section-box">
-                    <ul id="lista-products">
-                        <li class="item-list">
-                            Cargando datos...
-                        </li>
-                    </ul>
+                <div class="section-box">
+                    <div class="top-section-box">
+                        <h3>📋 Licencias Disponibles</h2>
+                        <a href="http://localhost:3000/licence_form" class="btn-outline btn-outline-success">➕Agregar</a>
+                    </div>
+                    <div class="botton-section-box">
+                        <ul id="lista-licences">
+                            <li style="justify-content: center; color: #999;">
+                                Cargando datos...
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="user-box">
+                    <div class="top-section-box">
+                        <h3>📋 Usuarios Disponibles</h2>
+                        <a href="http://localhost:3000/user_form" class="btn-outline btn-outline-success">➕Agregar</a>
+                    </div>
+                    <div class="botton-section-box">
+                        <ul id="lista-users">
+                            <li style="justify-content: center; color: #999;">
+                                Cargando datos...
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="back-box">
+                    <a class="link-box" href="http://localhost:3000">Home</a>
                 </div>
             </div>      
-            <div class="section-box">
-                <div class="top-section-box">
-                    <h3>📋 Categorias Disponibles</h2>
-                    <a class="btn-outline btn-outline-success" href="http://localhost:3000/category_form">➕Agregar</a>
-                </div>
-                <div class="botton-section-box">
-                    <ul id="lista-categories">
-                        <li style="justify-content: center; color: #999;">
-                            Cargando datos...
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="section-box">
-                <div class="top-section-box">
-                    <h3>📋 Licencias Disponibles</h2>
-                    <a href="http://localhost:3000/licence_form" class="btn-outline btn-outline-success">➕Agregar</a>
-                </div>
-                <div class="botton-section-box">
-                    <ul id="lista-licences">
-                        <li style="justify-content: center; color: #999;">
-                            Cargando datos...
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="user-box">
-                <div class="top-section-box">
-                    <h3>📋 Usuarios Disponibles</h2>
-                    <a href="http://localhost:3000/user_form" class="btn-outline btn-outline-success">➕Agregar</a>
-                </div>
-                <div class="botton-section-box">
-                    <ul id="lista-users">
-                        <li style="justify-content: center; color: #999;">
-                            Cargando datos...
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="back-box">
-                <a class="link-box" href="http://localhost:3000">Home</a>
-            </div>
-        </div>        
+        </div>
         <script src="../js/home.js"></script>
     </body>
 </html>

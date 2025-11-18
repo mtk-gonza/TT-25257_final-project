@@ -7,62 +7,64 @@
     <link rel= "stylesheet" type= "text/css" href= "../css/normalize.css" />
     <title>Product Form</title>
 </head>
-<body>
-    <div class="box">
-        <h2 id="form_title"> Add Product</h2>
-        <form id="product_form">
-            <div class="input-box">
-                <input type="text" id="name" required>
-                <label>Name</label>
-            </div>
-            <div class="input-box">
-                <input type="text" id="sku" required>
-                <label>Código</label>
-            </div>
-            <div class="input-box">
-                <input type="number" id="stock" required>
-                <label>Stock</label>
-            </div>
-            <div class="input-box">
-                <input type="number" id="price" required>
-                <label>Price</label>
-            </div>
-            <div class="input-box">
-                <input type="number" id="dues" required>
-                <label>Dues</label>
-            </div>
-            <div class="input-box">
-                <input type="number" id="discount" min="0" max="100" required>
-                <label>Discount</label>
-            </div>
-            <div class="checkbox">
-                <label for="special">Special</label>
-                <input type="checkbox" id="special">
-            </div>
-            <div class="input-box">
-                <select id="licence" required>
-                    <option value="">Seleccionar licencia</option>
-                </select>
-                <label for="licence">Licencia</label>
-            </div>
-            <div class="input-box">
-                <select id="category" required>
-                    <option value="">Seleccionar categoría</option>
-                </select>
-                <label for="category">Categoría</label>
-            </div>
-            <div class="textarea-box">
-                <label>Imágenes (una por línea)</label>
-                <textarea id="images" rows="4" placeholder="images/star-wars/funko1.webp&#10;images/star-wars/funko2.webp"></textarea>
-            </div>
-            <div class="button-form">
-                <button class="btn-outline btn-outline-primary">Submit</button>
-                <a class="btn-outline btn-outline-danger" href="http://localhost:3000/dashboard">Cancel</a>
-            </div>
-            <div class="back-box">
-                <a class="link-box" href="http://localhost:3000">Home</a>
-            </div>
-        </form>
+<body>    
+    <div class="container">
+        <div class="big-box">
+            <h2 id="form_title"> Add Product</h2>
+            <form id="product_form">
+                <div class="input-box">
+                    <input type="text" id="name" required>
+                    <label>Name</label>
+                </div>
+                <div class="input-box">
+                    <input type="text" id="sku" required>
+                    <label>Código</label>
+                </div>
+                <div class="input-box">
+                    <input type="number" id="stock" required>
+                    <label>Stock</label>
+                </div>
+                <div class="input-box">
+                    <input type="number" id="price" required>
+                    <label>Price</label>
+                </div>
+                <div class="input-box">
+                    <input type="number" id="dues" required>
+                    <label>Dues</label>
+                </div>
+                <div class="input-box">
+                    <input type="number" id="discount" min="0" max="100" required>
+                    <label>Discount</label>
+                </div>
+                <div class="checkbox">
+                    <label for="special">Special</label>
+                    <input type="checkbox" id="special">
+                </div>
+                <div class="input-box">
+                    <select id="licence" required>
+                        <option value="">Seleccionar licencia</option>
+                    </select>
+                    <label for="licence">Licencia</label>
+                </div>
+                <div class="input-box">
+                    <select id="category" required>
+                        <option value="">Seleccionar categoría</option>
+                    </select>
+                    <label for="category">Categoría</label>
+                </div>
+                <div class="textarea-box">
+                    <label>Imágenes (una por línea)</label>
+                    <textarea id="images" rows="4" placeholder="images/star-wars/funko1.webp&#10;images/star-wars/funko2.webp"></textarea>
+                </div>
+                <div class="button-form">
+                    <button class="btn-outline btn-outline-primary">Submit</button>
+                    <a class="btn-outline btn-outline-danger" href="http://localhost:3000/dashboard">Cancel</a>
+                </div>
+                <div class="back-box">
+                    <a class="link-box" href="http://localhost:3000">Home</a>
+                </div>
+            </form>
+        </div>
     </div>
     <script src="../js/product_form.js"></script>
 </body>
