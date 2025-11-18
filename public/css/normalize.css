@@ -38,6 +38,8 @@ body {
 
 .container {
     max-width: 800px;
+    align-items: center;
+    display: flex;
 }
 
 h2 {
@@ -114,6 +116,7 @@ h3 {
     color: #8F7CEC;
     font-size: 12px;
     margin-bottom: 60px;
+    gap: 10px;
 }
 
 .textarea-box {
@@ -140,6 +143,10 @@ h3 {
     background-position: right 0.5rem center;
     background-size: 16px 12px;
     padding-right: 24px;
+}
+
+select option {
+    background-color: #131315;
 }
 
 .link-box {

@@ -1,3 +1,6 @@
+const API_URL = 'http://localhost:3000/api';
+const licenceSelect = document.getElementById('licence');
+const categorySelect = document.getElementById('category');
 const urlParams = new URLSearchParams(window.location.search);
 const pathSegments = window.location.pathname.split('/');
 const id = pathSegments[2];
@@ -5,18 +8,12 @@ const id = pathSegments[2];
 async function loadLicencesAndCategories() {
     try {
         const [licencesRes, categoriesRes] = await Promise.all([
-            fetch('/api/licences'),
-            fetch('/api/categories')
+            fetch(`${API_URL}/licences`),
+            fetch(`${API_URL}/categories`)
         ]);
 
         const licences = await licencesRes.json();
         const categories = await categoriesRes.json();
-
-        const licenceSelect = document.getElementById('licence');
-        const categorySelect = document.getElementById('category');
-
-        licenceSelect.innerHTML = '<option value="">Seleccionar licencia</option>';
-        categorySelect.innerHTML = '<option value="">Seleccionar categoría</option>';
 
         licences.forEach(licence => {
             const opt = document.createElement('option');
@@ -37,11 +34,12 @@ async function loadLicencesAndCategories() {
     }
 }
 
+loadLicencesAndCategories();
+
 if (id) {
     document.getElementById('form_title').textContent = 'Edit Product';
     Promise.all([
-        loadLicencesAndCategories(),
-        fetch(`/api/products/${id}`).then(res => res.json())
+        fetch(`${API_URL}/products/${id}`).then(res => res.json())
     ]).then(([, product]) => {
         document.getElementById('name').value = product.name;
         document.getElementById('sku').value = product.sku;
@@ -56,8 +54,9 @@ if (id) {
     }).catch(err => {
         console.error('Error al cargar producto:', err);
     });
-} else {
-    loadLicencesAndCategories();
+} else { 
+    licenceSelect.innerHTML = '<option value="">Seleccionar licencia</option>';
+    categorySelect.innerHTML = '<option value="">Seleccionar categoría</option>';    
 }
 
 document.getElementById('product_form')?.addEventListener('submit', async (e) => {
@@ -80,7 +79,7 @@ document.getElementById('product_form')?.addEventListener('submit', async (e) =>
     };
 
     try {
-        const url = id ? `/api/products/${id}` : '/api/products';
+        const url = id ? `${API_URL}/products/${id}` :` ${API_URL}/products`;
         const method = id ? 'PUT' : 'POST';
 
         const res = await fetch(url, {
@@ -91,7 +90,7 @@ document.getElementById('product_form')?.addEventListener('submit', async (e) =>
 
         if (res.ok) {
             alert(id ? 'Producto actualizado' : 'Producto creado');
-            window.location.href = '/home';
+            window.location.href = '/dashboard';
         } else {
             const error = await res.json();
             alert('Error: ' + (error.error || 'Falló la operación'));

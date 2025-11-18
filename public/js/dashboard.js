@@ -9,7 +9,7 @@ const inputCategoria = document.getElementById('input-categoria');
 const statusDiv = document.getElementById('status');
 
 // Función para mostrar mensajes de estado
-function mostrarStatus(mensaje, tipo) {
+function showStatus(mensaje, tipo) {
     statusDiv.textContent = mensaje;
     statusDiv.className = `status ${tipo}`;
     setTimeout(() => {
@@ -34,20 +34,12 @@ async function test(text) {
 
 const getProducts = async () => {
     try {
-        console.log('🔍 Intentando obtener items...');
         const response = await fetch(`${API_URL}/products`);
-
         if (!response.ok) {
             throw new Error('Error al obtener items');
         }
-
         const data = await response.json();
-        console.log('✅ Items recibidos:', data);
-
-        // Limpiar la lista
         lista_products.innerHTML = '';
-
-        // Mostrar items
         if (data.length === 0) {
             lista_products.innerHTML = '<li class="item-list">No hay items todavía</li>';
         } else {
@@ -67,30 +59,21 @@ const getProducts = async () => {
                 lista_products.appendChild(li);
             });
         }
-
     } catch (error) {
         console.error('❌ Error:', error);
         lista_products.innerHTML = '<li class="item-list" style="color: #c00;">❌ Error al cargar items. Revisa la consola.</li>';
-        mostrarStatus('Error de CORS o conexión. Revisa la consola.', 'error');
+        showStatus('Error de CORS o conexión. Revisa la consola.', 'error');
     }    
 }
 
 const getCategories = async () => {
     try {
-        console.log('🔍 Intentando obtener items...');
         const response = await fetch(`${API_URL}/categories`);
-
         if (!response.ok) {
             throw new Error('Error al obtener items');
         }
-
         const data = await response.json();
-        console.log('✅ Items recibidos:', data);
-
-        // Limpiar la lista
         lista_categories.innerHTML = '';
-
-        // Mostrar items
         if (data.length === 0) {
             lista_categories.innerHTML = '<li class="item-list">No hay items todavía</li>';
         } else {
@@ -109,30 +92,21 @@ const getCategories = async () => {
                 lista_categories.appendChild(li);
             });
         }
-
     } catch (error) {
         console.error('❌ Error:', error);
         lista_categories.innerHTML = '<li class="item-list" style="color: #c00;">❌ Error al cargar items. Revisa la consola.</li>';
-        mostrarStatus('Error de CORS o conexión. Revisa la consola.', 'error');
+        showStatus('Error de CORS o conexión. Revisa la consola.', 'error');
     }    
 }
 
 const getLicences = async () => {
     try {
-        console.log('🔍 Intentando obtener items...');
         const response = await fetch(`${API_URL}/licences`);
-
         if (!response.ok) {
             throw new Error('Error al obtener items');
         }
-
         const data = await response.json();
-        console.log('✅ Items recibidos:', data);
-
-        // Limpiar la lista
         lista_licences.innerHTML = '';
-
-        // Mostrar items
         if (data.length === 0) {
             lista_licences.innerHTML = '<li class="item-list">No hay items todavía</li>';
         } else {
@@ -155,26 +129,18 @@ const getLicences = async () => {
     } catch (error) {
         console.error('❌ Error:', error);
         lista_licences.innerHTML = '<li class="item-list" style="color: #c00;">❌ Error al cargar items. Revisa la consola.</li>';
-        mostrarStatus('Error de CORS o conexión. Revisa la consola.', 'error');
+        showStatus('Error de CORS o conexión. Revisa la consola.', 'error');
     }    
 }
 
 const getUsers = async () => {
     try {
-        console.log('🔍 Intentando obtener items...');
         const response = await fetch(`${API_URL}/users`);
-
         if (!response.ok) {
             throw new Error('Error al obtener items');
         }
-
         const data = await response.json();
-        console.log('✅ Items recibidos:', data);
-
-        // Limpiar la lista
         lista_users.innerHTML = '';
-
-        // Mostrar items
         if (data.length === 0) {
             lista_users.innerHTML = '<li style="class="item-list">No hay items todavía</li>';
         } else {
@@ -193,11 +159,10 @@ const getUsers = async () => {
                 lista_users.appendChild(li);
             });
         }
-
     } catch (error) {
         console.error('❌ Error:', error);
         lista_users.innerHTML = '<li class="item-list" style="color: #c00;">❌ Error al cargar items. Revisa la consola.</li>';
-        mostrarStatus('Error de CORS o conexión. Revisa la consola.', 'error');
+        showStatus('Error de CORS o conexión. Revisa la consola.', 'error');
     }    
 }
 

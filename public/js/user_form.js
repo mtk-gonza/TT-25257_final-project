@@ -1,3 +1,4 @@
+const API_URL = 'http://localhost:3000/api';
 const urlParams = new URLSearchParams(window.location.search);
 const pathSegments = window.location.pathname.split('/');
 const id = pathSegments[2];
@@ -5,7 +6,7 @@ const id = pathSegments[2];
 if (id) {
     document.getElementById('form_title').textContent = 'Edit User';
     document.getElementById('label_pwd').textContent = 'New Password';
-    fetch(`/api/users/${id}`)
+    fetch(`${API_URL}/users/${id}`)
         .then(res => res.json())
         .then(user => {
             document.getElementById('name').value = user.name;
@@ -27,7 +28,7 @@ document.getElementById('user_form')?.addEventListener('submit', async (e) => {
     };
 
     try {
-        const url = id ? `/api/users/${id}` : '/api/users';
+        const url = id ? `${API_URL}/users/${id}` : `${API_URL}/users`;
         const method = id ? 'PUT' : 'POST';
 
         const res = await fetch(url, {
@@ -38,7 +39,7 @@ document.getElementById('user_form')?.addEventListener('submit', async (e) => {
 
         if (res.ok) {
             alert(id ? 'Usuario actualizado' : 'Usuario creado');
-            window.location.href = '/home';
+            window.location.href = '/dashboard';
         } else {
             const error = await res.json();
             alert('Error: ' + (error.error || 'Falló la operación'));
