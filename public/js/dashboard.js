@@ -7,30 +7,72 @@ const form = document.getElementById('form-crear');
 const inputNombre = document.getElementById('input-nombre');
 const inputCategoria = document.getElementById('input-categoria');
 const statusDiv = document.getElementById('status');
+const product_status = document.getElementById('products-status');
+const categories_status = document.getElementById('categories-status');
+const licences_status = document.getElementById('licences-status');
+const users_status = document.getElementById('users-status');
 
-// Función para mostrar mensajes de estado
-function showStatus(mensaje, tipo) {
-    statusDiv.textContent = mensaje;
-    statusDiv.className = `status ${tipo}`;
+const showStatus = (mensaje, tipo, collection) => {
+
+    switch(collection) {
+        case 'products':
+            collection = product_status;
+            break;
+        case 'categories':
+            collection = categories_status;
+            break;
+        case 'licences':
+            collection = licences_status;   
+            break;
+        case 'users':
+            collection = users_status; 
+            break;  
+        default:
+            collection = statusDiv;
+    }   
+    collection.textContent = mensaje;
+    collection.className = `status ${tipo}`;
     setTimeout(() => {
-        statusDiv.className = 'status hidden';
-    }, 1000);
+        collection.className = 'status hidden';
+    }, 3000);
 }
 
-// ULTIMOOOO
-async function verItem(item) {
-    console.log(item.name)
-    //const response = await fetch(`${API_URL}/products/${id}`);
-    //const data = await response.json();
-    //console.log(data)
-}
+const removeItem = async (id, tipo) => {
+    if (!confirm('¿Estás seguro de que deseas eliminar este elemento?')) {
+        return; 
+    }
 
-async function test(text) {
-    console.log(typeof text)
-    //const response = await fetch(`${API_URL}/products/${id}`);
-    //const data = await response.json();
-    //console.log(data)
-}
+    try {
+        const response = await fetch(`${API_URL}/${tipo}/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            showStatus('Elemento eliminado correctamente', 'success', tipo);
+            switch(tipo) {
+                case 'products':
+                    getProducts();
+                    break;
+                case 'categories':
+                    getCategories();
+                    break;
+                case 'licences':
+                    getLicences();
+                    break;
+                case 'users':
+                    getUsers();
+                    break;
+            }
+        } else {
+            const errorData = await response.json().catch(() => ({}));
+            console.error('Error al eliminar:', errorData);
+            showStatus(`Error: ${errorData.error || 'No se pudo eliminar'}`, 'error', tipo);
+        }
+    } catch (error) {
+        console.error('Error de red al eliminar:', error);
+        showStatus('Error de conexión al eliminar', 'error', tipo);
+    }       
+};
 
 const getProducts = async () => {
     try {
@@ -45,6 +87,7 @@ const getProducts = async () => {
         } else {
             data.forEach(item => {
                 const li = document.createElement('li');
+                const btn = document.createElement('button');
                 li.className = 'item-list'
                 li.innerHTML = `
                             <div class="item-info">
@@ -52,17 +95,18 @@ const getProducts = async () => {
                                 <div class="item-category">📁 ${item.category.name}</div>
                             </div>
                             <a class="btn-outline btn-outline-primary" href="http://localhost:3000/product_form/${item.id}">👁 Ver</a>
-                            <button class="btn-outline btn-outline-danger" onclick="eliminarItem(${item.id})">
-                                🗑️ Eliminar
-                            </button>
                         `;
+                btn.textContent = '🗑️ Eliminar';
+                btn.classList.add('btn-outline', 'btn-outline-danger');
+                btn.addEventListener('click', () => removeItem(item.id, 'products'));
+                li.appendChild(btn);
                 lista_products.appendChild(li);
             });
         }
     } catch (error) {
         console.error('❌ Error:', error);
-        lista_products.innerHTML = '<li class="item-list" style="color: #c00;">❌ Error al cargar items. Revisa la consola.</li>';
-        showStatus('Error de CORS o conexión. Revisa la consola.', 'error');
+        lista_products.innerHTML = '<li class="item-list" style="color: #c00;">❌ Error al cargar productos.</li>';
+        showStatus('Error de CORS o conexión. Revisa la consola.', 'error', 'products');
     }    
 }
 
@@ -79,23 +123,25 @@ const getCategories = async () => {
         } else {
             data.forEach(item => {
                 const li = document.createElement('li');
+                const btn = document.createElement('button');
                 li.className = 'item-list'
                 li.innerHTML = `
                             <div class="item-info">
                                 <div class="item-name">${item.name}</div>
                             </div>
                             <a class="btn-outline btn-outline-primary" href="http://localhost:3000/category_form/${item.id}">👁 Ver</a>
-                            <button class="btn-outline btn-outline-danger" onclick="eliminarItem(${item.id})">
-                                🗑️ Eliminar
-                            </button>
                         `;
+                btn.textContent = '🗑️ Eliminar';
+                btn.classList.add('btn-outline', 'btn-outline-danger');
+                btn.addEventListener('click', () => removeItem(item.id, 'categories'));
+                li.appendChild(btn);
                 lista_categories.appendChild(li);
             });
         }
     } catch (error) {
         console.error('❌ Error:', error);
-        lista_categories.innerHTML = '<li class="item-list" style="color: #c00;">❌ Error al cargar items. Revisa la consola.</li>';
-        showStatus('Error de CORS o conexión. Revisa la consola.', 'error');
+        lista_categories.innerHTML = '<li class="item-list" style="color: #c00;">❌ Error al cargar categorias.</li>';
+        showStatus('Error de CORS o conexión. Revisa la consola.', 'error', 'categories');
     }    
 }
 
@@ -112,24 +158,26 @@ const getLicences = async () => {
         } else {
             data.forEach(item => {
                 const li = document.createElement('li');
+                const btn = document.createElement('button');
                 li.className = 'item-list'
                 li.innerHTML = `
                             <div class="item-info">
                                 <div class="item-name">${item.name}</div>
                             </div>
                             <a class="btn-outline btn-outline-primary" href="http://localhost:3000/licence_form/${item.id}">👁 Ver</a>
-                            <button class="btn-outline btn-outline-danger" onclick="eliminarItem(${item.id})">
-                                🗑️ Eliminar
-                            </button>
                         `;
+                btn.textContent = '🗑️ Eliminar';
+                btn.classList.add('btn-outline', 'btn-outline-danger');
+                btn.addEventListener('click', () => removeItem(item.id, 'licences'));
+                li.appendChild(btn);
                 lista_licences.appendChild(li);
             });
         }
 
     } catch (error) {
         console.error('❌ Error:', error);
-        lista_licences.innerHTML = '<li class="item-list" style="color: #c00;">❌ Error al cargar items. Revisa la consola.</li>';
-        showStatus('Error de CORS o conexión. Revisa la consola.', 'error');
+        lista_licences.innerHTML = '<li class="item-list" style="color: #c00;">❌ Error al cargar licencias.</li>';
+        showStatus('Error de CORS o conexión. Revisa la consola.', 'error', 'licences');
     }    
 }
 
@@ -146,67 +194,26 @@ const getUsers = async () => {
         } else {
             data.forEach(item => {
                 const li = document.createElement('li');
+                const btn = document.createElement('button');
                 li.className = 'item-list'
                 li.innerHTML = `
                             <div class="item-info">
                                 <div class="item-name">${item.name}</div>
                             </div>
                             <a class="btn-outline btn-outline-primary" href="http://localhost:3000/user_form/${item.id}">👁 Ver</a>
-                            <button class="btn-outline btn-outline-danger" onclick="eliminarItem(${item.id})">
-                                🗑️ Eliminar
-                            </button>
                         `;
+                btn.textContent = '🗑️ Eliminar';
+                btn.classList.add('btn-outline', 'btn-outline-danger');
+                btn.addEventListener('click', () => removeItem(item.id, 'users'));
+                li.appendChild(btn);
                 lista_users.appendChild(li);
             });
         }
     } catch (error) {
         console.error('❌ Error:', error);
         lista_users.innerHTML = '<li class="item-list" style="color: #c00;">❌ Error al cargar items. Revisa la consola.</li>';
-        showStatus('Error de CORS o conexión. Revisa la consola.', 'error');
+        showStatus('Error de CORS o conexión. Revisa la consola.', 'error', 'users');
     }    
-}
-
-async function eliminarItem(id) {
-
-    const confirmacion = await Swal.fire({
-        title: '¿Eliminar item?',
-        text: "Esta acción no se puede deshacer!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Sí, eliminar',
-        cancelButtonText: 'Cancelar'
-    });
-
-    if (!confirmacion.isConfirmed) return;
-
-    try {
-        console.log('🗑️ Eliminando item:', id);
-        const response = await fetch(`${API_URL}/products/${id}`, {
-            method: 'DELETE'
-        });
-
-        if (!response.ok) {
-            throw new Error('Error al eliminar item');
-        }
-
-        await Swal.fire({
-            title: '✅ Eliminado!',
-            text: 'El item se eliminó correctamente.',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        });
-
-        obtenerItems();
-
-    } catch (error) {
-        console.error('❌ Error:', error);
-
-        Swal.fire({
-            title: 'Error',
-            text: 'No se pudo eliminar el item.',
-            icon: 'error'
-        });
-    }
 }
 
 const main = () => {

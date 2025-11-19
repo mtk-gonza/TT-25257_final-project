@@ -38,10 +38,11 @@ loadLicencesAndCategories();
 
 if (id) {
     document.getElementById('form_title').textContent = 'Edit Product';
-    Promise.all([
-        fetch(`${API_URL}/products/${id}`).then(res => res.json())
-    ]).then(([, product]) => {
+    fetch(`${API_URL}/products/${id}`)
+    .then(res => res.json())
+    .then(product => {
         document.getElementById('name').value = product.name;
+        document.getElementById('description').value = product.description;
         document.getElementById('sku').value = product.sku;
         document.getElementById('stock').value = product.stock;
         document.getElementById('price').value = product.price;
@@ -64,6 +65,7 @@ document.getElementById('product_form')?.addEventListener('submit', async (e) =>
 
     const productData = {
         name: document.getElementById('name').value,
+        description: document.getElementById('description').value,
         sku: document.getElementById('sku').value,
         stock: Number(document.getElementById('stock').value),
         price: Number(document.getElementById('price').value),
