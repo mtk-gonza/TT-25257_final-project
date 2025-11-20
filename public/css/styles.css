@@ -237,7 +237,7 @@ select option {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    margin-top: 20px;
+    gap: 10px;
 }
 .button-form-box {
     font-size:  14px;
@@ -311,6 +311,7 @@ li {
     align-items: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     animation: slideIn 0.3s ease;
+    gap: 10px;
 }
 
 .center-item-list {

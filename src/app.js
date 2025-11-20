@@ -1,11 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import { PORT } from './settings/config.js';
-
-export const app = express();
-
-//Settings
-app.set('port', PORT);
 //Routers
 import { publicRouter } from './routes/public_router.js';
 import { authRouter } from './routes/auth_router.js';
@@ -13,10 +8,11 @@ import { userRouter } from './routes/user_router.js';
 import { licenceRouter } from './routes/licence_router.js';
 import { categoryRouter } from './routes/category_router.js';
 import { productRouter } from './routes/product_router.js';
-//Routers para endpoints de datos locales
-import { userLocalRouter } from './routes/user_local_router.js';
-import { productLocalRouter } from './routes/product_local_router.js';  
 
+export const app = express();
+//Settings
+app.set('port', PORT);
+//Middlewares
 app.use(cors());
 /*
 // Configuración avanzada: Permitir dominios específicos 
@@ -32,6 +28,7 @@ const corsOptions = {
 app.use(cors(corsOptions)); 
 */
 
+//Routes 
 app.use(publicRouter);
 app.use(express.json());
 app.use('/api/auth', authRouter);
@@ -39,9 +36,6 @@ app.use('/api/users', userRouter);
 app.use('/api/licences', licenceRouter);
 app.use('/api/categories', categoryRouter);
 app.use('/api/products', productRouter);
-// Endpoints para datos locales
-app.use('/api/local/users', userLocalRouter);
-app.use('/api/local/products', productLocalRouter);
 
 // Middleware global de manejo de errores
 app.use((req, res, next) => {

@@ -56,8 +56,7 @@ export const getUserByUsername = async (username) => {
     const doc = snapshot.docs[0];
     const data = doc.data();
     const cleanData = convertTimestamps(data);
-    const { password, salt, ...safeUser } = cleanData;
-    return { id: doc.id, ...safeUser };
+    return { id: doc.id, ...cleanData };
 };
 
 export const updateUserById = async (id, updateData) => {

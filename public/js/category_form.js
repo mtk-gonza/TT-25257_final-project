@@ -17,16 +17,13 @@ if (id) {
 
 document.getElementById('category_form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
-
     const categoryData = {
         name: document.getElementById('name').value,
         description: document.getElementById('description').value
     };
-
     try {
         const url = id ? `${API_URL}/categories/${id}` : `${API_URL}/categories`;
         const method = id ? 'PUT' : 'POST';
-
         const res = await fetch(url, {
             method,
             headers: { 'Content-Type': 'application/json' },

@@ -13,7 +13,6 @@ const licences_status = document.getElementById('licences-status');
 const users_status = document.getElementById('users-status');
 
 const showStatus = (mensaje, tipo, collection) => {
-
     switch(collection) {
         case 'products':
             collection = product_status;
@@ -41,7 +40,6 @@ const removeItem = async (id, tipo) => {
     if (!confirm('¿Estás seguro de que deseas eliminar este elemento?')) {
         return; 
     }
-
     try {
         const response = await fetch(`${API_URL}/${tipo}/${id}`, {
             method: 'DELETE'
@@ -173,7 +171,6 @@ const getLicences = async () => {
                 lista_licences.appendChild(li);
             });
         }
-
     } catch (error) {
         console.error('❌ Error:', error);
         lista_licences.innerHTML = '<li class="item-list" style="color: #c00;">❌ Error al cargar licencias.</li>';

@@ -18,7 +18,6 @@ if (id) {
 
 document.getElementById('licence_form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
-
     const licenceData = {
         name: document.getElementById('name').value,
         description: document.getElementById('description').value,
@@ -27,17 +26,14 @@ document.getElementById('licence_form')?.addEventListener('submit', async (e) =>
             .map(s => s.trim())
             .filter(s => s)
     };
-
     try {
         const url = id ? `${API_URL}/licences/${id}` : `${API_URL}/licences`;
         const method = id ? 'PUT' : 'POST';
-
         const res = await fetch(url, {
             method,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(licenceData)
         });
-
         if (res.ok) {
             alert(id ? 'Licencia actualizada' : 'Licencia creada');
             window.location.href = '/dashboard';

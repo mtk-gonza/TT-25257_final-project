@@ -5,23 +5,20 @@ const urlParams = new URLSearchParams(window.location.search);
 const pathSegments = window.location.pathname.split('/');
 const id = pathSegments[2];
 
-async function loadLicencesAndCategories() {
+const loadLicencesAndCategories = async () => {
     try {
         const [licencesRes, categoriesRes] = await Promise.all([
             fetch(`${API_URL}/licences`),
             fetch(`${API_URL}/categories`)
         ]);
-
         const licences = await licencesRes.json();
         const categories = await categoriesRes.json();
-
         licences.forEach(licence => {
             const opt = document.createElement('option');
             opt.value = licence.id;
             opt.textContent = licence.name;
             licenceSelect.appendChild(opt);
         });
-
         categories.forEach(category => {
             const opt = document.createElement('option');
             opt.value = category.id;
@@ -62,7 +59,6 @@ if (id) {
 
 document.getElementById('product_form')?.addEventListener('submit', async (e) => {
     e.preventDefault();
-
     const productData = {
         name: document.getElementById('name').value,
         description: document.getElementById('description').value,
@@ -79,17 +75,14 @@ document.getElementById('product_form')?.addEventListener('submit', async (e) =>
             .map(s => s.trim())
             .filter(s => s)
     };
-
     try {
         const url = id ? `${API_URL}/products/${id}` :` ${API_URL}/products`;
         const method = id ? 'PUT' : 'POST';
-
         const res = await fetch(url, {
             method,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(productData)
         });
-
         if (res.ok) {
             alert(id ? 'Producto actualizado' : 'Producto creado');
             window.location.href = '/dashboard';
