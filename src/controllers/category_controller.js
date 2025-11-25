@@ -43,7 +43,7 @@ export const updateCategoryById = async (req, res) => {
         const { category_id } = req.params;
         const updateData = req.body;
 
-        const updatedCategory = await categoryService.updateUserById(category_id, updateData);
+        const updatedCategory = await categoryService.updateCategoryById(category_id, updateData);
         res.status(200).json(updatedCategory);
     } catch (error) {
         if (error.message === 'categoria no encontrado') {

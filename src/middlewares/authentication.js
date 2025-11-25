@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from './../settings/config.js';
  
 export const authentication = (req, res, next) => { 
-    const authHeader = req.headers['Authorization'];
+    const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.sendStatus(401);

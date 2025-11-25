@@ -5,6 +5,13 @@ const urlParams = new URLSearchParams(window.location.search);
 const pathSegments = window.location.pathname.split('/');
 const id = pathSegments[2];
 
+const token = localStorage.getItem('token');
+
+if (!token) {
+    alert('Debes iniciar sesión para acceder a esta página');
+    window.location.href = '/login';
+}
+
 const loadLicencesAndCategories = async () => {
     try {
         const [licencesRes, categoriesRes] = await Promise.all([
@@ -35,7 +42,11 @@ loadLicencesAndCategories();
 
 if (id) {
     document.getElementById('form_title').textContent = 'Edit Product';
-    fetch(`${API_URL}/products/${id}`)
+    fetch(`${API_URL}/products/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
     .then(res => res.json())
     .then(product => {
         document.getElementById('name').value = product.name;
@@ -80,7 +91,10 @@ document.getElementById('product_form')?.addEventListener('submit', async (e) =>
         const method = id ? 'PUT' : 'POST';
         const res = await fetch(url, {
             method,
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` 
+            },
             body: JSON.stringify(productData)
         });
         if (res.ok) {

@@ -55,6 +55,8 @@ document.getElementById('category_form')?.addEventListener('submit', async (e) =
             body: JSON.stringify(categoryData)
         });
 
+        console.log(res)
+
         if (res.ok) {
             alert(id ? 'Categoría actualizada' : 'Categoría creada');
             window.location.href = '/dashboard';

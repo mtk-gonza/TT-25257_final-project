@@ -3,9 +3,20 @@ const urlParams = new URLSearchParams(window.location.search);
 const pathSegments = window.location.pathname.split('/');
 const id = pathSegments[2];
 
+const token = localStorage.getItem('token');
+
+if (!token) {
+    alert('Debes iniciar sesión para acceder a esta página');
+    window.location.href = '/login';
+}
+
 if (id) {
     document.getElementById('form_title').textContent = 'Edit Licence';
-    fetch(`${API_URL}/licences/${id}`)
+    fetch(`${API_URL}/licences/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
         .then(res => res.json())
         .then(licence => {
             document.getElementById('name').value = licence.name;
@@ -31,7 +42,10 @@ document.getElementById('licence_form')?.addEventListener('submit', async (e) =>
         const method = id ? 'PUT' : 'POST';
         const res = await fetch(url, {
             method,
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` 
+            },
             body: JSON.stringify(licenceData)
         });
         if (res.ok) {
