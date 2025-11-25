@@ -32,3 +32,36 @@ En modo desarrollador:
 ```bash
 npm run dev
 ```
+
+# ENDPOINTS
+Para realizar distintas pruebas
+## Home
+Donde estan todos los links disponibles para las distintas funciones de la API
+```
+http://localhost:3000
+```
+## Docs
+Para visualizar todos los endpoints
+```
+http://localhost:3000/docs
+```
+## Registrarse
+Podra registrarse para luego poder realizar las operaciones CRUD de los endpoints
+```
+http://localhost:3000/register
+```
+## Login
+Autorizarse para realizar operaciones CRUD
+```
+http://localhost:3000/login
+```
+## Dashboard
+Panel para el usuario registrado para realizar las operaciones CRUD
+```
+http://localhost:3000/dashboard
+```
+## About
+Una breve descripción del proyecto
+```
+http://localhost:3000/about
+```
