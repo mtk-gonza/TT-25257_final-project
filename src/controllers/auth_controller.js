@@ -1,5 +1,6 @@
 import * as userService from './../services/user_service.js';
 import * as authService from './../services/auth_service.js';
+import { generateToken } from './../utils/token_generator.js';
 
 export const login = async (req, res) => {
     try {
@@ -15,7 +16,8 @@ export const login = async (req, res) => {
         if (!validPassword) {
             return res.status(401).json({ error: 'Usuario o contraseña incorrectos' });
         }
-        return res.status(200).json({ message: 'Inicio de sesión correcto' });
+        const token = generateToken(user);
+        return res.status(200).json({ token: token });
 
     } catch (error) {
         console.error('Error en login:', error);

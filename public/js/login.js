@@ -26,6 +26,7 @@ document.getElementById("submit").addEventListener("click", async (e) => {
             localStorage.setItem("token", data.token);
         }
         alert("Inicio de sesión correcto.");
+        window.location.href = '/';
 
     } catch (err) {
         console.error("❌ Error:", err.message);

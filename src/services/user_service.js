@@ -1,5 +1,5 @@
 import { db } from './../settings/database.js';
-import { convertTimestamps } from './../utils/convertTime.js';
+import { convertTimestamps } from './../utils/convert_time.js';
 import * as authService from './auth_service.js';
 
 export const getAllUsers = async () => {

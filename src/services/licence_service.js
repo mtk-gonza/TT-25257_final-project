@@ -1,5 +1,5 @@
 import { db } from './../settings/database.js';
-import { convertTimestamps } from './../utils/convertTime.js';
+import { convertTimestamps } from './../utils/convert_time.js';
 
 export const getAllLicences = async () => {
     const snapshot = await db.collection('licences').get();

@@ -12,6 +12,8 @@ const categories_status = document.getElementById('categories-status');
 const licences_status = document.getElementById('licences-status');
 const users_status = document.getElementById('users-status');
 
+const token = localStorage.getItem('token');
+
 const showStatus = (mensaje, tipo, collection) => {
     switch(collection) {
         case 'products':
@@ -37,12 +39,22 @@ const showStatus = (mensaje, tipo, collection) => {
 }
 
 const removeItem = async (id, tipo) => {
+    if (!token) {
+        alert('Debes iniciar sesión para acceder a esta página');
+        window.location.href = '/login';
+    }
+
     if (!confirm('¿Estás seguro de que deseas eliminar este elemento?')) {
         return; 
     }
+
     try {
         const response = await fetch(`${API_URL}/${tipo}/${id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
         });
 
         if (response.ok) {

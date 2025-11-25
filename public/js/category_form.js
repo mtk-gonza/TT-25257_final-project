@@ -3,15 +3,34 @@ const urlParams = new URLSearchParams(window.location.search);
 const pathSegments = window.location.pathname.split('/');
 const id = pathSegments[2];
 
+const token = localStorage.getItem('token');
+
+if (!token) {
+    alert('Debes iniciar sesión para acceder a esta página');
+    window.location.href = '/login';
+}
+
 if (id) {
     document.getElementById('form_title').textContent = 'Edit Category';
-    fetch(`${API_URL}/categories/${id}`)
-        .then(res => res.json())
+    fetch(`${API_URL}/categories/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+        .then(res => {
+            if (res.status === 401 || res.status === 403) {
+                throw new Error('Acceso denegado');
+            }
+            return res.json();
+        })
         .then(category => {
             document.getElementById('name').value = category.name;
             document.getElementById('description').value = category.description;
-        }).catch(err => {
-            console.error('Error al cargar categoria:', err);
+        })
+        .catch(err => {
+            console.error('Error al cargar categoría:', err);
+            alert('No se pudo cargar la categoría. Es posible que no tengas permisos.');
+            window.location.href = '/dashboard';
         });
 }
 
@@ -21,24 +40,36 @@ document.getElementById('category_form')?.addEventListener('submit', async (e) =
         name: document.getElementById('name').value,
         description: document.getElementById('description').value
     };
+
     try {
         const url = id ? `${API_URL}/categories/${id}` : `${API_URL}/categories`;
         const method = id ? 'PUT' : 'POST';
+
+        console.log(`token: ${token}`)
         const res = await fetch(url, {
             method,
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
             body: JSON.stringify(categoryData)
         });
 
         if (res.ok) {
-            alert(id ? 'Categoria actualizada' : 'Categoria creada');
+            alert(id ? 'Categoría actualizada' : 'Categoría creada');
             window.location.href = '/dashboard';
         } else {
-            const error = await res.json();
-            alert('Error: ' + (error.error || 'Falló la operación'));
+            if (res.status === 401 || res.status === 403) {
+                alert('Tu sesión ha expirado o no tienes permisos. Por favor, inicia sesión nuevamente.');
+                localStorage.removeItem('token');
+                window.location.href = '/login';
+            } else {
+                const error = await res.json().catch(() => ({}));
+                alert('Error: ' + (error.error || 'Falló la operación'));
+            }
         }
     } catch (err) {
         console.error('Error al guardar:', err);
-        alert('Error de red al guardar la categoria');
+        alert('Error de red al guardar la categoría');
     }
 });
