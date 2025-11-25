@@ -40,7 +40,6 @@ const showStatus = (mensaje, tipo, collection) => {
 
 const removeItem = async (id, tipo) => {
     if (!token) {
-        alert('Debes iniciar sesión para acceder a esta página');
         window.location.href = '/login';
     }
 
