@@ -15,7 +15,11 @@ export const getAllCategories = async () => {
 export const createCategory = async (categoryData) => {
     const { name, description } = categoryData;
     if (!name || !description) {
-        throw new Error('Los campos "name" y "description" son obligatorios');
+        throw new Error('Campos: "name" y "description" son requeridos.');
+    }
+    const existing = await db.collection('categories').where('name', '==', name).get();
+    if (!existing.empty) {
+        throw new Error('Ya existe una categoría con ese nombre.');
     }
     const newCategory = {
         name,
@@ -50,7 +54,7 @@ export const updateCategoryById = async (id, updateData) => {
     const categoryRef = db.collection('categories').doc(id);
     const doc = await categoryRef.get();
     if (!doc.exists) {
-        throw new Error('Categoria no encontrada');
+        throw new Error('Categoria no encontrada.');
     }
     updateData.updated_at = new Date().toISOString();
     await categoryRef.update(updateData);
@@ -62,8 +66,8 @@ export const deleteCategoryById = async (id) => {
     const categoryRef = db.collection('categories').doc(id);
     const doc = await categoryRef.get();
     if (!doc.exists) {
-        throw new Error('Categoria no encontrado');
+        throw new Error('Categoria no encontrada.');
     }
     await categoryRef.delete();
-    return { message: 'Categoria eliminada correctamente' };
+    return { message: 'Categoria eliminada correctamente.' };
 };

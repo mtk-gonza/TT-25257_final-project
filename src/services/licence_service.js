@@ -49,7 +49,7 @@ export const updateLicenceById = async (id, updateData) => {
     const licenceRef = db.collection('licences').doc(id);
     const doc = await licenceRef.get();
     if (!doc.exists) {
-        throw new Error('Licencia no encontrada');
+        throw new Error('Licencia no encontrada.');
     }
     updateData.updated_at = new Date().toISOString();
     await licenceRef.update(updateData);
@@ -61,8 +61,8 @@ export const deleteLicenceById = async (id) => {
     const licenceRef = db.collection('licences').doc(id);
     const doc = await licenceRef.get();
     if (!doc.exists) {
-        throw new Error('Licencia no encontrada');
+        throw new Error('Licencia no encontrada.');
     }
     await licenceRef.delete();
-    return { message: 'Licencia eliminada correctamente' };
+    return { message: 'Licencia eliminada correctamente.' };
 };

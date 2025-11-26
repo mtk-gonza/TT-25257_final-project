@@ -10,7 +10,7 @@ export const createLicence = async (req, res) => {
         res.status(201).json(newUser);
     } catch (error) {
         console.error('Error en createLicence del controller:', error);
-        res.status(500).json({ error: 'No se pudo crear la licencia' });
+        res.status(500).json({ error: 'No se pudo crear la Licencia.' });
     }
 };
 
@@ -20,7 +20,7 @@ export const getAllLicences = async (req, res) => {
         res.json(licences);
     } catch (error) {
         console.error('Error en getAllLicences del controller:', error);
-        res.status(500).json({ error: 'Error al obtener licencias' });
+        res.status(500).json({ error: 'Error al obtener Licencias.' });
     }
 };
 
@@ -29,12 +29,12 @@ export const getLicenceById = async (req, res) => {
         const { licence_id } = req.params;
         const licence = await licenceService.getLicenceById(licence_id.trim());
         if (!licence) {
-            return res.status(404).json({ error: 'licencia no encontrado' });
+            return res.status(404).json({ error: 'Licencia no encontrada.' });
         }
         res.json(licence);
     } catch (error) {
         console.error('Error en getLicenciaById del controller:', error);
-        res.status(500).json({ error: 'Error al obtener la licencia' });
+        res.status(500).json({ error: 'Error al obtener la Licencia.' });
     }
 };
 
@@ -46,14 +46,14 @@ export const updateLicenceById = async (req, res) => {
         const updatedLicencia = await licenceService.updateLicenceById(licence_id, updateData);
         res.status(200).json(updatedLicencia);
     } catch (error) {
-        if (error.message === 'licencia no encontrado') {
+        if (error.message === 'Licencia no encontrada.') {
             return res.status(404).json({ error: error.message });
         }
         if (error.message.includes('campos')) {
             return res.status(400).json({ error: error.message });
         }
         console.error('Error en updateLicence del Controller:', error);
-        res.status(500).json({ error: 'No se pudo actualizar la licencia' });
+        res.status(500).json({ error: 'No se pudo actualizar la Licencia.' });
     }
 };
 
@@ -61,12 +61,12 @@ export const deleteLicenceById = async (req, res) => {
     try {
         const { licence_id } = req.params;
         await licenceService.deleteLicenceById(licence_id);
-        res.status(200).json({ message: 'licencia eliminada correctamente' });
+        res.status(200).json({ message: 'Licencia eliminada correctamente.' });
     } catch (error) {
-        if (error.message === 'licencia no encontrada') {
+        if (error.message === 'Licencia no encontrada.') {
             return res.status(404).json({ error: error.message });
         }
         console.error('Error en deleteLicenciaById del Controller:', error);
-        res.status(500).json({ error: 'No se pudo eliminar la licencia' });
+        res.status(500).json({ error: 'No se pudo eliminar la Licencia.' });
     }
 };

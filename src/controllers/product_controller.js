@@ -61,8 +61,8 @@ export const createProduct = async (req, res) => {
         res.status(201).json(newProduct);
     } catch (err) {
         console.error('Error en createProduct del controller:', err.message);
-        if (err.message === 'El SKU ya existe') {
-            return res.status(409).json({ error: 'El SKU ya está en uso' });
+        if (err.message === 'SKU existente.') {
+            return res.status(409).json({ error: 'SKU ya está en uso.' });
         }
         if (err.message.includes('Faltan campos') || err.message.includes('debe ser')) {
             return res.status(400).json({ error: err.message });
@@ -76,7 +76,7 @@ export const getAllProducts = async (req, res) => {
         res.json(products);
     } catch (error) {
         console.error('Error en getAllProducts del controller:', error);
-        res.status(500).json({ error: 'Error al obtener productos' });
+        res.status(500).json({ error: 'Error al obtener Productos.' });
     }
 };
 
@@ -85,12 +85,12 @@ export const getProductById = async (req, res) => {
         const { product_id } = req.params;
         const product = await productService.getProductById(product_id);
         if (!product) {
-            return res.status(404).json({ error: 'Producto no encontrado' });
+            return res.status(404).json({ error: 'Producto no encontrado.' });
         }
         res.json(product);
     } catch (error) {
         console.error('Error en getProductById del controller:', error);
-        res.status(500).json({ error: 'Error al obtener el producto' });
+        res.status(500).json({ error: 'Error al obtener el Producto.' });
     }
 };
 
@@ -99,7 +99,7 @@ export const searchProducts = async (req, res) => {
         const { id, name, price, stock, sku, category_id, licence_id, discount, dues, special } = req.query;
         if (!id && !name && !price && !stock && !sku && !category_id && !licence_id && !discount && !dues && !special) {
             return res.status(400).json({
-                error: 'Debe enviar al menos un parámetro de búsqueda'
+                error: 'Debe enviar al menos un parámetro de búsqueda.'
             });
         }
         const filters = {};
@@ -115,12 +115,12 @@ export const searchProducts = async (req, res) => {
         //if (special) filters.special = special;
         const products = await productService.getProductsByFilters(filters);
         if (products.length === 0) {
-            return res.status(404).json({ error: 'No se encontraron productos' });
+            return res.status(404).json({ error: 'No se encontraron Productos.' });
         }
         res.json(products);
     } catch (error) {
         console.error('Error en searchProducts:', error);
-        res.status(500).json({ error: 'Error interno del servidor' });
+        res.status(500).json({ error: 'Error interno del servidor.' });
     }
 };
 
@@ -152,32 +152,32 @@ export const updateProductById = async (req, res) => {
 
         if (Object.keys(filteredData).length === 0) {
             return res.status(400).json({
-                error: 'Debe proporcionar al menos un campo válido para actualizar'
+                error: 'Debe proporcionar al menos un campo válido para actualizar.'
             });
         }
 
         if ('price' in filteredData && (typeof filteredData.price !== 'number' || filteredData.price < 0)) {
-            return res.status(400).json({ error: 'El campo "price" debe ser un número positivo' });
+            return res.status(400).json({ error: 'El campo "price" debe ser un número positivo.' });
         }
         if ('stock' in filteredData && (!Number.isInteger(filteredData.stock) || filteredData.stock < 0)) {
-            return res.status(400).json({ error: 'El campo "stock" debe ser un entero no negativo' });
+            return res.status(400).json({ error: 'El campo "stock" debe ser un entero no negativo.' });
         }
         if ('images' in filteredData && !Array.isArray(filteredData.images)) {
-            return res.status(400).json({ error: 'El campo "images" debe ser un array' });
+            return res.status(400).json({ error: 'El campo "images" debe ser un array.' });
         }
 
         const updatedProduct = await productService.updateProductById(product_id, filteredData);
         res.status(200).json(updatedProduct);
     } catch (error) {
         console.error('Error en updateProductById del controller:', error);
-        if (error.message === 'Producto no encontrado') {
+        if (error.message === 'Producto no encontrado.') {
             return res.status(404).json({ error: error.message });
         }
         if (error.message.includes('campos')) {
             return res.status(400).json({ error: error.message });
         }
         console.error('Error en updateProduct del controller:', error);
-        res.status(500).json({ error: 'No se pudo actualizar el producto' });
+        res.status(500).json({ error: 'No se pudo actualizar el Producto.' });
     }
 };
 
@@ -185,12 +185,12 @@ export const deleteProductById = async (req, res) => {
     try {
         const { product_id } = req.params;
         await productService.deleteProductById(product_id);
-        res.status(200).json({ message: 'Producto eliminado correctamente' });
+        res.status(200).json({ message: 'Producto eliminado correctamente.' });
     } catch (error) {
         console.error('Error en deleteProduct del controller:', error);
         if (error.message === 'Producto no encontrado') {
             return res.status(404).json({ error: error.message });
         }        
-        res.status(500).json({ error: 'No se pudo eliminar el Producto' });
+        res.status(500).json({ error: 'No se pudo eliminar el Producto.' });
     }
 };
