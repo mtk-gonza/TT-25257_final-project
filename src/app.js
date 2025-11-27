@@ -4,6 +4,7 @@ import { PORT } from './settings/config.js';
 //Routers
 import { publicRouter } from './routes/public_router.js';
 import { authRouter } from './routes/auth_router.js';
+import { roleRouter } from './routes/role_router.js';
 import { userRouter } from './routes/user_router.js';
 import { licenceRouter } from './routes/licence_router.js';
 import { categoryRouter } from './routes/category_router.js';
@@ -32,6 +33,7 @@ app.use(cors(corsOptions));
 app.use(publicRouter);
 app.use(express.json());
 app.use('/api/auth', authRouter);
+app.use('/api/roles', roleRouter);
 app.use('/api/users', userRouter);
 app.use('/api/licences', licenceRouter);
 app.use('/api/categories', categoryRouter);
@@ -43,5 +45,5 @@ app.use((req, res, next) => {
 });
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).json({ error: 'Algo salió mal en el servidor' });
+    res.status(500).json({ error: 'Algo salió mal en el servidor.' });
 });

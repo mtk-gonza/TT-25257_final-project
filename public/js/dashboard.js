@@ -3,6 +3,7 @@ const lista_products = document.getElementById('lista-products');
 const lista_categories = document.getElementById('lista-categories');
 const lista_licences = document.getElementById('lista-licences');
 const lista_users = document.getElementById('lista-users');
+const lista_roles = document.getElementById('lista-roles');
 const form = document.getElementById('form-crear');
 const inputNombre = document.getElementById('input-nombre');
 const inputCategoria = document.getElementById('input-categoria');
@@ -11,6 +12,7 @@ const product_status = document.getElementById('products-status');
 const categories_status = document.getElementById('categories-status');
 const licences_status = document.getElementById('licences-status');
 const users_status = document.getElementById('users-status');
+const roles_status = document.getElementById('roles-status');
 
 const token = localStorage.getItem('token');
 
@@ -27,6 +29,9 @@ const showStatus = (mensaje, tipo, collection) => {
             break;
         case 'users':
             collection = users_status; 
+            break;  
+        case 'roles':
+            collection = roles_status; 
             break;  
         default:
             collection = statusDiv;
@@ -70,6 +75,8 @@ const removeItem = async (id, tipo) => {
                     break;
                 case 'users':
                     getUsers();
+                case 'roles':
+                    getRoles();
                     break;
             }
         } else {
@@ -224,11 +231,47 @@ const getUsers = async () => {
     }    
 }
 
+const getRoles = async () => {
+    try {
+        const response = await fetch(`${API_URL}/roles`);
+        if (!response.ok) {
+            throw new Error('Error al obtener items');
+        }
+        const data = await response.json();
+        lista_roles.innerHTML = '';
+        if (data.length === 0) {
+            lista_roles.innerHTML = '<li style="class="item-list">No hay items todavía</li>';
+        } else {
+            data.forEach(item => {
+                const li = document.createElement('li');
+                const btn = document.createElement('button');
+                li.className = 'item-list'
+                li.innerHTML = `
+                            <div class="item-info">
+                                <div class="item-name">${item.name}</div>
+                            </div>
+                            <a class="btn-outline btn-outline-primary" href="http://localhost:3000/role_form/${item.id}">👁 Ver</a>
+                        `;
+                btn.textContent = '🗑️ Eliminar';
+                btn.classList.add('btn-outline', 'btn-outline-danger');
+                btn.addEventListener('click', () => removeItem(item.id, 'users'));
+                li.appendChild(btn);
+                lista_roles.appendChild(li);
+            });
+        }
+    } catch (error) {
+        console.error('❌ Error:', error);
+        lista_users.innerHTML = '<li class="item-list" style="color: #c00;">❌ Error al cargar items. Revisa la consola.</li>';
+        showStatus('Error de CORS o conexión. Revisa la consola.', 'error', 'users');
+    }    
+}
+
 const main = () => {
     getProducts();
     getCategories();
     getLicences();
     getUsers();
+    getRoles();
 }
 
 main();

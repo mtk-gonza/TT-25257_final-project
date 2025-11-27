@@ -13,9 +13,10 @@ export const getAllRoles = async () => {
 };
 
 export const createRole = async (roleData) => {
-    const { name } = roleData;
+    const { name, permission } = roleData;
     const newRole = {
         name,
+        permission,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
     };

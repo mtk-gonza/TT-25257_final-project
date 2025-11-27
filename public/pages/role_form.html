@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel= "stylesheet" type= "text/css" href= "../css/styles.css" />
+    <title>Role Form</title>
+</head>
+<body>    
+    <div class="container">
+        <div class="big-box">
+            <h2 id="form_title"> Add Role</h2>
+            <form id="role_form">
+                <div class="input-box">
+                    <input type="text" id="name" required>
+                    <label>Name</label>
+                </div>
+                <div class="textarea-box">
+                    <label>Permisos (uno por línea)</label>
+                    <textarea id="permission" rows="4" placeholder="create&#10;read&#10;update&#10;delete"></textarea>
+                </div>
+                <div class="button-form">
+                    <button class="btn-outline btn-outline-primary">Submit</button>
+                    <a class="btn-outline btn-outline-danger" href="http://localhost:3000/dashboard">Cancel</a>
+                </div>
+                <div class="back-box">
+                    <a class="link-box" href="http://localhost:3000">Home</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="../js/role_form.js"></script>
+</body>
+</html>

@@ -43,6 +43,17 @@ publicRouter.get('/licence_form/:id', (req, res) => {
     res.sendFile(path.join(projectRoot, 'public', 'pages', 'licence_form.html'));
 });
 
+publicRouter.get('/role_form', (req, res) => {
+    res.sendFile(path.join(projectRoot, 'public', 'pages', 'role_form.html'));
+});
+publicRouter.get('/role_form/:id', (req, res) => {
+    const { id } = req.params;
+    if (!id || typeof id !== 'string') {
+        return res.status(400).send('ID inválido');
+    }
+    res.sendFile(path.join(projectRoot, 'public', 'pages', 'role_form.html'));
+});
+
 publicRouter.get('/user_form', (req, res) => {
     res.sendFile(path.join(projectRoot, 'public', 'pages', 'user_form.html'));
 });
