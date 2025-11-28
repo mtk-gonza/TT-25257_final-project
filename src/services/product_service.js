@@ -26,10 +26,19 @@ export const getAllProducts = async () => {
 
 export const createProduct = async (productData) => {
     const { name, description, price, stock, discount, sku, dues, special, images, licence_id, category_id } = productData;
-    const existing = await db.collection('products').where('sku', '==', sku).get();
-    if (!existing.empty) {
-        throw new Error('SKU existente.');
-    }
+
+    const existingSku = await db.collection('products').where('sku', '==', sku).get();
+    if (!existingSku.empty) throw new Error('Ya existe un product con ese SKU.');
+
+    const existingName = await db.collection('products').where('name', '==', name).get();
+    if (!existingName.empty) throw new Error('Ya existe un product con ese nombre.');
+
+    const category = await getCategoryByIdSimple(category_id);
+    if (!category) throw new Error('Categoría no encontrada.');
+
+    const licence = await getLicenceByIdSimple(licence_id);
+    if (!licence) throw new Error('Licencia no encontrada.');
+    
     const newProduct = {
         name,
         description,
@@ -127,9 +136,7 @@ export const getProductsByFilters = async (filters) => {
 export const updateProductById = async (id, updateData) => {
     const productRef = db.collection('products').doc(id);
     const doc = await productRef.get();
-    if (!doc.exists) {
-        throw new Error('Producto no encontrado.');
-    }
+    if (!doc.exists) throw new Error('Producto no encontrado.');
     updateData.updated_at = new Date().toISOString();
     await productRef.update(updateData);
     const updatedDoc = await productRef.get();
@@ -139,9 +146,7 @@ export const updateProductById = async (id, updateData) => {
 export const deleteProductById = async (id) => {
     const productRef = db.collection('products').doc(id);
     const doc = await productRef.get();
-    if (!doc.exists) {
-        throw new Error('Producto no encontrado.');
-    }
+    if (!doc.exists) throw new Error('Producto no encontrado.');
     await productRef.delete()
     return { message: 'Producto eliminado correctamente.' };
 };

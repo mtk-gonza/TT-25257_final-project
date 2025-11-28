@@ -22,6 +22,8 @@ export const getAllUsers = async () => {
 
 export const createUser = async (userData) => {
     const { name, last_name, username, password, role_id } = userData;
+    const existing = await db.collection('users').where('username', '==', username).get();
+    if (!existing.empty) throw new Error('Ya existe un usuario con ese nombre de usuario.');
     const user = {
         name,
         last_name,
@@ -51,17 +53,13 @@ export const getUserById = async (id) => {
 };
 
 export const getUserByUsername = async (username) => {
-    if (!username || typeof username !== 'string') {
-        throw new Error('Username inválido.');
-    }
+    if (!username || typeof username !== 'string') throw new Error('Username inválido.');
     const snapshot = await db
         .collection('users')
         .where('username', '==', username.trim())
         .limit(1)
         .get();
-    if (snapshot.empty) {
-        return null;
-    }
+    if (snapshot.empty) return null;
     const doc = snapshot.docs[0];
     const data = doc.data();
     const cleanData = convertTimestamps(data);
@@ -72,9 +70,7 @@ export const getUserByUsername = async (username) => {
 export const updateUserById = async (id, updateData) => {
     const userRef = db.collection('users').doc(id);
     const doc = await userRef.get();
-    if (!doc.exists) {
-        throw new Error('Usuario no encontrado.');
-    }
+    if (!doc.exists) throw new Error('Usuario no encontrado.');
     updateData.updated_at = new Date().toISOString();
     const userCrypto = authService.encrypterPassword(updateData);
     await userRef.update(userCrypto);
@@ -87,9 +83,7 @@ export const updateUserById = async (id, updateData) => {
 export const deleteUserById = async (id) => {
     const userRef = db.collection('users').doc(id);
     const doc = await userRef.get();
-    if (!doc.exists) {
-        throw new Error('Usuario no encontrado.');
-    }
+    if (!doc.exists) throw new Error('Usuario no encontrado.');
     await userRef.delete();
     return { message: 'Usuario eliminado correctamente.' };
 };

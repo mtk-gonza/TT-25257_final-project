@@ -14,13 +14,8 @@ export const getAllCategories = async () => {
 
 export const createCategory = async (categoryData) => {
     const { name, description } = categoryData;
-    if (!name || !description) {
-        throw new Error('Campos: "name" y "description" son requeridos.');
-    }
     const existing = await db.collection('categories').where('name', '==', name).get();
-    if (!existing.empty) {
-        throw new Error('Ya existe una categoría con ese nombre.');
-    }
+    if (!existing.empty) throw new Error('Ya existe una categoría con ese nombre.');
     const newCategory = {
         name,
         description,
@@ -53,9 +48,7 @@ export const getCategoryByIdSimple = async (id) => {
 export const updateCategoryById = async (id, updateData) => {
     const categoryRef = db.collection('categories').doc(id);
     const doc = await categoryRef.get();
-    if (!doc.exists) {
-        throw new Error('Categoria no encontrada.');
-    }
+    if (!doc.exists) throw new Error('Categoria no encontrada.');
     updateData.updated_at = new Date().toISOString();
     await categoryRef.update(updateData);
     const updatedDoc = await categoryRef.get();
@@ -65,9 +58,7 @@ export const updateCategoryById = async (id, updateData) => {
 export const deleteCategoryById = async (id) => {
     const categoryRef = db.collection('categories').doc(id);
     const doc = await categoryRef.get();
-    if (!doc.exists) {
-        throw new Error('Categoria no encontrada.');
-    }
+    if (!doc.exists) throw new Error('Categoria no encontrada.');
     await categoryRef.delete();
     return { message: 'Categoria eliminada correctamente.' };
 };

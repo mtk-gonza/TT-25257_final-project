@@ -254,7 +254,7 @@ const getRoles = async () => {
                         `;
                 btn.textContent = '🗑️ Eliminar';
                 btn.classList.add('btn-outline', 'btn-outline-danger');
-                btn.addEventListener('click', () => removeItem(item.id, 'users'));
+                btn.addEventListener('click', () => removeItem(item.id, 'roles'));
                 li.appendChild(btn);
                 lista_roles.appendChild(li);
             });
@@ -262,7 +262,7 @@ const getRoles = async () => {
     } catch (error) {
         console.error('❌ Error:', error);
         lista_users.innerHTML = '<li class="item-list" style="color: #c00;">❌ Error al cargar items. Revisa la consola.</li>';
-        showStatus('Error de CORS o conexión. Revisa la consola.', 'error', 'users');
+        showStatus('Error de CORS o conexión. Revisa la consola.', 'error', 'roles');
     }    
 }
 

@@ -30,8 +30,8 @@ app.use(cors(corsOptions));
 */
 
 //Routes 
-app.use(publicRouter);
 app.use(express.json());
+app.use(publicRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/roles', roleRouter);
 app.use('/api/users', userRouter);

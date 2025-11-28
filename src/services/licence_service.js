@@ -14,6 +14,8 @@ export const getAllLicences = async () => {
 
 export const createLicence = async (licenceData) => {
     const { name, description, images } = licenceData;
+    const existing = await db.collection('licences').where('name', '==', name).get();
+    if (!existing.empty) throw new Error('Ya existe una licencia con ese nombre.');
     const newCategory = {
         name,
         description,
@@ -48,9 +50,7 @@ export const getLicenceByIdSimple = async (id) => {
 export const updateLicenceById = async (id, updateData) => {
     const licenceRef = db.collection('licences').doc(id);
     const doc = await licenceRef.get();
-    if (!doc.exists) {
-        throw new Error('Licencia no encontrada.');
-    }
+    if (!doc.exists) throw new Error('Licencia no encontrada.');
     updateData.updated_at = new Date().toISOString();
     await licenceRef.update(updateData);
     const updatedDoc = await licenceRef.get();
@@ -60,9 +60,7 @@ export const updateLicenceById = async (id, updateData) => {
 export const deleteLicenceById = async (id) => {
     const licenceRef = db.collection('licences').doc(id);
     const doc = await licenceRef.get();
-    if (!doc.exists) {
-        throw new Error('Licencia no encontrada.');
-    }
+    if (!doc.exists) throw new Error('Licencia no encontrada.');
     await licenceRef.delete();
     return { message: 'Licencia eliminada correctamente.' };
 };
