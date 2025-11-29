@@ -28,10 +28,10 @@ export const createProduct = async (productData) => {
     const { name, description, price, stock, discount, sku, dues, special, images, licence_id, category_id } = productData;
 
     const existingSku = await db.collection('products').where('sku', '==', sku).get();
-    if (!existingSku.empty) throw new Error('Ya existe un product con ese SKU.');
+    if (!existingSku.empty) throw new Error('Ya existe un producto con ese SKU.');
 
     const existingName = await db.collection('products').where('name', '==', name).get();
-    if (!existingName.empty) throw new Error('Ya existe un product con ese nombre.');
+    if (!existingName.empty) throw new Error('Ya existe un producto con ese nombre.');
 
     const category = await getCategoryByIdSimple(category_id);
     if (!category) throw new Error('Categoría no encontrada.');

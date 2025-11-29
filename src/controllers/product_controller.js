@@ -5,12 +5,14 @@ export const createProduct = async (req, res) => {
         const productData = req.body;
         const newProduct = await productService.createProduct(productData);
         res.status(201).json(newProduct);
-    } catch (err) {
+    } catch (err) {  
         console.error('Error en createProduct del controller:', err);
-        if (err.message === 'Ya existe un producto con ese SKU.') return res.status(409).json({ error: err.message });
-        if (err.message === 'Ya existe un producto con ese nombre.') return res.status(409).json({ error: err.message });
-        if (err.message === 'Categoría no encontrada.') return res.status(404).json({ error: err.message });
-        if (err.message === 'Licencia no encontrada.') return res.status(404).json({ error: err.message });
+        if (
+            err.message === 'Ya existe un producto con ese SKU.' ||
+            err.message === 'Ya existe un producto con ese nombre.' ||
+            err.message === 'Categoría no encontrada.' ||
+            err.message === 'Licencia no encontrada.'
+        ) return res.status(409).json({ error: err.message });
         res.status(500).json({ error: 'No se pudo crear el Producto.' });
     }
 };

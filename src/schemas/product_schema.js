@@ -8,8 +8,8 @@ export const createProductSchema = z.object({
     name: z.string({
         required_error: 'El nombre es obligatorio',
         invalid_type_error: 'El nombre debe ser texto'
-    }).min(3, 'El nombre no puede estar vacío')
-        .max(150, 'El nombre es demasiado largo'),
+    }).min(3, 'El nombre no puede estar vacío y debe tener al menos 3 caracteres')
+        .max(100, 'El nombre es demasiado largo'),
 
     description: z.string({
         required_error: 'La descripción es obligatoria'
@@ -48,7 +48,7 @@ export const createProductSchema = z.object({
     }).optional()
         .default(false),
 
-    images: z.array(z.string().url('Una de las imágenes no es una URL válida'))
+    images: z.array(z.string())
         .min(1, 'Debe haber al menos una imagen')
         .max(10, 'No se permiten más de 10 imágenes'),
 

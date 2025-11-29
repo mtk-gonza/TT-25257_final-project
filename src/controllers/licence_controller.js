@@ -7,9 +7,7 @@ export const createLicence = async (req, res) => {
         res.status(201).json(newUser);
     } catch (err) {
         console.error('Error en createLicence del controller:', err);
-        if (err.message === 'Ya existe una licencia con ese nombre.') {
-            return res.status(409).json({ error: err.message });
-        }
+        if (err.message === 'Ya existe una licencia con ese nombre.') return res.status(409).json({ error: err.message });
         res.status(500).json({ error: 'No se pudo crear la Licencia.' });
     }
 };
@@ -28,9 +26,7 @@ export const getLicenceById = async (req, res) => {
     try {
         const { licence_id } = req.params;
         const licence = await licenceService.getLicenceById(licence_id.trim());
-        if (!licence) {
-            return res.status(404).json({ error: 'Licencia no encontrada.' });
-        }
+        if (!licence) return res.status(404).json({ error: 'Licencia no encontrada.' });
         res.json(licence);
     } catch (err) {
         console.error('Error en getLicenciaById del controller:', err);
