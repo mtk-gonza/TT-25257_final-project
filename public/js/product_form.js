@@ -101,8 +101,17 @@ document.getElementById('product_form')?.addEventListener('submit', async (e) =>
             alert(id ? 'Producto actualizado' : 'Producto creado');
             window.location.href = '/dashboard';
         } else {
-            const error = await res.json();
-            alert('Error: ' + (error.error || 'Falló la operación'));
+            if (res.status === 401 ) {
+                alert('Tu sesión ha expirado. Por favor, inicia sesión nuevamente.');
+                localStorage.removeItem('token');
+                window.location.href = '/login';
+            }
+            if (res.status === 403) {
+                alert('No tienes permisos suficientes');
+            } else {
+                const error = await res.json().catch(() => ({}));
+                alert('Error: ' + (error.error || 'Falló la operación'));
+            }
         }
     } catch (err) {
         console.error('Error al guardar:', err);

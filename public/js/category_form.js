@@ -43,8 +43,6 @@ document.getElementById('category_form')?.addEventListener('submit', async (e) =
     try {
         const url = id ? `${API_URL}/categories/${id}` : `${API_URL}/categories`;
         const method = id ? 'PUT' : 'POST';
-
-        console.log(`token: ${token}`)
         const res = await fetch(url, {
             method,
             headers: {
@@ -54,16 +52,17 @@ document.getElementById('category_form')?.addEventListener('submit', async (e) =
             body: JSON.stringify(categoryData)
         });
 
-        console.log(res)
-
         if (res.ok) {
             alert(id ? 'Categoría actualizada' : 'Categoría creada');
             window.location.href = '/dashboard';
         } else {
-            if (res.status === 401 || res.status === 403) {
-                alert('Tu sesión ha expirado o no tienes permisos. Por favor, inicia sesión nuevamente.');
+            if (res.status === 401 ) {
+                alert('Tu sesión ha expirado. Por favor, inicia sesión nuevamente.');
                 localStorage.removeItem('token');
                 window.location.href = '/login';
+            }
+            if (res.status === 403) {
+                alert('No tienes permisos suficientes');
             } else {
                 const error = await res.json().catch(() => ({}));
                 alert('Error: ' + (error.error || 'Falló la operación'));

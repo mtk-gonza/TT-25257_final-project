@@ -35,7 +35,8 @@ export const register = async (req, res) => {
         if (existingUser) {
             return res.status(409).json({ error: 'El nombre de usuario ya está en uso' });
         }
-        const user = { name, last_name, username, password };
+        const role_id = 'bkal0Noc77fqgeMmqxue'
+        const user = { name, last_name, username, password, role_id };
         const newUser = await userService.createUser(user);
         return res.status(201).json(newUser);
     } catch (err) {

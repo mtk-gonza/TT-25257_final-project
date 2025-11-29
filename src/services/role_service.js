@@ -40,7 +40,8 @@ export const getRoleByIdSimple = async (id) => {
     const data = doc.data();    
     return { 
         id: doc.id,
-        name: data.name
+        name: data.name,
+        permission: data.permission
     };
 };
 
