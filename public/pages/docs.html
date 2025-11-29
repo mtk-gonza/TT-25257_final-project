@@ -189,6 +189,207 @@
                 </div>
             </div>
       
+            <!------------ Sección Roles ------------>
+            <div class="section">
+                <div class="section-header" onclick="toggleSection('roles')">
+                    <h2>Endpoints Roles <span class="section-indicator">▶</span></h2>
+                </div>
+                <div id="roles" class="endpoints hidden">
+                    <!-- GET /api/roles -->
+                    <div class="endpoint">
+                        <div class="endpoint-summary" onclick="toggleEndpoint('role-get-all')">
+                            <span class="method get">GET</span>
+                            <span class="path">/api/roles</span>
+                            <span class="toggle-indicator">▶</span>
+                        </div>
+                        <div id="role-get-all" class="endpoint-details hidden">
+                            <div class="description">
+                                Obtiene la lista de todos los roles.
+                            </div>
+                            <h4>Respuesta exitosa (200 OK)</h4>
+                            <pre class="example">
+[
+    {
+        "id": "T0sisDy0NPyO3M5Op645",
+        "name": "root",
+        "created_at": "2025-11-17T16:01:45.362Z",
+        "updated_at": "2025-11-17T16:01:45.362Z",
+        "permission": [
+            "create",
+            "read",
+            "update",
+            "delete"
+        ]
+    }
+]
+                            </pre>
+                            <h4>Errores comunes</h4>
+                            <ul>
+                                <li>
+                                    <code>500 Internal Server Error</code>: Problema en el servidor.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- GET /api/roles/:id -->
+                    <div class="endpoint">
+                        <div class="endpoint-summary" onclick="toggleEndpoint('role-get-id')">
+                            <span class="method get">GET</span>
+                            <span class="path">/api/roles/:id</span>
+                            <span class="toggle-indicator">▶</span>
+                        </div>
+                        <div id="role-get-id" class="endpoint-details hidden">
+                            <div class="description">
+                                Obtiene un rol por su ID.
+                            </div>
+                            <h4>Parámetros</h4>
+                            <ul>
+                                <li><code>id</code> (path): ID del rol.</li>
+                            </ul>
+                            <h4>Respuesta exitosa (200 OK)</h4>
+                            <pre class="example">
+{
+    "id": "T0sisDy0NPyO3M5Op645",
+    "name": "root",
+    "created_at": "2025-11-17T16:01:45.362Z",
+    "updated_at": "2025-11-17T16:01:45.362Z",
+    "permission": [
+        "create",
+        "read",
+        "update",
+        "delete"
+    ]
+}
+                            </pre>
+                            <h4>Errores comunes</h4>
+                            <ul>
+                                <li><code>404 Not Found</code>: Rol no encontrado.</li>
+                                <li><code>403 Bad Request</code>: ID inválido.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- POST /api/roles -->
+                    <div class="endpoint">
+                        <div class="endpoint-summary" onclick="toggleEndpoint('role-create')">
+                            <span class="method post">POST</span>
+                            <span class="path">/api/roles</span>
+                            <span class="toggle-indicator">▶</span>
+                        </div>
+                        <div id="role-create" class="endpoint-details hidden">
+                            <div class="description">
+                                Crea un nuevo rol.
+                            </div>
+                            <h4>Body (JSON)</h4>
+                            <pre class="example">
+{
+    "name": "admin",
+    "permission": [
+        "create",
+        "read",
+        "update"
+    ]
+}       
+                            </pre>
+                            <h4>Respuesta exitosa (201 Created)</h4>
+                            <pre class="example">
+{
+    "id": "nwsCQ37GJTtJIiZfyluu",
+    "name": "admin",
+    "permission": [
+        "create",
+        "read",
+        "update"
+    ],
+    "created_at": "2025-11-27T15:16:51.483Z",
+    "updated_at": "2025-11-27T15:16:51.483Z"
+}
+                            </pre>
+                            <h4>Errores comunes</h4>
+                            <ul>
+                                <li>
+                                    <code>400 Bad Request</code>: Datos faltantes o inválidos.
+                                </li>
+                                <li>
+                                    <code>409 Conflict</code>: name ya registrado.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- PUT /api/roles/:id -->
+                    <div class="endpoint">
+                        <div class="endpoint-summary" onclick="toggleEndpoint('role-update')">
+                            <span class="method put">PUT</span>
+                            <span class="path">/api/roles/:id</span>
+                            <span class="toggle-indicator">▶</span>
+                        </div>
+                        <div id="role-update" class="endpoint-details hidden">
+                            <div class="description">
+                                Actualiza un role existente.
+                            </div>
+                            <h4>Parámetros</h4>
+                            <ul>
+                                <li><code>id</code> (path): ID del role a actualizar.</li>
+                            </ul>
+                            <h4>Body (JSON)</h4>
+                            <pre class="example">
+{
+    "name": "admin",
+    "permission": [
+        "create",
+        "read"
+    ]
+}
+                            </pre>
+                            <h4>Respuesta exitosa (200 OK)</h4>
+                            <pre class="example">
+{
+    "id": "sAjVF0lrEa4NHinYutyp",
+    "name": "test",
+    "permission": [
+        "read"
+    ],
+    "created_at": "2025-11-29T22:18:17.560Z",
+    "updated_at": "2025-11-29T22:18:17.560Z"
+}
+                            </pre>
+                            <h4>Errores comunes</h4>
+                            <ul>
+                                <li><code>400 Bad Request</code>: Datos inválidos.</li>
+                                <li><code>404 Not Found</code>: Usuario no encontrado.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- DELETE /api/roles/:id -->
+                    <div class="endpoint">
+                        <div class="endpoint-summary" onclick="toggleEndpoint('role-delete')">
+                            <span class="method delete">DELETE</span>
+                            <span class="path">/api/roles/:id</span>
+                            <span class="toggle-indicator">▶</span>
+                        </div>
+                        <div id="role-delete" class="endpoint-details hidden">
+                            <div class="description">
+                                Elimina un role por su ID.
+                            </div>
+                            <h4>Parámetros</h4>
+                            <ul>
+                                <li><code>id</code> (path): ID del role a eliminar.</li>
+                            </ul>
+                            <h4>Respuesta exitosa</h4>
+                            <pre class="example">
+{
+    "message": "Rol eliminadao correctamente."
+}
+                            </pre>
+                            <h4>Errores comunes</h4>
+                            <ul>
+                                <li><code>404 Not Found</code>: Usuario no encontrado.</li>
+                                <li><code>400 Bad Request</code>: ID inválido.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      
             <!------------ Sección Categories ------------>
             <div class="section">
                 <div class="section-header" onclick="toggleSection('categories')">

@@ -3,7 +3,6 @@ import * as roleService from './../services/role_service.js';
 export const createRole = async (req, res) => {
     try {
         const roleData = req.body;
-        console.log(roleData)
         const newRole = await roleService.createRole(roleData);
         res.status(201).json(newRole);
     } catch (err) {
