@@ -16,16 +16,16 @@ document.getElementById("submit").addEventListener("click", async (e) => {
             },
             body: JSON.stringify({ username, password }),
         });
-        if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.message || "Error en el login");
-        }
         const data = await response.json();
-        console.log("✅ Login exitoso:", data);
+
+        if (!data.success) {
+            throw new Error(response.message || "Error en el login");
+        }
+        console.log("✅ Login exitoso:", data.message);
         if (data.token) {
             localStorage.setItem("token", data.token);
         }
-        alert("Inicio de sesión correcto.");
+        alert(data.message);
         window.location.href = '/';
 
     } catch (err) {

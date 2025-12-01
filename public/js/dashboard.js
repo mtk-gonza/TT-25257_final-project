@@ -60,9 +60,9 @@ const removeItem = async (id, tipo) => {
                 'Authorization': `Bearer ${token}`
             }
         });
-
-        if (response.ok) {
-            showStatus('Elemento eliminado correctamente', 'success', tipo);
+        const deleted = await response.json();
+        if (deleted.success) {
+            showStatus(deleted.message, 'success', tipo);
             switch(tipo) {
                 case 'products':
                     getProducts();
@@ -82,7 +82,7 @@ const removeItem = async (id, tipo) => {
         } else {
             const errorData = await response.json().catch(() => ({}));
             console.error('Error al eliminar:', errorData);
-            showStatus(`Error: ${errorData.error || 'No se pudo eliminar'}`, 'error', tipo);
+            showStatus(`Error: ${errorData.message || 'No se pudo eliminar'}`, 'error', tipo);
         }
     } catch (error) {
         console.error('Error de red al eliminar:', error);
@@ -96,12 +96,12 @@ const getProducts = async () => {
         if (!response.ok) {
             throw new Error('Error al obtener items');
         }
-        const data = await response.json();
+        const products = await response.json();
         lista_products.innerHTML = '';
-        if (data.length === 0) {
+        if (products.data.length === 0) {
             lista_products.innerHTML = '<li class="item-list">No hay items todavía</li>';
         } else {
-            data.forEach(item => {
+            products.data.forEach(item => {
                 const li = document.createElement('li');
                 const btn = document.createElement('button');
                 li.className = 'item-list'
@@ -132,12 +132,12 @@ const getCategories = async () => {
         if (!response.ok) {
             throw new Error('Error al obtener items');
         }
-        const data = await response.json();
+        const categories = await response.json();
         lista_categories.innerHTML = '';
-        if (data.length === 0) {
+        if (categories.data.length === 0) {
             lista_categories.innerHTML = '<li class="item-list">No hay items todavía</li>';
         } else {
-            data.forEach(item => {
+            categories.data.forEach(item => {
                 const li = document.createElement('li');
                 const btn = document.createElement('button');
                 li.className = 'item-list'
@@ -167,12 +167,12 @@ const getLicences = async () => {
         if (!response.ok) {
             throw new Error('Error al obtener items');
         }
-        const data = await response.json();
+        const licences = await response.json();
         lista_licences.innerHTML = '';
-        if (data.length === 0) {
+        if (licences.data.length === 0) {
             lista_licences.innerHTML = '<li class="item-list">No hay items todavía</li>';
         } else {
-            data.forEach(item => {
+            licences.data.forEach(item => {
                 const li = document.createElement('li');
                 const btn = document.createElement('button');
                 li.className = 'item-list'
@@ -202,12 +202,12 @@ const getUsers = async () => {
         if (!response.ok) {
             throw new Error('Error al obtener items');
         }
-        const data = await response.json();
+        const users = await response.json();
         lista_users.innerHTML = '';
-        if (data.length === 0) {
+        if (users.data.length === 0) {
             lista_users.innerHTML = '<li style="class="item-list">No hay items todavía</li>';
         } else {
-            data.forEach(item => {
+            users.data.forEach(item => {
                 const li = document.createElement('li');
                 const btn = document.createElement('button');
                 li.className = 'item-list'
@@ -237,12 +237,12 @@ const getRoles = async () => {
         if (!response.ok) {
             throw new Error('Error al obtener items');
         }
-        const data = await response.json();
+        const roles = await response.json();
         lista_roles.innerHTML = '';
-        if (data.length === 0) {
+        if (roles.data.length === 0) {
             lista_roles.innerHTML = '<li style="class="item-list">No hay items todavía</li>';
         } else {
-            data.forEach(item => {
+            roles.data.forEach(item => {
                 const li = document.createElement('li');
                 const btn = document.createElement('button');
                 li.className = 'item-list'

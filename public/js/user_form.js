@@ -17,10 +17,10 @@ if (id) {
     fetch(`${API_URL}/users/${id}`)
         .then(res => res.json())
         .then(user => {
-            document.getElementById('name').value = user.name;
-            document.getElementById('last_name').value = user.last_name;
-            document.getElementById('username').value = user.username;
-            document.getElementById('role').value = user.role.id;
+            document.getElementById('name').value = user.data.name;
+            document.getElementById('last_name').value = user.data.last_name;
+            document.getElementById('username').value = user.data.username;
+            document.getElementById('role').value = user.data.role.id;
         }).catch(err => {
             console.error('Error al cargar usuario:', err);
         });
@@ -28,11 +28,9 @@ if (id) {
 
 const loadRoles = async () => {
     try {
-        const [roleRes] = await Promise.all([
-            fetch(`${API_URL}/roles`)
-        ]);
-        const roles = await roleRes.json();
-        roles.forEach(role => {
+        const reponse = await fetch(`${API_URL}/roles`);
+        const roles = await reponse.json();
+        roles.data.forEach(role => {
             const opt = document.createElement('option');
             opt.value = role.id;
             opt.textContent = role.name;

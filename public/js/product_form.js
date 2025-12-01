@@ -20,13 +20,13 @@ const loadLicencesAndCategories = async () => {
         ]);
         const licences = await licencesRes.json();
         const categories = await categoriesRes.json();
-        licences.forEach(licence => {
+        licences.data.forEach(licence => {
             const opt = document.createElement('option');
             opt.value = licence.id;
             opt.textContent = licence.name;
             licenceSelect.appendChild(opt);
         });
-        categories.forEach(category => {
+        categories.data.forEach(category => {
             const opt = document.createElement('option');
             opt.value = category.id;
             opt.textContent = category.name;
@@ -49,17 +49,17 @@ if (id) {
     })
     .then(res => res.json())
     .then(product => {
-        document.getElementById('name').value = product.name;
-        document.getElementById('description').value = product.description;
-        document.getElementById('sku').value = product.sku;
-        document.getElementById('stock').value = product.stock;
-        document.getElementById('price').value = product.price;
-        document.getElementById('dues').value = product.dues;
-        document.getElementById('discount').value = product.discount;
-        document.getElementById('special').checked = product.special;
-        document.getElementById('licence').value = product.licence.id;
-        document.getElementById('category').value = product.category.id;
-        document.getElementById('images').value = product.images.join('\n');
+        document.getElementById('name').value = product.data.name;
+        document.getElementById('description').value = product.data.description;
+        document.getElementById('sku').value = product.data.sku;
+        document.getElementById('stock').value = product.data.stock;
+        document.getElementById('price').value = product.data.price;
+        document.getElementById('dues').value = product.data.dues;
+        document.getElementById('discount').value = product.data.discount;
+        document.getElementById('special').checked = product.data.special;
+        document.getElementById('licence').value = product.data.licence.id;
+        document.getElementById('category').value = product.data.category.id;
+        document.getElementById('images').value = product.data.images.join('\n');
     }).catch(err => {
         console.error('Error al cargar producto:', err);
     });

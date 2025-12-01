@@ -2,10 +2,10 @@ const API_URL = 'http://localhost:3000/api';
 const urlParams = new URLSearchParams(window.location.search);
 const pathSegments = window.location.pathname.split('/');
 const id = pathSegments[2];
-
 const token = localStorage.getItem('token');
 
 if (!token) {
+    alert('Debes iniciar sesión para acceder a esta página');
     window.location.href = '/login';
 }
 
@@ -23,8 +23,8 @@ if (id) {
             return res.json();
         })
         .then(category => {
-            document.getElementById('name').value = category.name;
-            document.getElementById('description').value = category.description;
+            document.getElementById('name').value = category.data.name;
+            document.getElementById('description').value = category.data.description;
         })
         .catch(err => {
             console.error('Error al cargar categoría:', err);

@@ -19,9 +19,9 @@ if (id) {
     })
         .then(res => res.json())
         .then(licence => {
-            document.getElementById('name').value = licence.name;
-            document.getElementById('description').value = licence.description;
-            document.getElementById('images').value = licence.images.join('\n');
+            document.getElementById('name').value = licence.data.name;
+            document.getElementById('description').value = licence.data.description;
+            document.getElementById('images').value = licence.data.images.join('\n');
         }).catch(err => {
             console.error('Error al cargar licencia:', err);
         });

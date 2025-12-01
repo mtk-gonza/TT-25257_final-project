@@ -2,7 +2,6 @@ const API_URL = 'http://localhost:3000/api';
 const urlParams = new URLSearchParams(window.location.search);
 const pathSegments = window.location.pathname.split('/');
 const id = pathSegments[2];
-
 const token = localStorage.getItem('token');
 
 if (!token) {
@@ -19,8 +18,8 @@ if (id) {
     })
     .then(res => res.json())
     .then(role => {
-        document.getElementById('name').value = role.name;
-        document.getElementById('permission').value = role.permission.join('\n');
+        document.getElementById('name').value = role.data.name;
+        document.getElementById('permission').value = role.data.permission.join('\n');
     }).catch(err => {
         console.error('Error al cargar rol:', err);
     });
