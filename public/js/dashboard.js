@@ -40,7 +40,7 @@ const showStatus = (mensaje, tipo, collection) => {
     collection.className = `status ${tipo}`;
     setTimeout(() => {
         collection.className = 'status hidden';
-    }, 3000);
+    }, 5000);
 }
 
 const removeItem = async (id, tipo) => {

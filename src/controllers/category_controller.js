@@ -54,7 +54,10 @@ export const deleteCategoryById = async (req, res) => {
         res.status(200).json({ message: response.message });
     } catch (err) {
         console.error('Error en deleteCategoryById del Controller:', err);
-        if (err.message === 'Categoria no encontrada.') return res.status(404).json({ error: err.message });
+        if (
+            err.message === 'Categoria no encontrada.' ||
+            err.message === 'Categoria en uso.'
+        ) return res.status(404).json({ error: err.message });
         res.status(500).json({ error: 'No se pudo eliminar la Categoria.' });
     }
 };

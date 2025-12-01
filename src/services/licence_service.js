@@ -61,6 +61,8 @@ export const deleteLicenceById = async (id) => {
     const licenceRef = db.collection('licences').doc(id);
     const doc = await licenceRef.get();
     if (!doc.exists) throw new Error('Licencia no encontrada.');
+    const productRef = await db.collection('products').where('licence_id', '==', id).limit(1).get();
+    if (!productRef.empty) throw new Error('Licencia en uso.');
     await licenceRef.delete();
     return { message: 'Licencia eliminada correctamente.' };
 };

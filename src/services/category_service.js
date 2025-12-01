@@ -59,6 +59,8 @@ export const deleteCategoryById = async (id) => {
     const categoryRef = db.collection('categories').doc(id);
     const doc = await categoryRef.get();
     if (!doc.exists) throw new Error('Categoria no encontrada.');
+    const productRef = await db.collection('products').where('category_id', '==', id).limit(1).get();
+    if (!productRef.empty) throw new Error('Categoria en uso.');
     await categoryRef.delete();
     return { message: 'Categoria eliminada correctamente.' };
 };

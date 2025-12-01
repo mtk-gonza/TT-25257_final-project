@@ -54,7 +54,10 @@ export const deleteRoleById = async (req, res) => {
         res.status(200).json({ message: response.message });
     } catch (err) {
         console.error('Error en deleteRolById del Controller:', err);
-        if (err.message === 'Rol no encontrado.') return res.status(404).json({ error: err.message });
+        if (
+            err.message === 'Rol no encontrado.' ||
+            err.message === 'Rol en uso.'
+        ) return res.status(404).json({ error: err.message });
         res.status(500).json({ error: 'No se pudo eliminar el Rol.' });
     }
 };

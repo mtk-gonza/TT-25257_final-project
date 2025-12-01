@@ -59,6 +59,8 @@ export const deleteRoleById = async (id) => {
     const roleRef = db.collection('roles').doc(id);
     const doc = await roleRef.get();
     if (!doc.exists) throw new Error('Rol no encontrado.');
+    const userRef = await db.collection('users').where('role_id', '==', id).limit(1).get();
+    if (!userRef.empty) throw new Error('Rol en uso.');
     await roleRef.delete();
     return { message: 'Rol eliminadao correctamente.' };
 };

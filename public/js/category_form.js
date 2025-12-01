@@ -62,7 +62,7 @@ document.getElementById('category_form')?.addEventListener('submit', async (e) =
                 window.location.href = '/login';
             }
             if (res.status === 403) {
-                alert('No tienes permisos suficientes');
+                alert('No tienes permisos suficientes');            
             } else {
                 const error = await res.json().catch(() => ({}));
                 alert('Error: ' + (error.error || 'Falló la operación'));
