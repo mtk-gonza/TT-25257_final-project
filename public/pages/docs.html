@@ -76,19 +76,25 @@
                             </pre>
                             <h4>Respuesta exitosa (201 OK)</h4>
                             <pre class="example">
-{   
-    "success":true,
-    "message":"Usuario registrado exitosamente.",
-    "data":{
-        "id":"01h7NAh8qsxQfnOdp2jD",
-        "name":"Test",
-        "last_name":"Tester",
-        "username":"test.tester",
-        "password":"fb8580f8d6415d4b1e300253480ffdc078cf68f8748c191f871edfcb16fecb4f",
-        "role_id":"vhdWvKes3ERh6Efk1YAl",
-        "created_at":"2025-12-02T16:36:55.297Z",
-        "updated_at":"2025-12-02T16:36:55.297Z",
-        "salt":"zKSpw3b282/csEUYQ0ss+JdCZckPP2dlP1+aFpJIK/du5l7zQhyyGND6RKNXGgPISKrZUbfPA3cU93XI0qqccJzUUSIHNFsJVwd1t3ul8GEiYf2vesAMTzfp5yfrl/ddGY3xI816nbRnlakhmd4dMLgBOZsMiuwXQXzAUTVYm3M="
+{
+    "success": true,
+    "message": "Usuario creado exitosamente.",
+    "data": {
+        "id": "yVvVLJq36zBIFrAoZ0w5",
+        "name": "Usuario",
+        "last_name": "Local",
+        "username": "usuario.local",
+        "created_at": "2025-12-02T22:00:44.635Z",
+        "updated_at": "2025-12-02T22:00:44.635Z",
+        "role": {
+            "id": "nwsCQ37GJTtJIiZfyluu",
+            "name": "admin",
+            "permission": [
+                "create",
+                "read",
+                "update"
+            ]
+        }
     }
 }
                             </pre>
@@ -280,18 +286,24 @@
                             <h4>Respuesta exitosa (201 Created)</h4>
                             <pre class="example">
 {
-    "success":true,
-    "message":"Usuario creado exitosamente.",
-    "data":{
-        "id":"aFOxhRy5UjTN924LvXko",
-        "name":"Usuario",
-        "last_name":"Local",
-        "username":"usuario.local",
-        "password":"9617eb76e5bab06c8375e16bc26be885a82adbe95f54c0155ac1007d230ec5bf",
-        "role_id":"nwsCQ37GJTtJIiZfyluu",
-        "created_at":"2025-12-02T16:59:35.341Z",
-        "updated_at":"2025-12-02T16:59:35.342Z",
-        "salt":"aIAu21B+k8CqNmOY3WRVLoYRm+NgXovjbVh1oJaiaHNoie7jFpIdWWc4jMnqirzWRj/euqNsXM4T0rOPeeSbfjdV7NJ0gyEv/MT/1FNG50T4JGCPLef9JaXrciBncEGUL+O0D1QP2bs44qkt+vhb58MBAfvzW3AFe8k+L09DQs4="
+    "success": true,
+    "message": "Usuario creado exitosamente.",
+    "data": {
+        "id": "yVvVLJq36zBIFrAoZ0w5",
+        "name": "Usuario",
+        "last_name": "Local",
+        "username": "usuario.local",
+        "created_at": "2025-12-02T22:00:44.635Z",
+        "updated_at": "2025-12-02T22:00:44.635Z",
+        "role": {
+            "id": "nwsCQ37GJTtJIiZfyluu",
+            "name": "admin",
+            "permission": [
+                "create",
+                "read",
+                "update"
+            ]
+        }
     }
 }
                             </pre>
@@ -404,20 +416,23 @@
                             </div>
                             <h4>Respuesta exitosa (200 OK)</h4>
                             <pre class="example">
-[
-    {
-        "id": "T0sisDy0NPyO3M5Op645",
-        "name": "root",
-        "created_at": "2025-11-17T16:01:45.362Z",
-        "updated_at": "2025-11-17T16:01:45.362Z",
-        "permission": [
-            "create",
-            "read",
-            "update",
-            "delete"
-        ]
-    }
-]
+{
+    "success": true,
+    "data": [
+        {
+            "id": "T0sisDy0NPyO3M5Op645",
+            "name": "root",
+            "created_at": "2025-11-17T16:01:45.362Z",
+            "updated_at": "2025-11-17T16:01:45.362Z",
+            "permission": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ]
+        }
+    ]
+}
                             </pre>
                             <h4>Errores comunes</h4>
                             <ul>
@@ -445,16 +460,19 @@
                             <h4>Respuesta exitosa (200 OK)</h4>
                             <pre class="example">
 {
-    "id": "T0sisDy0NPyO3M5Op645",
-    "name": "root",
-    "created_at": "2025-11-17T16:01:45.362Z",
-    "updated_at": "2025-11-17T16:01:45.362Z",
-    "permission": [
-        "create",
-        "read",
-        "update",
-        "delete"
-    ]
+    "success": true,
+    "data": {
+        "id": "T0sisDy0NPyO3M5Op645",
+        "name": "root",
+        "created_at": "2025-11-17T16:01:45.362Z",
+        "updated_at": "2025-11-17T16:01:45.362Z",
+        "permission": [
+            "create",
+            "read",
+            "update",
+            "delete"
+        ]
+    }
 }
                             </pre>
                             <h4>Errores comunes</h4>
@@ -489,15 +507,19 @@
                             <h4>Respuesta exitosa (201 Created)</h4>
                             <pre class="example">
 {
-    "id": "nwsCQ37GJTtJIiZfyluu",
-    "name": "admin",
-    "permission": [
-        "create",
-        "read",
-        "update"
-    ],
-    "created_at": "2025-11-27T15:16:51.483Z",
-    "updated_at": "2025-11-27T15:16:51.483Z"
+    "success": true,
+    "message": "Rol creado exitosamente."
+    "data": {
+        "id": "nwsCQ37GJTtJIiZfyluu",
+        "name": "admin",
+        "permission": [
+            "create",
+            "read",
+            "update"
+        ],
+        "created_at": "2025-11-27T15:16:51.483Z",
+        "updated_at": "2025-11-27T15:16:51.483Z"
+    }
 }
                             </pre>
                             <h4>Errores comunes</h4>
@@ -539,19 +561,23 @@
                             <h4>Respuesta exitosa (200 OK)</h4>
                             <pre class="example">
 {
-    "id": "sAjVF0lrEa4NHinYutyp",
-    "name": "test",
-    "permission": [
-        "read"
-    ],
-    "created_at": "2025-11-29T22:18:17.560Z",
-    "updated_at": "2025-11-29T22:18:17.560Z"
+    "success": true,
+    "message": "Rol actualizado exitosamente.",
+    "data": {
+        "id": "sAjVF0lrEa4NHinYutyp",
+        "name": "test",
+        "permission": [
+            "read"
+        ],
+        "created_at": "2025-11-29T22:18:17.560Z",
+        "updated_at": "2025-11-29T22:18:17.560Z"
+    }
 }
                             </pre>
                             <h4>Errores comunes</h4>
                             <ul>
                                 <li><code>400 Bad Request</code>: Datos inválidos.</li>
-                                <li><code>404 Not Found</code>: Usuario no encontrado.</li>
+                                <li><code>404 Not Found</code>: Rol no encontrado.</li>
                             </ul>
                         </div>
                     </div>
@@ -573,6 +599,7 @@
                             <h4>Respuesta exitosa</h4>
                             <pre class="example">
 {
+    "success": true,
     "message": "Rol eliminadao correctamente."
 }
                             </pre>
@@ -605,29 +632,32 @@
                             </div>
                             <h4>Respuesta exitosa (200 OK)</h4>
                             <pre class="example">
-[
-    {
-        "id": "BD6Yzz92Foc0lEbWph0g",
-        "name": "t-shirts",
-        "description": "Anime t-shirts, series, movies and more",
-        "created_at": "2025-11-03T13:40:12.758Z",
-        "updated_at": "2025-11-03T13:40:12.758Z"
-    },
-    {
-        "id": "YZW5gX8DG3aHbSvP4wC7",
-        "name": "funkos",
-        "description": "Funko Pop collectible figures",
-        "created_at": "2025-11-03T13:39:45.918Z",
-        "updated_at": "2025-11-03T13:39:45.918Z"
-    },
-    {
-        "id": "tu9iK09IOb62TRL5LywZ",
-        "name": "keychains",
-        "description": "Collectible",
-        "created_at": "2025-11-03T13:40:39.610Z",
-        "updated_at": "2025-11-03T13:40:39.610Z"
-    }
-]
+{
+    "success": true,
+    "data": [
+        {
+            "id": "BD6Yzz92Foc0lEbWph0g",
+            "name": "t-shirts",
+            "description": "Anime t-shirts, series, movies and more",
+            "created_at": "2025-11-03T13:40:12.758Z",
+            "updated_at": "2025-11-03T13:40:12.758Z"
+        },
+        {
+            "id": "YZW5gX8DG3aHbSvP4wC7",
+            "name": "funkos",
+            "description": "Funko Pop collectible figures",
+            "created_at": "2025-11-03T13:39:45.918Z",
+            "updated_at": "2025-11-03T13:39:45.918Z"
+        },
+        {
+            "id": "tu9iK09IOb62TRL5LywZ",
+            "name": "keychains",
+            "description": "Collectible",
+            "created_at": "2025-11-03T13:40:39.610Z",
+            "updated_at": "2025-11-03T13:40:39.610Z"
+        }
+    ]
+}
                             </pre>
                             <h4>Errores comunes</h4>
                             <ul>
@@ -655,11 +685,14 @@
                             <h4>Respuesta exitosa (200 OK)</h4>
                             <pre class="example">
 {
-    "id": "BD6Yzz92Foc0lEbWph0g",
-    "name": "t-shirts",
-    "description": "Anime t-shirts, series, movies and more",
-    "created_at": "2025-11-03T13:40:12.758Z",
-    "updated_at": "2025-11-03T13:40:12.758Z"
+    "success": true,
+    "data": {
+        "id": "BD6Yzz92Foc0lEbWph0g",
+        "name": "t-shirts",
+        "description": "Anime t-shirts, series, movies and more",
+        "created_at": "2025-11-03T13:40:12.758Z",
+        "updated_at": "2025-11-03T13:40:12.758Z"
+    }
 }
                             </pre>
                             <h4>Errores comunes</h4>
@@ -690,11 +723,15 @@
                             <h4>Respuesta exitosa (201 Created)</h4>
                             <pre class="example">
 {
-    "id": "BD6Yzz92Foc0lEbWph0g",
-    "name": "t-shirts",
-    "description": "Anime t-shirts, series, movies and more",
-    "created_at": "2025-11-03T13:40:12.758Z",
-    "updated_at": "2025-11-03T13:40:12.758Z"
+    "success": true,
+    "message": "Categoria creada exitosamente.",
+    "data": {
+        "id": "BD6Yzz92Foc0lEbWph0g",
+        "name": "t-shirts",
+        "description": "Anime t-shirts, series, movies and more",
+        "created_at": "2025-11-03T13:40:12.758Z",
+        "updated_at": "2025-11-03T13:40:12.758Z"
+    }
 }
                             </pre>
                             <h4>Errores comunes</h4>
@@ -729,11 +766,15 @@
                             <h4>Respuesta exitosa (200 OK)</h4>
                             <pre class="example">
 {
-    "id": "BD6Yzz92Foc0lEbWph0g",
-    "name": "t-shirts",
-    "description": "Anime t-shirts, series, movies and more",
-    "created_at": "2025-11-03T13:40:12.758Z",
-    "updated_at": "2025-11-03T13:40:12.758Z"
+    "success": true,
+    "message": "Categoria actualizada exitosamente.",
+    "data": {
+        "id": "BD6Yzz92Foc0lEbWph0g",
+        "name": "t-shirts",
+        "description": "Anime t-shirts, series, movies and more",
+        "created_at": "2025-11-03T13:40:12.758Z",
+        "updated_at": "2025-11-03T13:40:12.758Z"
+    }
 }
                             </pre>
                             <h4>Errores comunes</h4>
@@ -761,6 +802,7 @@
                             <h4>Respuesta exitosa</h4>
                             <pre class="example">
 {
+    "success": true,
     "message": "Categoria eliminada correctamente",
 }
                             </pre>
@@ -793,48 +835,51 @@
                             </div>
                             <h4>Respuesta exitosa (200 OK)</h4>
                             <pre class="example">
-[
-    {
-        "id": "90ycBhV5Cbj845RWSbY2",
-        "name": "Star Wars",
-        "description": "Disfruta de una saga que sigue agregando personajes a su colección.",
-        "images": [
-            "images/star-wars/licence/star-wars_logo.webp"
-        ],
-        "created_at": "2025-11-03T13:38:20.801Z",
-        "updated_at": "2025-11-03T13:38:20.802Z"
-    },
-    {
-        "id": "Ngcx0K8TfJd95DGg1TnI",
-        "name": "Naruto",
-        "description": "Disfruta de la historia de un ninja adolescente",
-        "images": [
-            "images/Naruto/licence/naruto_logo.webp"
-        ],
-        "created_at": "2025-11-03T13:48:58.111Z",
-        "updated_at": "2025-11-03T13:48:58.112Z"
-    },
-    {
-        "id": "ZLWTflTDL2SGAuTzkQBE",
-        "name": "Pokemon",
-        "description": "Atrapa todos los que puedas y disfruta de una colección llena de amigos.",
-        "images": [
-            "images/pokemon/licence/pokemon_logo.webp"
-        ],
-        "created_at": "2025-11-03T13:47:35.409Z",
-        "updated_at": "2025-11-03T13:47:35.409Z"
-    },
-    {
-        "id": "zelcAyysA7XqVJR1RAb1",
-        "name": "Harry Potter",
-        "description": "Revive los recuerdos de una saga llena de magia y encanto.",
-        "images": [
-            "images/harry-potter/licence/harry-potter_logo.webp"
-        ],
-        "created_at": "2025-11-03T13:48:14.363Z",
-        "updated_at": "2025-11-03T13:48:14.363Z"
-    }
-]
+{
+    "success": true,
+    "data": [
+        {
+            "id": "90ycBhV5Cbj845RWSbY2",
+            "name": "Star Wars",
+            "description": "Disfruta de una saga que sigue agregando personajes a su colección.",
+            "images": [
+                "images/star-wars/licence/star-wars_logo.webp"
+            ],
+            "created_at": "2025-11-03T13:38:20.801Z",
+            "updated_at": "2025-11-03T13:38:20.802Z"
+        },
+        {
+            "id": "Ngcx0K8TfJd95DGg1TnI",
+            "name": "Naruto",
+            "description": "Disfruta de la historia de un ninja adolescente",
+            "images": [
+                "images/Naruto/licence/naruto_logo.webp"
+            ],
+            "created_at": "2025-11-03T13:48:58.111Z",
+            "updated_at": "2025-11-03T13:48:58.112Z"
+        },
+        {
+            "id": "ZLWTflTDL2SGAuTzkQBE",
+            "name": "Pokemon",
+            "description": "Atrapa todos los que puedas y disfruta de una colección llena de amigos.",
+            "images": [
+                "images/pokemon/licence/pokemon_logo.webp"
+            ],
+            "created_at": "2025-11-03T13:47:35.409Z",
+            "updated_at": "2025-11-03T13:47:35.409Z"
+        },
+        {
+            "id": "zelcAyysA7XqVJR1RAb1",
+            "name": "Harry Potter",
+            "description": "Revive los recuerdos de una saga llena de magia y encanto.",
+            "images": [
+                "images/harry-potter/licence/harry-potter_logo.webp"
+            ],
+            "created_at": "2025-11-03T13:48:14.363Z",
+            "updated_at": "2025-11-03T13:48:14.363Z"
+        }
+    ]
+}
                             </pre>
                             <h4>Errores comunes</h4>
                             <ul>
@@ -860,14 +905,17 @@
                             <h4>Respuesta exitosa (200 OK)</h4>
                             <pre class="example">
 {
-    "id": "ZLWTflTDL2SGAuTzkQBE",
-    "name": "Pokemon",
-    "description": "Atrapa todos los que puedas y disfruta de una colección llena de amigos.",
-    "images": [
-        "images/pokemon/licence/pokemon_logo.webp"
-    ],
-    "created_at": "2025-11-03T13:47:35.409Z",
-    "updated_at": "2025-11-03T13:47:35.409Z"
+    "success": true,
+    "data": {
+        "id": "ZLWTflTDL2SGAuTzkQBE",
+        "name": "Pokemon",
+        "description": "Atrapa todos los que puedas y disfruta de una colección llena de amigos.",
+        "images": [
+            "images/pokemon/licence/pokemon_logo.webp"
+        ],
+        "created_at": "2025-11-03T13:47:35.409Z",
+        "updated_at": "2025-11-03T13:47:35.409Z"
+    }
 }
                             </pre>
                             <h4>Errores comunes</h4>
@@ -901,13 +949,17 @@
                             <h4>Respuesta exitosa (201 Created)</h4>
                             <pre class="example">
 {
-    "name": "Star Wars"",
-    "description": "Disfruta de una saga que sigue agregando personajes a su colección.",
-    "images": [
-        "images/star-wars/licence/star-wars_logo.webp"
-    ],
-    "created_at": "2025-11-03T13:40:12.758Z",
-    "updated_at": "2025-11-03T13:40:12.758Z"
+    "success": true,
+    "message": "Licencia creada exitosamente.",
+    "data": {
+        "name": "Star Wars"",
+        "description": "Disfruta de una saga que sigue agregando personajes a su colección.",
+        "images": [
+            "images/star-wars/licence/star-wars_logo.webp"
+        ],
+        "created_at": "2025-11-03T13:40:12.758Z",
+        "updated_at": "2025-11-03T13:40:12.758Z"
+    }
 }
                             </pre>
                             <h4>Errores comunes</h4>
@@ -945,13 +997,17 @@
                             <h4>Respuesta exitosa (200 OK)</h4>
                             <pre class="example">
 {
-    "name": "Star Wars"",
-    "description": "Disfruta de una saga que sigue agregando personajes a su colección.",
-    "images": [
-        "images/star-wars/licence/star-wars_logo.webp"
-    ],
-    "created_at": "2025-11-03T13:40:12.758Z",
-    "updated_at": "2025-11-03T13:40:12.758Z"
+    "success": true,
+    "message": "Licencia actualizada exitosamente."
+    "data": {
+        "name": "Star Wars"",
+        "description": "Disfruta de una saga que sigue agregando personajes a su colección.",
+        "images": [
+            "images/star-wars/licence/star-wars_logo.webp"
+        ],
+        "created_at": "2025-11-03T13:40:12.758Z",
+        "updated_at": "2025-11-03T13:40:12.758Z"
+    }
 }
                             </pre>
                             <h4>Errores comunes</h4>
@@ -979,6 +1035,7 @@
                             <h4>Respuesta exitosa</h4>
                             <pre class="example">
 {
+    "success": true,
     "message": "Licencia eliminada correctamente",
 }
                             </pre>
@@ -1011,8 +1068,65 @@
                             </div>
                             <h4>Respuesta exitosa (200 OK)</h4>
                             <pre class="example">
-[
-    {
+{
+    "success": true,
+    "data": [
+        {
+            "id": "b5T5smhBubEtBnBy2Oi5",
+            "name": "Baby Yoda Blueball",
+            "description": "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.",
+            "price": 1799.99,
+            "stock": 8,
+            "discount": 5,
+            "sku": "STW001001",
+            "dues": 3,
+            "special": false,
+            "images": [
+                "images/star-wars/funkos/baby-yoda-blueball_front.webp",
+                "images/star-wars/funkos/baby-yoda-blueball_back.webp"
+            ],
+            "created_at": "2025-11-03T13:52:00.770Z",
+            "updated_at": "2025-11-03T13:52:00.770Z",
+            "licence": {
+                "id": "90ycBhV5Cbj845RWSbY2",
+                "name": "Star Wars",
+                "description": "Disfruta de una saga que sigue agregando personajes a su colección.",
+                "images": [
+                    "images/star-wars/licence/star-wars_logo.webp"
+                ]
+            },
+            "category": {
+                "id": "YZW5gX8DG3aHbSvP4wC7",
+                "name": "funkos",
+                "description": "Funko Pop collectible figures"
+            }
+        }
+    ]
+}
+                            </pre>
+                        </div>
+                    </div>
+                    <!-- GET /api/products/search -->
+                    <div class="endpoint">
+                        <div class="endpoint-summary" onclick="toggleEndpoint('product-get-search')">
+                            <span class="method get">GET</span>
+                            <span class="path">/api/products/search?</span>
+                            <span class="toggle-indicator">▶</span>
+                        </div>
+                        <div id="product-get-search" class="endpoint-details hidden">
+                            <div class="description">
+                                Obtiene un producto por parámetros de consulta.
+                            </div>
+                            <h4>Parámetros: id, name, sku, special, price, stock, dues, discount</h4>
+                            <h5>Ejemplo: /api/products/search?name=Baby%20Yoda%20Blueball</h5>
+                            <ul>
+                                <li><code>name</code> = Baby%20Yoda%20Blueball</li>
+                            </ul>
+                            <h4>Respuesta exitosa (200 OK)</h4>
+                            <pre class="example">
+{
+    "success": true,
+    "data": {
         "id": "b5T5smhBubEtBnBy2Oi5",
         "name": "Baby Yoda Blueball",
         "description": "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.",
@@ -1042,57 +1156,6 @@
             "description": "Funko Pop collectible figures"
         }
     }
-]
-                            </pre>
-                        </div>
-                    </div>
-                    <!-- GET /api/products/search -->
-                    <div class="endpoint">
-                        <div class="endpoint-summary" onclick="toggleEndpoint('product-get-search')">
-                            <span class="method get">GET</span>
-                            <span class="path">/api/products/search?</span>
-                            <span class="toggle-indicator">▶</span>
-                        </div>
-                        <div id="product-get-search" class="endpoint-details hidden">
-                            <div class="description">
-                                Obtiene un producto por parámetros de consulta.
-                            </div>
-                            <h4>Parámetros: id, name, sku, special, price, stock, dues, discount</h4>
-                            <h5>Ejemplo: /api/products/search?name=Baby%20Yoda%20Blueball</h5>
-                            <ul>
-                                <li><code>name</code> = Baby%20Yoda%20Blueball</li>
-                            </ul>
-                            <h4>Respuesta exitosa (200 OK)</h4>
-                            <pre class="example">
-{
-    "id": "b5T5smhBubEtBnBy2Oi5",
-    "name": "Baby Yoda Blueball",
-    "description": "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.",
-    "price": 1799.99,
-    "stock": 8,
-    "discount": 5,
-    "sku": "STW001001",
-    "dues": 3,
-    "special": false,
-    "images": [
-        "images/star-wars/funkos/baby-yoda-blueball_front.webp",
-        "images/star-wars/funkos/baby-yoda-blueball_back.webp"
-    ],
-    "created_at": "2025-11-03T13:52:00.770Z",
-    "updated_at": "2025-11-03T13:52:00.770Z",
-    "licence": {
-        "id": "90ycBhV5Cbj845RWSbY2",
-        "name": "Star Wars",
-        "description": "Disfruta de una saga que sigue agregando personajes a su colección.",
-        "images": [
-            "images/star-wars/licence/star-wars_logo.webp"
-        ]
-    },
-    "category": {
-        "id": "YZW5gX8DG3aHbSvP4wC7",
-        "name": "funkos",
-        "description": "Funko Pop collectible figures"
-    }
 }
                             </pre>
                             <h4>Errores comunes</h4>
@@ -1119,33 +1182,36 @@
                             <h4>Respuesta exitosa (200 OK)</h4>
                             <pre class="example">
 {
-    "id": "b5T5smhBubEtBnBy2Oi5",
-    "name": "Baby Yoda Blueball",
-    "description": "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.",
-    "price": 1799.99,
-    "stock": 8,
-    "discount": 5,
-    "sku": "STW001001",
-    "dues": 3,
-    "special": false,
-    "images": [
-        "images/star-wars/funkos/baby-yoda-blueball_front.webp",
-        "images/star-wars/funkos/baby-yoda-blueball_back.webp"
-    ],
-    "created_at": "2025-11-03T13:52:00.770Z",
-    "updated_at": "2025-11-03T13:52:00.770Z",
-    "licence": {
-        "id": "90ycBhV5Cbj845RWSbY2",
-        "name": "Star Wars",
-        "description": "Disfruta de una saga que sigue agregando personajes a su colección.",
+    "success": true,
+    "data": {
+        "id": "b5T5smhBubEtBnBy2Oi5",
+        "name": "Baby Yoda Blueball",
+        "description": "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.",
+        "price": 1799.99,
+        "stock": 8,
+        "discount": 5,
+        "sku": "STW001001",
+        "dues": 3,
+        "special": false,
         "images": [
-            "images/star-wars/licence/star-wars_logo.webp"
-        ]
-    },
-    "category": {
-        "id": "YZW5gX8DG3aHbSvP4wC7",
-        "name": "funkos",
-        "description": "Funko Pop collectible figures"
+            "images/star-wars/funkos/baby-yoda-blueball_front.webp",
+            "images/star-wars/funkos/baby-yoda-blueball_back.webp"
+        ],
+        "created_at": "2025-11-03T13:52:00.770Z",
+        "updated_at": "2025-11-03T13:52:00.770Z",
+        "licence": {
+            "id": "90ycBhV5Cbj845RWSbY2",
+            "name": "Star Wars",
+            "description": "Disfruta de una saga que sigue agregando personajes a su colección.",
+            "images": [
+                "images/star-wars/licence/star-wars_logo.webp"
+            ]
+        },
+        "category": {
+            "id": "YZW5gX8DG3aHbSvP4wC7",
+            "name": "funkos",
+            "description": "Funko Pop collectible figures"
+        }
     }
 }
                             </pre>
@@ -1188,23 +1254,27 @@
                             <h4>Respuesta exitosa (201 Created)</h4>
                             <pre class="example">
 {
-    "id": "b5T5smhBubEtBnBy2Oi5",
-    "name": "Baby Yoda Blueball",
-    "description": "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.",
-    "price": 1799.99,
-    "stock": 8,
-    "discount": 5,
-    "sku": "STW001001",
-    "dues": 3,
-    "special": false,
-    "images": [
-        "images/star-wars/funkos/baby-yoda-blueball_front.webp",
-        "images/star-wars/funkos/baby-yoda-blueball_back.webp"
-    ],
-    "licence_id": "90ycBhV5Cbj845RWSbY2",
-    "category_id": "YZW5gX8DG3aHbSvP4wC7",
-    "created_at": "2025-11-03T13:52:00.770Z",
-    "updated_at": "2025-11-03T13:52:00.770Z"
+    "success": true,
+    "message": "Producto creado exitosamente.",
+    "data": {
+        "id": "b5T5smhBubEtBnBy2Oi5",
+        "name": "Baby Yoda Blueball",
+        "description": "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.",
+        "price": 1799.99,
+        "stock": 8,
+        "discount": 5,
+        "sku": "STW001001",
+        "dues": 3,
+        "special": false,
+        "images": [
+            "images/star-wars/funkos/baby-yoda-blueball_front.webp",
+            "images/star-wars/funkos/baby-yoda-blueball_back.webp"
+        ],
+        "licence_id": "90ycBhV5Cbj845RWSbY2",
+        "category_id": "YZW5gX8DG3aHbSvP4wC7",
+        "created_at": "2025-11-03T13:52:00.770Z",
+        "updated_at": "2025-11-03T13:52:00.770Z"
+    }
 }
                             </pre>
                             <h4>Errores comunes</h4>
@@ -1250,23 +1320,27 @@
                             <h4>Respuesta exitosa (200 OK)</h4>
                             <pre class="example">
 {
-    "id": "b5T5smhBubEtBnBy2Oi5",
-    "name": "Baby Yoda Blueball",
-    "description": "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.",
-    "price": 1799.99,
-    "stock": 8,
-    "discount": 5,
-    "sku": "STW001001",
-    "dues": 3,
-    "special": false,
-    "images": [
-        "images/star-wars/funkos/baby-yoda-blueball_front.webp",
-        "images/star-wars/funkos/baby-yoda-blueball_back.webp"
-    ],
-    "licence_id": "90ycBhV5Cbj845RWSbY2",
-    "category_id": "YZW5gX8DG3aHbSvP4wC7",
-    "created_at": "2025-11-03T13:52:00.770Z",
-    "updated_at": "2025-11-03T13:52:00.770Z"
+    "success": true,
+    "message": "Producto actualizado exitosamente.",
+    "data": {
+        "id": "b5T5smhBubEtBnBy2Oi5",
+        "name": "Baby Yoda Blueball",
+        "description": "Figura coleccionable de Baby Yoda (Grogu) - The Mandalorian Saga, edición limitada.",
+        "price": 1799.99,
+        "stock": 8,
+        "discount": 5,
+        "sku": "STW001001",
+        "dues": 3,
+        "special": false,
+        "images": [
+            "images/star-wars/funkos/baby-yoda-blueball_front.webp",
+            "images/star-wars/funkos/baby-yoda-blueball_back.webp"
+        ],
+        "licence_id": "90ycBhV5Cbj845RWSbY2",
+        "category_id": "YZW5gX8DG3aHbSvP4wC7",
+        "created_at": "2025-11-03T13:52:00.770Z",
+        "updated_at": "2025-11-03T13:52:00.770Z"
+    }
 }
                             </pre>
                         </div>
@@ -1289,6 +1363,7 @@
                             <h4>Respuesta exitosa</h4>
                             <pre class="example">
 {
+    "success": true,
     "message": "Usuario eliminado correctamente",
 }
                             </pre>

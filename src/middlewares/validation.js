@@ -1,19 +1,20 @@
+import { formatZodError } from './../utils/zodErrorFormatter.js';
+
 export const validateBody = (schema) => {
     return (req, res, next) => {
-        const result = schema.safeParse(req.body);
-        if (!result.success) {
-            const errors = result.error.issues.map(err => ({
-                field: err.path.length > 0 ? err.path.join('.') : 'body',
-                message: err.message,
-                code: err.code
-            }));
-            return res.status(400).json({
-                error: errors[0].message,
-                details: errors
+        try {
+            req.body = schema.parse(req.body);
+            next();
+        } catch (error) {
+            if (error.name === 'ZodError') {
+                const formattedError = formatZodError(error);
+                return res.status(400).json(formattedError);
+            }
+            return res.status(500).json({
+                succes: false,
+                message: 'Error interno en la validación.'
             });
         }
-        req.body = result.data;
-        next();
     };
 };
 
