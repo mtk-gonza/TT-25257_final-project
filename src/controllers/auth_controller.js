@@ -5,12 +5,6 @@ import { generateToken } from './../utils/token_generator.js';
 export const login = async (req, res) => {
     try {
         const { username, password } = req.body;
-        if (!username || !password) {
-            return res.status(400).json({ 
-                success: false,
-                message: 'Se requieren usuario y contraseña.' 
-            });
-        }
         const user = await userService.getUserByUsername(username);
         const validPassword = await authService.validateUser(user, password);
         if (!user || !validPassword) {
@@ -38,12 +32,6 @@ export const login = async (req, res) => {
 export const register = async (req, res) => {
     const { name, last_name, username, password } = req.body;
     try {
-        if (!name || !last_name || !username || !password) {
-            return res.status(400).json({ 
-                success: false,
-                message: 'Faltan datos requeridos.' 
-            });
-        }
         const existingUser = await userService.getUserByUsername(username);
         if (existingUser) {
             return res.status(409).json({ 

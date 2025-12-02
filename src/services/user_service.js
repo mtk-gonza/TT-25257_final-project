@@ -21,21 +21,22 @@ export const getAllUsers = async () => {
 };
 
 export const createUser = async (userData) => {
-    const { name, last_name, username, password, role_id } = userData;
-    const existing = await db.collection('users').where('username', '==', username).get();
+    const existing = await db.collection('users').where('username', '==', userData.username).get();
     if (!existing.empty) throw new Error('Ya existe un usuario con ese nombre de usuario.');
-    const user = {
-        name,
-        last_name,
-        username,
-        password,
-        role_id,
+    const userWithTimestamps = {
+        ...userData,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
     };
-    const userCrypto = authService.encrypterPassword(user);
+    const userCrypto = authService.encrypterPassword(userWithTimestamps);
     const docRef = await db.collection('users').add(userCrypto);
-    return { id: docRef.id, ...userCrypto };
+    const { password, salt, role_id, ...safeUser } = userCrypto;
+    const role = await getRoleByIdSimple(role_id);
+    return {
+        id: docRef.id,
+        ...safeUser,
+        role
+    };
 };
 
 export const getUserById = async (id) => {
