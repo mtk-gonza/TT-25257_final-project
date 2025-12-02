@@ -11,6 +11,94 @@
     <div class="container">
         <div class="big-box">
             <h2>API REST - Gonzalo Gonzalez</h2>
+            <!------------ Sección Auth ------------>
+            <div class="section">
+                <div class="section-header" onclick="toggleSection('auth')">
+                    <h2>Endpoints Auth <span class="section-indicator">▶</span></h2>
+                </div>
+                <div id="auth" class="endpoints hidden">
+                    <!-- POST /api/auth/login -->
+                    <div class="endpoint">
+                        <div class="endpoint-summary" onclick="toggleEndpoint('login')">
+                            <span class="method post">POST</span>
+                            <span class="path">/auth/login</span>
+                            <span class="toggle-indicator">▶</span>
+                        </div>
+                        <div id="login" class="endpoint-details hidden">
+                            <div class="description">
+                                Inicio de Sesión
+                            </div>
+                            <h4>Body (JSON)</h4>
+                            <pre class="example">
+{
+    "username": "nombre.apellido",
+    "password": "Tal3nt0T3ch"
+}
+                            </pre>
+                            <h4>Respuesta exitosa (200 OK)</h4>
+                            <pre class="example">
+{
+    "success": true,
+    "message": "Inicio de sesión correcto.",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlhLMHhBNGxkOXRVN1RsdU1nSEM2IiwibmFtZSI6IkdvbnphbG8iLCJsYXN0X25hbWUiOiJHb256YWxleiIsInVzZXJuYW1lIjoiZ29uemFsby5nb256YWxleiIsInVwZGF0ZWRfYXQiOiIyMDI1LTExLTI1VDE0OjQxOjMxLjc2NVoiLCJyb2xlIjp7ImlkIjoiVDBzaXNEeTBOUHlPM001T3A2NDUiLCJuYW1lIjoicm9vdCIsInBlcm1pc3Npb24iOlsiY3JlYXRlIiwicmVhZCIsInVwZGF0ZSIsImRlbGV0ZSJdfSwiaWF0IjoxNzY0NjkyNzc5LCJleHAiOjE3NjQ2OTYzNzl9.jEfdd_1q0QTAphmewy4QBpfdKfHYN65SEayURwVlJy4"
+}
+                            </pre>
+                            <h4>Errores comunes</h4>
+                            <ul>
+                                <li>
+                                    <code>401 Unauthorized</code>: {"success":false,"message":"Usuario o contraseña incorrectos."}
+                                </li>
+                                <li>
+                                    <code>500 Internal Server Error</code>: Problema en el servidor.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- POST /api/register -->
+                    <div class="endpoint">
+                        <div class="endpoint-summary" onclick="toggleEndpoint('register')">
+                            <span class="method post">POST</span>
+                            <span class="path">/api/users/:id</span>
+                            <span class="toggle-indicator">▶</span>
+                        </div>
+                        <div id="register" class="endpoint-details hidden">
+                            <div class="description">
+                                Para poder tener credenciales.
+                            </div>
+                            <h4>Body (JSON)</h4>
+                            <pre class="example">
+{
+    "name": "Test",
+    "last_name": "Tester",
+    "username": "test.tester",
+    "password": "Tal3nt0T3ch"
+}
+                            </pre>
+                            <h4>Respuesta exitosa (201 OK)</h4>
+                            <pre class="example">
+{   
+    "success":true,
+    "message":"Usuario registrado exitosamente.",
+    "data":{
+        "id":"01h7NAh8qsxQfnOdp2jD",
+        "name":"Test",
+        "last_name":"Tester",
+        "username":"test.tester",
+        "password":"fb8580f8d6415d4b1e300253480ffdc078cf68f8748c191f871edfcb16fecb4f",
+        "role_id":"vhdWvKes3ERh6Efk1YAl",
+        "created_at":"2025-12-02T16:36:55.297Z",
+        "updated_at":"2025-12-02T16:36:55.297Z",
+        "salt":"zKSpw3b282/csEUYQ0ss+JdCZckPP2dlP1+aFpJIK/du5l7zQhyyGND6RKNXGgPISKrZUbfPA3cU93XI0qqccJzUUSIHNFsJVwd1t3ul8GEiYf2vesAMTzfp5yfrl/ddGY3xI816nbRnlakhmd4dMLgBOZsMiuwXQXzAUTVYm3M="
+    }
+}
+                            </pre>
+                            <h4>Errores comunes</h4>
+                            <ul>
+                                <li><code>409 Conflict</code>{"success":false,"message":"El nombre de usuario no esta disponible."}</li>                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             <!------------ Sección Users ------------>
             <div class="section">
                 <div class="section-header" onclick="toggleSection('users')">
@@ -30,14 +118,94 @@
                             </div>
                             <h4>Respuesta exitosa (200 OK)</h4>
                             <pre class="example">
-[
-    {
-        "id": 1,
-        "name": "Gonzalo",
-        "last_name:" "Gonzalez"
-        "username": "gonzalo@example.com"
-    }
-]
+{
+    "success": true,
+    "data": [
+        {
+            "id": "01h7NAh8qsxQfnOdp2jD",
+            "name": "Test",
+            "last_name": "Tester",
+            "username": "test.tester",
+            "created_at": "2025-12-02T16:36:55.297Z",
+            "updated_at": "2025-12-02T16:36:55.297Z",
+            "role": {
+                "id": "vhdWvKes3ERh6Efk1YAl",
+                "name": "user",
+                "permission": [
+                    "read"
+                ]
+            }
+        },
+        {
+            "id": "2vxRmAbRXxq8EgKFVOeh",
+            "created_at": "2025-11-17T15:49:00.569Z",
+            "updated_at": "2025-12-01T12:58:32.178Z",
+            "name": "User",
+            "last_name": "Local",
+            "username": "user.local",
+            "role": {
+                "id": "vhdWvKes3ERh6Efk1YAl",
+                "name": "user",
+                "permission": [
+                    "read"
+                ]
+            }
+        },
+        {
+            "id": "EHfNBLgh2mmQXXXCPiup",
+            "name": "Gustavo",
+            "last_name": "Ovejero",
+            "username": "gustavo.ovejero",
+            "created_at": "2025-11-29T22:56:20.392Z",
+            "updated_at": "2025-11-29T22:56:20.392Z",
+            "role": {
+                "id": "T0sisDy0NPyO3M5Op645",
+                "name": "root",
+                "permission": [
+                    "create",
+                    "read",
+                    "update",
+                    "delete"
+                ]
+            }
+        },
+        {
+            "id": "KOUKADKbq8yUuDJJr8Th",
+            "created_at": "2025-11-20T19:26:35.398Z",
+            "updated_at": "2025-12-01T12:58:09.030Z",
+            "name": "Admin",
+            "last_name": "Local",
+            "username": "admin.local",
+            "role": {
+                "id": "nwsCQ37GJTtJIiZfyluu",
+                "name": "admin",
+                "permission": [
+                    "create",
+                    "read",
+                    "update"
+                ]
+            }
+        },
+        {
+            "id": "XK0xA4ld9tU7TluMgHC6",
+            "name": "Gonzalo",
+            "last_name": "Gonzalez",
+            "username": "gonzalo.gonzalez",
+            "created_at": "2025-11-03T14:13:02.636Z",
+            "updated_at": "2025-11-25T14:41:31.765Z",
+            "role": {
+                "id": "T0sisDy0NPyO3M5Op645",
+                "name": "root",
+                "permission": [
+                    "create",
+                    "read",
+                    "update",
+                    "delete"
+                ]
+            }
+        }
+    ]
+}
                             </pre>
                             <h4>Errores comunes</h4>
                             <ul>
@@ -65,10 +233,20 @@
                             <h4>Respuesta exitosa (200 OK)</h4>
                             <pre class="example">
 {
-    "id": 1,
-    "name": "Gonzalo",
-    "last_name:" "Gonzalez"
-    "username": "gonzalo@example.com"
+    "success":true,
+    "data":{
+        "id":"XK0xA4ld9tU7TluMgHC6",
+        "name":"Gonzalo",
+        "last_name":"Gonzalez",
+        "username":"gonzalo.gonzalez",
+        "created_at":"2025-11-03T14:13:02.636Z",
+        "updated_at":"2025-11-25T14:41:31.765Z",
+        "role":{
+            "id":"T0sisDy0NPyO3M5Op645",
+            "name":"root",
+            "permission":["create","read","update","delete"]
+        }
+    }
 }
                             </pre>
                             <h4>Errores comunes</h4>
@@ -92,19 +270,29 @@
                             <h4>Body (JSON)</h4>
                             <pre class="example">
 {
-    "name": "Nuevo",
-    "last_name": "Usuario",
-    "username": "nuevo.usuario@example.com",
-    "password": "secretPassword"
+    "name": "Usuario",
+    "last_name": "ocal",
+    "username": "usuario.local",
+    "password": "Tal3nt0T3ch",
+    "role_id": "nwsCQ37GJTtJIiZfyluu"
 }
                             </pre>
                             <h4>Respuesta exitosa (201 Created)</h4>
                             <pre class="example">
 {
-    "id": 2,
-    "name": "Nuevo",
-    "last_name": "Usuario",
-    "username": "nuevo.usuario@example.com"
+    "success":true,
+    "message":"Usuario creado exitosamente.",
+    "data":{
+        "id":"aFOxhRy5UjTN924LvXko",
+        "name":"Usuario",
+        "last_name":"Local",
+        "username":"usuario.local",
+        "password":"9617eb76e5bab06c8375e16bc26be885a82adbe95f54c0155ac1007d230ec5bf",
+        "role_id":"nwsCQ37GJTtJIiZfyluu",
+        "created_at":"2025-12-02T16:59:35.341Z",
+        "updated_at":"2025-12-02T16:59:35.342Z",
+        "salt":"aIAu21B+k8CqNmOY3WRVLoYRm+NgXovjbVh1oJaiaHNoie7jFpIdWWc4jMnqirzWRj/euqNsXM4T0rOPeeSbfjdV7NJ0gyEv/MT/1FNG50T4JGCPLef9JaXrciBncEGUL+O0D1QP2bs44qkt+vhb58MBAfvzW3AFe8k+L09DQs4="
+    }
 }
                             </pre>
                             <h4>Errores comunes</h4>
@@ -145,10 +333,17 @@
                             <h4>Respuesta exitosa (200 OK)</h4>
                             <pre class="example">
 {
-    "id": 1,
-    "name": "Gonzalo",
-    "last_name": "Actualizado",
-    "username": "gonzalo.actualizado@example.com"
+    "success":true,
+    "message":"Usuario actualizado exitosamente.",
+    "data":{
+        "id":"01h7NAh8qsxQfnOdp2jD",
+        "created_at":"2025-12-02T16:36:55.297Z",
+        "role_id":"nwsCQ37GJTtJIiZfyluu",
+        "last_name":"Local",
+        "username":"usuario.local",
+        "name":"Usuario",
+        "updated_at":"2025-12-02T17:22:22.233Z"
+    }
 }
                             </pre>
                             <h4>Errores comunes</h4>
@@ -176,6 +371,7 @@
                             <h4>Respuesta exitosa</h4>
                             <pre class="example">
 {
+    "success":true,
     "message": "Usuario eliminado correctamente",
 }
                             </pre>
